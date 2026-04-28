@@ -1289,7 +1289,7 @@ footer a:hover { text-decoration: underline; }
         <div class="notice-fields">
           <div>
             <label class="field-label">Your name</label>
-            <input class="notice-input" id="notice-name" placeholder="e.g. Your Name">
+            <input class="notice-input" id="notice-name" placeholder="e.g. Eknatha Reddy">
           </div>
           <div>
             <label class="field-label">Manager's name</label>
@@ -1324,7 +1324,7 @@ footer a:hover { text-decoration: underline; }
         <div class="nego-fields">
           <div>
             <label class="field-label">Your name</label>
-            <input class="nego-input" id="nego-name" placeholder="e.g. Your Name">
+            <input class="nego-input" id="nego-name" placeholder="e.g. Eknatha Reddy">
           </div>
           <div>
             <label class="field-label">Recruiter / HR name</label>
@@ -1369,7 +1369,8 @@ footer a:hover { text-decoration: underline; }
           </div>
           <div class="scan-hint" id="scan-hint">Tap "Run 6-second scan" — the resume will blur for 6 seconds, then reveal. Notice what you can still read.</div>
         </div>
-        <p style="font-size:12px;color:var(--text3)" id="scan-no-resume">Analyze a resume first to enable the scan simulator.</p>
+        <p style="font-size:12px;color:var(--text3)" id="scan-no-resume">Analyze a resume above first, then return here to run the simulator.</p>
+        <button class="btn-scan outline" style="margin-top:8px" onclick="tryInitScan()">Load resume into scanner</button>
       </div>
     </div>
 
@@ -1396,7 +1397,7 @@ footer a:hover { text-decoration: underline; }
           </div>
           <div>
             <label class="field-label">Your name</label>
-            <input class="cold-input" id="cold-yourname" placeholder="e.g. Your name">
+            <input class="cold-input" id="cold-yourname" placeholder="e.g. Eknatha Reddy">
           </div>
           <div style="grid-column:1/-1">
             <label class="field-label">Purpose of outreach</label>
@@ -1423,7 +1424,7 @@ footer a:hover { text-decoration: underline; }
           </div>
           <div>
             <label class="field-label">Your name</label>
-            <input class="followup-input" id="fu-yourname" placeholder="e.g. Your Name">
+            <input class="followup-input" id="fu-yourname" placeholder="e.g. Eknatha Reddy">
           </div>
           <div>
             <label class="field-label">Role you interviewed for</label>
@@ -1518,6 +1519,14 @@ async function handleFile(input) {
     alert('Could not parse this file. Please try pasting the text manually.');
     resumeText = '';
   }
+}
+
+function tryInitScan() {
+  if (!resumeText || resumeText.length < 50) {
+    alert('Please analyze a resume first using the "Analyze My Resume" button above.');
+    return;
+  }
+  initScanSimulator(resumeText);
 }
 
 /* ── DRAG & DROP ── */
@@ -2276,20 +2285,9 @@ Warm regards,
 ${yourName}`;
 
   const out = document.getElementById('ref-output');
-  out.style.display = 'block';
-  out.innerHTML = `
-    <div class="ref-msg-box" id="ref-msg-text">${msg}</div>
-    <button class="ref-copy-btn" onclick="copyReferral()">📋 Copy message</button>`;
+  showEmailOutput('ref-output', msg, 'referral');
 }
-
-function copyReferral() {
-  const el = document.getElementById('ref-msg-text');
-  const text = el ? el.textContent : '';
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.querySelector('.ref-copy-btn');
-    if (btn) { btn.textContent = '✓ Copied!'; setTimeout(() => btn.textContent = '📋 Copy message', 1800); }
-  });
-}
+/* copyReferral replaced by showEmailOutput */
 
 
 /* ── GAP YEAR DETECTOR ── */
@@ -2440,16 +2438,16 @@ function renderAbResult(sA, sB) {
     { label: 'Length', a: sA.lengthScore, b: sB.lengthScore },
   ];
 
-  res.innerHTML = `
+  const cardsHtml = `
     <div class="ab-cards">
       <div class="ab-card${winner==='a'?' winner':''}">
-        <div class="ab-card-title">Version A ${winner==='a'?'<span style="font-size:10px;color:var(--accent)">★ winner</span>':''}</div>
+        <div class="ab-card-title">Version A ${winner==='a'?'<span style="font-size:10px;color:var(--accent)">&#9733; winner</span>':''}</div>
         <div class="ab-score" style="color:${sA.total>=65?'var(--accent)':'var(--danger)'}">${sA.total}</div>
         <span class="ab-grade" style="${gA.style}">${gA.label}</span>
         <div style="font-size:11px;color:var(--text3);margin-top:4px">${sA.wordCount} words</div>
       </div>
       <div class="ab-card${winner==='b'?' winner':''}">
-        <div class="ab-card-title">Version B ${winner==='b'?'<span style="font-size:10px;color:var(--accent)">★ winner</span>':''}</div>
+        <div class="ab-card-title">Version B ${winner==='b'?'<span style="font-size:10px;color:var(--accent)">&#9733; winner</span>':''}</div>
         <div class="ab-score" style="color:${sB.total>=65?'var(--accent)':'var(--danger)'}">${sB.total}</div>
         <span class="ab-grade" style="${gB.style}">${gB.label}</span>
         <div style="font-size:11px;color:var(--text3);margin-top:4px">${sB.wordCount} words</div>
@@ -2463,16 +2461,17 @@ function renderAbResult(sA, sB) {
       ${metrics.map(m => `<div class="ab-metric-row">
         <div class="ab-metric-label">${m.label}</div>
         <div class="ab-metric-bars">
-          <div class="ab-bar a" style="width:${m.a * 0.5}px" title="A: ${m.a}%"></div>
+          <div class="ab-bar a" style="width:${Math.round(m.a * 0.5)}px" title="A: ${m.a}%"></div>
           <span style="font-size:10px;min-width:28px">${m.a}%</span>
-          <div class="ab-bar b" style="width:${m.b * 0.5}px" title="B: ${m.b}%"></div>
+          <div class="ab-bar b" style="width:${Math.round(m.b * 0.5)}px" title="B: ${m.b}%"></div>
           <span style="font-size:10px;min-width:28px">${m.b}%</span>
         </div>
       </div>`).join('')}
       <div style="font-size:10px;color:var(--text3);margin-top:4px;display:flex;gap:12px;">
-        <span>■ Version A (blue)</span><span>■ Version B (green)</span>
+        <span>&#9632; Version A (blue)</span><span>&#9632; Version B (green)</span>
       </div>
     </div>`;
+  res.innerHTML = cardsHtml;
 }
 
 /* ── NOTICE PERIOD CALCULATOR ── */
@@ -2510,35 +2509,47 @@ Warm regards,
 ${name}`;
 
   const res = document.getElementById('notice-result');
+  if (!window._emailCache) window._emailCache = {};
+  window._emailCache['notice'] = email;
   res.style.display = 'block';
-  res.innerHTML = `
-    <div class="notice-dates">
-      <div class="notice-date-card">
-        <div class="notice-date-label">Resignation date</div>
-        <div class="notice-date-val">${fmt(resignDate)}</div>
-      </div>
-      <div class="notice-date-card">
-        <div class="notice-date-label">Last working day</div>
-        <div class="notice-date-val">${fmt(lwdDate)}</div>
-      </div>
-      <div class="notice-date-card">
-        <div class="notice-date-label">Days remaining</div>
-        <div class="notice-date-val" style="color:var(--accent)">${Math.max(0, daysUntilLWD)} days</div>
-      </div>
+  res.innerHTML = '';
+
+  const datesDiv = document.createElement('div');
+  datesDiv.className = 'notice-dates';
+  datesDiv.innerHTML = `
+    <div class="notice-date-card">
+      <div class="notice-date-label">Resignation date</div>
+      <div class="notice-date-val">${fmt(resignDate)}</div>
     </div>
-    <div style="font-size:12px;color:var(--text3);margin-bottom:6px;">Resignation email draft:</div>
-    <div class="notice-email-box">${email}</div>
-    <button class="ref-copy-btn" onclick="copyNoticeEmail()" style="margin-top:6px">📋 Copy email</button>`;
+    <div class="notice-date-card">
+      <div class="notice-date-label">Last working day</div>
+      <div class="notice-date-val">${fmt(lwdDate)}</div>
+    </div>
+    <div class="notice-date-card">
+      <div class="notice-date-label">Days remaining</div>
+      <div class="notice-date-val" style="color:var(--accent)">${Math.max(0, daysUntilLWD)} days</div>
+    </div>`;
+  res.appendChild(datesDiv);
 
-  window._noticeEmail = email;
+  const lbl = document.createElement('div');
+  lbl.style.cssText = 'font-size:12px;color:var(--text3);margin:8px 0 4px';
+  lbl.textContent = 'Resignation email draft:';
+  res.appendChild(lbl);
+
+  const emailBox = document.createElement('div');
+  emailBox.className = 'notice-email-box';
+  emailBox.textContent = email;
+  res.appendChild(emailBox);
+
+  const copyBtn = document.createElement('button');
+  copyBtn.className = 'ref-copy-btn';
+  copyBtn.style.marginTop = '6px';
+  copyBtn.textContent = '📋 Copy email';
+  copyBtn.onclick = function() { copyToClipboard(this, 'notice'); };
+  res.appendChild(copyBtn);
 }
 
-function copyNoticeEmail() {
-  navigator.clipboard.writeText(window._noticeEmail || '').then(() => {
-    const btn = document.querySelector('#notice-result .ref-copy-btn');
-    if (btn) { btn.textContent = '✓ Copied!'; setTimeout(() => btn.textContent = '📋 Copy email', 1800); }
-  });
-}
+/* copyNoticeEmail replaced by copyToClipboard */
 
 /* ── NEGOTIATION EMAIL GENERATOR ── */
 function generateNego() {
@@ -2584,20 +2595,29 @@ Warm regards,
 ${name}`;
 
   const out = document.getElementById('nego-output');
+  if (!window._emailCache) window._emailCache = {};
+  window._emailCache['nego'] = email;
   out.style.display = 'block';
-  out.innerHTML = `
-    <div class="nego-msg-box" id="nego-msg-text">${email}</div>
-    <div class="nego-tip">💡 Tip: Send this within 24–48 hours of receiving the offer. Keep your tone warm and collaborative — you are negotiating a partnership, not a confrontation.</div>
-    <button class="nego-copy-btn" onclick="copyNegoEmail()">📋 Copy email</button>`;
-  window._negoEmail = email;
+  out.innerHTML = '';
+
+  const msgBox = document.createElement('div');
+  msgBox.className = 'nego-msg-box';
+  msgBox.textContent = email;
+  out.appendChild(msgBox);
+
+  const tip = document.createElement('div');
+  tip.className = 'nego-tip';
+  tip.textContent = '💡 Tip: Send this within 24–48 hours of receiving the offer. Keep your tone warm and collaborative — you are negotiating a partnership, not a confrontation.';
+  out.appendChild(tip);
+
+  const copyBtn = document.createElement('button');
+  copyBtn.className = 'nego-copy-btn';
+  copyBtn.textContent = '📋 Copy email';
+  copyBtn.onclick = function() { copyToClipboard(this, 'nego'); };
+  out.appendChild(copyBtn);
 }
 
-function copyNegoEmail() {
-  navigator.clipboard.writeText(window._negoEmail || '').then(() => {
-    const btn = document.querySelector('.nego-copy-btn');
-    if (btn) { btn.textContent = '✓ Copied!'; setTimeout(() => btn.textContent = '📋 Copy email', 1800); }
-  });
-}
+/* copyNegoEmail replaced by copyToClipboard */
 
 
 /* ── FONT SIZE CYCLE ── */
@@ -2911,11 +2931,7 @@ Thank you for considering this. I really appreciate it.
 Warm regards,
 ${yourname}`;
 
-  const out = document.getElementById('cold-output');
-  out.style.display = 'block';
-  out.innerHTML = `<div class="ref-msg-box">${email}</div>
-    <button class="ref-copy-btn" onclick="copyToClipboard(this,'${email.replace(/'/g,"&#39;").replace(/
-/g,'\n')}')">📋 Copy email</button>`;
+  showEmailOutput('cold-output', email, 'cold');
 }
 
 /* ── FOLLOW-UP EMAIL ── */
@@ -2941,20 +2957,35 @@ Looking forward to hearing about the next steps. Thank you again for your time a
 Warm regards,
 ${yourname}`;
 
-  const out = document.getElementById('followup-output');
-  out.style.display = 'block';
-  out.innerHTML = `<div class="ref-msg-box">${email}</div>
-    <button class="ref-copy-btn" onclick="copyToClipboard(this,'${email.replace(/'/g,"&#39;").replace(/
-/g,'\n')}')">📋 Copy email</button>`;
+  showEmailOutput('followup-output', email, 'followup');
 }
 
-function copyToClipboard(btn, text) {
-  navigator.clipboard.writeText(text.replace(/\n/g,'
-')).then(() => {
+function copyToClipboard(btn, key) {
+  const text = window._emailCache && window._emailCache[key] ? window._emailCache[key] : key;
+  navigator.clipboard.writeText(text).then(() => {
     const orig = btn.textContent;
     btn.textContent = '✓ Copied!';
     setTimeout(() => btn.textContent = orig, 1800);
+  }).catch(() => {
+    btn.textContent = 'Select & copy manually';
   });
+}
+
+function showEmailOutput(containerId, emailText, cacheKey) {
+  if (!window._emailCache) window._emailCache = {};
+  window._emailCache[cacheKey] = emailText;
+  const out = document.getElementById(containerId);
+  out.style.display = 'block';
+  out.innerHTML = '';
+  const box = document.createElement('div');
+  box.className = 'ref-msg-box';
+  box.textContent = emailText;
+  const btn = document.createElement('button');
+  btn.className = 'ref-copy-btn';
+  btn.textContent = '📋 Copy email';
+  btn.onclick = function() { copyToClipboard(this, cacheKey); };
+  out.appendChild(box);
+  out.appendChild(btn);
 }
 
 /* ── RESET ── */
