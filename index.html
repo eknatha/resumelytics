@@ -8,444 +8,475 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --bg: #F7F5F0;
-    --surface: #FFFFFF;
-    --surface2: #F0EDE8;
-    --border: #E2DDD7;
-    --border2: #CEC8C0;
-    --text: #1A1714;
-    --text2: #6B6560;
-    --text3: #9C968F;
-    --accent: #2D6A4F;
-    --accent-light: #D8EDDF;
-    --accent2: #C07B3A;
-    --accent2-light: #FAEBD7;
-    --danger: #C0392B;
-    --danger-light: #FDECEA;
-    --info: #1A5276;
-    --info-light: #D6EAF8;
-    --warn: #876019;
-    --warn-light: #FEF5E3;
-    --radius: 10px;
-    --radius-lg: 16px;
-    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
-  }
+:root {
+  --bg: #F7F5F0;
+  --surface: #FFFFFF;
+  --surface2: #F0EDE8;
+  --border: #E2DDD7;
+  --border2: #CEC8C0;
+  --text: #1A1714;
+  --text2: #6B6560;
+  --text3: #9C968F;
+  --accent: #2D6A4F;
+  --accent-light: #D8EDDF;
+  --danger: #C0392B;
+  --danger-light: #FDECEA;
+  --info: #1A5276;
+  --info-light: #D6EAF8;
+  --warn: #876019;
+  --warn-light: #FEF5E3;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+}
 
-  body {
-    font-family: 'Figtree', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    line-height: 1.6;
-  }
+body {
+  font-family: 'Figtree', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+  font-size: 16px;
+}
 
-  /* ── HEADER ── */
-  .site-header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 60px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .logo {
-    font-family: 'DM Serif Display', serif;
-    font-size: 20px;
-    color: var(--text);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
-  .header-badge {
-    font-size: 12px;
-    background: var(--accent-light);
-    color: var(--accent);
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-weight: 500;
-  }
+/* ── HEADER ── */
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  color: var(--text);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.header-badge {
+  font-size: 11px;
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+  white-space: nowrap;
+}
 
-  /* ── HERO ── */
-  .hero {
-    text-align: center;
-    padding: 4rem 1.5rem 2.5rem;
-    max-width: 640px;
-    margin: 0 auto;
-  }
-  .hero-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1rem;
-  }
-  .hero h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(32px, 5vw, 48px);
-    line-height: 1.15;
-    color: var(--text);
-    margin-bottom: 1rem;
-  }
-  .hero h1 em { font-style: italic; color: var(--accent); }
-  .hero p {
-    font-size: 16px;
-    color: var(--text2);
-    max-width: 480px;
-    margin: 0 auto 1.5rem;
-  }
-  .hero-stats {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .hero-stat {
-    font-size: 13px;
-    color: var(--text3);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  .hero-stat::before { content: '✓'; color: var(--accent); font-size: 12px; }
+/* ── HERO ── */
+.hero {
+  text-align: center;
+  padding: 3rem 1.25rem 2rem;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.85rem;
+}
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(28px, 6vw, 46px);
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 0.85rem;
+}
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero p {
+  font-size: 15px;
+  color: var(--text2);
+  max-width: 460px;
+  margin: 0 auto 1.25rem;
+}
+.hero-stats {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.hero-stat {
+  font-size: 12px;
+  color: var(--text3);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.hero-stat::before { content: '✓'; color: var(--accent); font-size: 11px; }
 
-  /* ── MAIN LAYOUT ── */
-  .main { max-width: 860px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+/* ── MAIN ── */
+.main { max-width: 860px; margin: 0 auto; padding: 0 1.25rem 4rem; }
 
-  /* ── CARD ── */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 1.75rem;
-    box-shadow: var(--shadow);
-    margin-bottom: 1.5rem;
-  }
-  .card-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .card-title .ct-icon {
-    width: 28px; height: 28px;
-    border-radius: 8px;
-    background: var(--surface2);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px;
-  }
+/* ── CARD ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 1.25rem;
+}
+.card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ct-icon {
+  width: 26px; height: 26px;
+  border-radius: 7px;
+  background: var(--surface2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
 
-  /* ── TABS ── */
-  .tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 1.25rem; }
-  .tab {
-    padding: 9px 18px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    border: none;
-    background: none;
-    color: var(--text2);
-    border-bottom: 2px solid transparent;
-    margin-bottom: -1px;
-    font-family: 'Figtree', sans-serif;
-    transition: color 0.15s;
-  }
-  .tab:hover { color: var(--text); }
-  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+/* ── TABS ── */
+.tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 1.1rem; overflow-x: auto; }
+.tab {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--text2);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  font-family: 'Figtree', sans-serif;
+  transition: color 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
 
-  /* ── UPLOAD ZONE ── */
-  .upload-zone {
-    border: 2px dashed var(--border2);
-    border-radius: var(--radius);
-    padding: 2.5rem 1.5rem;
-    text-align: center;
-    cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
-    background: var(--surface2);
-    position: relative;
-  }
-  .upload-zone:hover, .upload-zone.drag-over {
-    border-color: var(--accent);
-    background: var(--accent-light);
-  }
-  .upload-zone input {
-    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
-  }
-  .upload-icon { font-size: 36px; margin-bottom: 12px; line-height: 1; }
-  .upload-zone strong { font-size: 15px; font-weight: 600; color: var(--text); display: block; margin-bottom: 4px; }
-  .upload-zone p { font-size: 13px; color: var(--text3); }
-  .file-formats {
-    display: flex; gap: 6px; justify-content: center; margin-top: 12px; flex-wrap: wrap;
-  }
-  .fmt-badge {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px; padding: 3px 8px;
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 5px; color: var(--text2);
-  }
-  .file-selected {
-    margin-top: 12px; font-size: 13px; color: var(--accent);
-    font-weight: 500; display: none;
-  }
+/* ── UPLOAD ZONE ── */
+.upload-zone {
+  border: 2px dashed var(--border2);
+  border-radius: var(--radius);
+  padding: 2rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  background: var(--surface2);
+  position: relative;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.upload-zone:hover, .upload-zone.drag-over { border-color: var(--accent); background: var(--accent-light); }
+.upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.upload-icon { font-size: 30px; margin-bottom: 10px; line-height: 1; }
+.upload-zone strong { font-size: 14px; font-weight: 600; color: var(--text); display: block; margin-bottom: 3px; }
+.upload-zone p { font-size: 12px; color: var(--text3); }
+.file-formats { display: flex; gap: 5px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+.fmt-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; padding: 2px 7px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 5px; color: var(--text2);
+}
+.file-selected { margin-top: 10px; font-size: 13px; color: var(--accent); font-weight: 500; display: none; }
 
-  /* ── TEXTAREA ── */
-  textarea {
-    width: 100%;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 12px 14px;
-    font-size: 13px;
-    font-family: 'DM Mono', monospace;
-    resize: vertical;
-    min-height: 160px;
-    color: var(--text);
-    background: var(--surface2);
-    transition: border-color 0.15s;
-    line-height: 1.6;
-  }
-  textarea:focus { outline: none; border-color: var(--accent); background: var(--surface); }
-  textarea::placeholder { color: var(--text3); }
+/* ── TEXTAREA ── */
+textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 11px 13px;
+  font-size: 13px;
+  font-family: 'DM Mono', monospace;
+  resize: vertical;
+  min-height: 150px;
+  color: var(--text);
+  background: var(--surface2);
+  transition: border-color 0.15s;
+  line-height: 1.6;
+  -webkit-appearance: none;
+}
+textarea:focus { outline: none; border-color: var(--accent); background: var(--surface); }
+textarea::placeholder { color: var(--text3); }
 
-  /* ── LABELS ── */
-  .field-label {
-    font-size: 13px; font-weight: 500; color: var(--text2); display: block; margin-bottom: 6px;
-  }
-  .field-hint { font-size: 12px; color: var(--text3); margin-top: 4px; }
-  .field-group { margin-top: 1.25rem; }
+/* ── LABELS ── */
+.field-label { font-size: 13px; font-weight: 500; color: var(--text2); display: block; margin-bottom: 6px; }
+.field-hint { font-size: 12px; color: var(--text3); margin-top: 4px; }
 
-  /* ── BUTTONS ── */
-  .btn-primary {
-    width: 100%; margin-top: 1.25rem;
-    padding: 13px 24px;
-    font-size: 15px; font-weight: 600;
-    border-radius: var(--radius);
-    border: none;
-    background: var(--accent);
-    color: #fff;
-    cursor: pointer;
-    font-family: 'Figtree', sans-serif;
-    transition: background 0.15s, transform 0.1s;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-  }
-  .btn-primary:hover { background: #235C42; }
-  .btn-primary:active { transform: scale(0.99); }
-  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+/* ── BUTTONS ── */
+.btn-primary {
+  width: 100%; margin-top: 1.1rem;
+  padding: 14px 24px;
+  font-size: 15px; font-weight: 600;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  font-family: 'Figtree', sans-serif;
+  transition: background 0.15s, transform 0.1s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.btn-primary:hover { background: #235C42; }
+.btn-primary:active { transform: scale(0.99); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-  .btn-ai {
-    width: 100%; margin-top: 10px;
-    padding: 11px 20px;
-    font-size: 14px; font-weight: 500;
-    border-radius: var(--radius);
-    border: 1px solid var(--border2);
-    background: var(--surface);
-    color: var(--text);
-    cursor: pointer;
-    font-family: 'Figtree', sans-serif;
-    transition: background 0.15s, border-color 0.15s;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-  }
-  .btn-ai:hover { background: var(--surface2); border-color: var(--accent); }
-  .btn-ai:disabled { opacity: 0.5; cursor: not-allowed; }
-  .btn-ai .sparkle { font-size: 16px; }
+.btn-reset {
+  background: none; border: none; cursor: pointer;
+  font-size: 13px; color: var(--text3);
+  font-family: 'Figtree', sans-serif;
+  text-decoration: underline; margin-top: 1rem;
+  padding: 8px 0;
+  display: flex; align-items: center; gap: 5px;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-reset:hover { color: var(--text2); }
 
-  .btn-reset {
-    background: none; border: none; cursor: pointer;
-    font-size: 13px; color: var(--text3);
-    font-family: 'Figtree', sans-serif;
-    text-decoration: underline; margin-top: 1rem;
-    padding: 0;
-    display: flex; align-items: center; gap: 5px;
-  }
-  .btn-reset:hover { color: var(--text2); }
+/* ── RESULTS ── */
+#results-section { display: none; }
 
-  /* ── RESULTS ── */
-  #results-section { display: none; }
+/* ── SCORE HERO ── */
+.score-hero {
+  display: flex; align-items: center; gap: 1.5rem;
+  background: var(--surface2);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--border);
+}
+.score-ring { position: relative; width: 100px; height: 100px; flex-shrink: 0; }
+.score-ring svg { width: 100px; height: 100px; transform: rotate(-90deg); }
+.ring-track { fill: none; stroke: var(--border); stroke-width: 8; }
+.ring-fill { fill: none; stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 1s cubic-bezier(0.4,0,0.2,1); }
+.score-inner {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.score-inner .big { font-size: 26px; font-weight: 600; color: var(--text); line-height: 1; }
+.score-inner .small { font-size: 10px; color: var(--text3); font-family: 'DM Mono', monospace; }
+.score-meta { flex: 1; min-width: 0; }
+.grade-pill { display: inline-block; padding: 3px 11px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-bottom: 6px; }
+.score-meta h2 { font-family: 'DM Serif Display', serif; font-size: 19px; line-height: 1.2; margin-bottom: 4px; }
+.score-meta p { font-size: 13px; color: var(--text2); line-height: 1.5; }
 
-  /* ── SCORE HERO ── */
-  .score-hero {
-    display: flex; align-items: center; gap: 2rem;
-    background: var(--surface2);
-    border-radius: var(--radius-lg);
-    padding: 1.75rem;
-    margin-bottom: 1.5rem;
-    border: 1px solid var(--border);
-  }
-  .score-ring { position: relative; width: 110px; height: 110px; flex-shrink: 0; }
-  .score-ring svg { width: 110px; height: 110px; transform: rotate(-90deg); }
-  .ring-track { fill: none; stroke: var(--border); stroke-width: 9; }
-  .ring-fill { fill: none; stroke-width: 9; stroke-linecap: round; transition: stroke-dashoffset 1s cubic-bezier(0.4,0,0.2,1); }
-  .score-inner {
-    position: absolute; inset: 0;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-  }
-  .score-inner .big { font-size: 28px; font-weight: 600; color: var(--text); line-height: 1; }
-  .score-inner .small { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; }
-  .score-meta { flex: 1; min-width: 0; }
-  .grade-pill {
-    display: inline-block; padding: 4px 12px;
-    border-radius: 20px; font-size: 12px; font-weight: 600;
-    margin-bottom: 8px;
-  }
-  .score-meta h2 { font-family: 'DM Serif Display', serif; font-size: 22px; line-height: 1.2; margin-bottom: 6px; }
-  .score-meta p { font-size: 14px; color: var(--text2); line-height: 1.5; }
+/* ── METRICS GRID ── */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  margin-bottom: 1.25rem;
+}
+.metric-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+}
+.mc-label { font-size: 11px; color: var(--text3); margin-bottom: 7px; }
+.mc-bar { height: 4px; border-radius: 2px; background: var(--surface2); overflow: hidden; margin-bottom: 7px; }
+.mc-fill { height: 100%; border-radius: 2px; transition: width 0.8s cubic-bezier(0.4,0,0.2,1); }
+.mc-value { font-size: 20px; font-weight: 600; line-height: 1; }
+.mc-value sup { font-size: 12px; font-weight: 400; color: var(--text3); }
 
-  /* ── METRICS GRID ── */
-  .metrics-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 12px;
-    margin-bottom: 1.5rem;
-  }
-  .metric-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px;
-  }
-  .mc-label { font-size: 12px; color: var(--text3); margin-bottom: 8px; }
-  .mc-bar { height: 5px; border-radius: 3px; background: var(--surface2); overflow: hidden; margin-bottom: 8px; }
-  .mc-fill { height: 100%; border-radius: 3px; transition: width 0.8s cubic-bezier(0.4,0,0.2,1); }
-  .mc-value { font-size: 22px; font-weight: 600; line-height: 1; }
-  .mc-value sup { font-size: 13px; font-weight: 400; color: var(--text3); }
+/* ── SECTION HEADING ── */
+.section-heading {
+  font-size: 13px; font-weight: 600; color: var(--text);
+  margin-bottom: 10px; margin-top: 1.4rem;
+  display: flex; align-items: center; gap: 6px;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
 
-  /* ── ISSUES ── */
-  .section-heading {
-    font-size: 14px; font-weight: 600; color: var(--text);
-    margin-bottom: 12px; margin-top: 1.5rem;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .issue-item {
-    display: flex; gap: 10px; align-items: flex-start;
-    padding: 12px 14px;
-    border-radius: var(--radius);
-    margin-bottom: 8px;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    animation: fadeUp 0.3s ease both;
-  }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-  .issue-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
-  .issue-type { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
-  .issue-title { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
-  .issue-detail { font-size: 13px; color: var(--text2); line-height: 1.5; }
+/* ── ISSUES ── */
+.issue-item {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 12px 13px;
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  animation: fadeUp 0.3s ease both;
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+.issue-left { flex-shrink: 0; margin-top: 2px; }
+.issue-dot { width: 8px; height: 8px; border-radius: 50%; }
+.issue-body { flex: 1; min-width: 0; }
+.issue-type { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 2px; }
+.issue-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 3px; line-height: 1.4; }
+.issue-detail { font-size: 12px; color: var(--text2); line-height: 1.55; }
+.recruiter-note {
+  font-size: 11px;
+  color: var(--info);
+  background: var(--info-light);
+  border-radius: 6px;
+  padding: 5px 9px;
+  margin-top: 6px;
+  line-height: 1.5;
+  display: flex;
+  gap: 5px;
+  align-items: flex-start;
+}
+.recruiter-note::before { content: '👤'; font-size: 11px; flex-shrink: 0; margin-top: 1px; }
 
-  /* ── KEYWORDS ── */
-  .kw-section { margin-top: 1.5rem; display: none; }
-  .kw-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-  .chip {
-    padding: 5px 11px; border-radius: 20px;
-    font-size: 12px; font-weight: 500;
-    display: flex; align-items: center; gap: 4px;
-  }
-  .chip.found { background: var(--accent-light); color: var(--accent); }
-  .chip.missing { background: var(--danger-light); color: var(--danger); }
-  .chip-legend { display: flex; gap: 1rem; margin-top: 10px; }
-  .chip-legend span { font-size: 12px; color: var(--text3); display: flex; align-items: center; gap: 5px; }
+/* ── KEYWORDS ── */
+.kw-section { margin-top: 1.4rem; display: none; }
+.kw-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.chip {
+  padding: 4px 10px; border-radius: 20px;
+  font-size: 12px; font-weight: 500;
+  display: flex; align-items: center; gap: 3px;
+}
+.chip.found { background: var(--accent-light); color: var(--accent); }
+.chip.missing { background: var(--danger-light); color: var(--danger); }
+.chip-legend { display: flex; gap: 1rem; margin-top: 8px; flex-wrap: wrap; }
+.chip-legend span { font-size: 12px; color: var(--text3); display: flex; align-items: center; gap: 4px; }
 
-  /* ── AI COMING SOON ── */
-  .ai-coming-soon {
-    display: flex; gap: 14px; align-items: flex-start;
-    background: var(--surface2);
-    border: 1px dashed var(--border2);
-    border-radius: var(--radius);
-    padding: 1rem 1.25rem;
-    margin-top: 0;
-  }
-  .ai-cs-icon {
-    font-size: 20px; flex-shrink: 0;
-    width: 36px; height: 36px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--text3);
-  }
-  .ai-cs-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-  .ai-cs-desc { font-size: 13px; color: var(--text2); line-height: 1.55; }
+/* ── KEYWORD HIGHLIGHT VIEWER ── */
+.kw-highlight-section { margin-top: 1.4rem; display: none; }
+.kw-highlight-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  line-height: 1.8;
+  color: var(--text2);
+  max-height: 280px;
+  overflow-y: auto;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+.kw-highlight-box mark.kw-found {
+  background: #C0DD97;
+  color: #27500A;
+  border-radius: 3px;
+  padding: 1px 3px;
+  font-style: normal;
+}
+.kw-highlight-box mark.kw-missing {
+  background: #F7C1C1;
+  color: #791F1F;
+  border-radius: 3px;
+  padding: 1px 3px;
+  font-style: normal;
+}
+.highlight-legend { display: flex; gap: 12px; margin-top: 8px; flex-wrap: wrap; }
+.hl-pill { font-size: 11px; padding: 2px 8px; border-radius: 4px; font-family: 'DM Mono', monospace; }
+.hl-pill.found { background: #C0DD97; color: #27500A; }
+.hl-pill.missing { background: #F7C1C1; color: #791F1F; }
 
-  /* ── AI RESULT ── */
-  .ai-result-box {
-    margin-top: 10px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1rem 1.25rem;
-    background: var(--surface2);
-    display: none;
-  }
-  .ai-result-box h4 {
-    font-size: 13px; font-weight: 600; color: var(--text);
-    margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
-  }
-  .ai-result-box .ai-text {
-    font-size: 13px; color: var(--text2);
-    line-height: 1.7; white-space: pre-wrap;
-  }
+/* ── SKILL GAP HEATMAP ── */
+.heatmap-section { margin-top: 1.4rem; display: none; }
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 6px;
+  margin-top: 10px;
+}
+.hm-cell {
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid transparent;
+  line-height: 1.3;
+  word-break: break-word;
+}
+.hm-cell.match { background: #EAF3DE; color: #27500A; border-color: #C0DD97; }
+.hm-cell.miss { background: #FCEBEB; color: #791F1F; border-color: #F7C1C1; }
+.hm-cell .hm-icon { font-size: 13px; display: block; margin-bottom: 3px; }
+.heatmap-legend { display: flex; gap: 12px; margin-top: 8px; flex-wrap: wrap; }
+.heatmap-stat { font-size: 12px; color: var(--text2); display: flex; align-items: center; gap: 5px; }
+.heatmap-stat strong { font-weight: 600; }
 
-  /* ── SPINNER ── */
-  .spinner {
-    display: inline-block; width: 14px; height: 14px;
-    border: 2px solid rgba(255,255,255,0.3);
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: spin 0.6s linear infinite;
-  }
-  .spinner.dark {
-    border-color: var(--border2);
-    border-top-color: var(--text);
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
+/* ── AI COMING SOON ── */
+.ai-coming-soon {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: var(--surface2);
+  border: 1px dashed var(--border2);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+  margin-top: 0;
+}
+.ai-cs-icon {
+  font-size: 16px; flex-shrink: 0;
+  width: 32px; height: 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text3);
+}
+.ai-cs-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.ai-cs-desc { font-size: 12px; color: var(--text2); line-height: 1.55; }
 
-  /* ── TIPS SECTION ── */
-  .tips-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 12px;
-    margin-top: 2.5rem;
-    margin-bottom: 3rem;
-  }
-  .tip-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.1rem;
-  }
-  .tip-num {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px; color: var(--text3);
-    margin-bottom: 6px;
-  }
-  .tip-card h4 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-  .tip-card p { font-size: 13px; color: var(--text2); line-height: 1.5; }
+/* ── TIPS ── */
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  margin-top: 1.4rem;
+  margin-bottom: 3rem;
+}
+.tip-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+.tip-num { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text3); margin-bottom: 5px; }
+.tip-card h4 { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.tip-card p { font-size: 12px; color: var(--text2); line-height: 1.5; }
 
-  /* ── FOOTER ── */
-  footer {
-    text-align: center; padding: 2rem 1.5rem;
-    border-top: 1px solid var(--border);
-    font-size: 13px; color: var(--text3);
-  }
-  footer a { color: var(--accent); text-decoration: none; }
-  footer a:hover { text-decoration: underline; }
+/* ── FOOTER ── */
+footer {
+  text-align: center; padding: 2rem 1.25rem;
+  border-top: 1px solid var(--border);
+  font-size: 12px; color: var(--text3);
+}
+footer a { color: var(--accent); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 600px) {
-    .score-hero { flex-direction: column; text-align: center; gap: 1.25rem; }
-    .hero { padding: 2.5rem 1rem 1.5rem; }
-    .site-header { padding: 0 1rem; }
-    .main { padding: 0 1rem 3rem; }
-    .card { padding: 1.25rem; }
-  }
+/* ── MOBILE FIRST ── */
+@media (max-width: 480px) {
+  .score-hero { flex-direction: column; text-align: center; gap: 1rem; }
+  .score-meta h2 { font-size: 17px; }
+  .hero { padding: 2rem 1rem 1.5rem; }
+  .site-header { padding: 0 1rem; }
+  .main { padding: 0 1rem 3rem; }
+  .card { padding: 1.1rem; }
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+  .heatmap-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); }
+  .hero-stats { gap: 0.6rem; }
+  .btn-primary { font-size: 14px; padding: 13px; }
+  .tips-grid { grid-template-columns: 1fr 1fr; }
+  .kw-highlight-box { max-height: 200px; }
+}
+@media (max-width: 360px) {
+  .metrics-grid { grid-template-columns: 1fr 1fr; }
+  .tips-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -465,7 +496,7 @@
   <div class="hero-stats">
     <span class="hero-stat">PDF, DOCX & TXT</span>
     <span class="hero-stat">JD keyword match</span>
-    <span class="hero-stat">AI-powered analysis</span>
+    <span class="hero-stat">Skill gap heatmap</span>
     <span class="hero-stat">No data stored</span>
   </div>
 </section>
@@ -481,18 +512,17 @@
         Your Resume
       </div>
 
-      <div class="tabs" id="tab-bar">
+      <div class="tabs">
         <button class="tab active" onclick="switchTab('upload', this)">Upload File</button>
         <button class="tab" onclick="switchTab('paste', this)">Paste Text</button>
       </div>
 
-      <!-- Upload tab -->
       <div id="tab-upload">
         <div class="upload-zone" id="drop-zone">
           <input type="file" id="file-input" accept=".pdf,.docx,.txt" onchange="handleFile(this)">
           <div class="upload-icon">☁️</div>
           <strong>Drag & drop your resume here</strong>
-          <p>or click to browse your files</p>
+          <p>or tap to browse your files</p>
           <div class="file-formats">
             <span class="fmt-badge">.PDF</span>
             <span class="fmt-badge">.DOCX</span>
@@ -502,40 +532,37 @@
         <div class="file-selected" id="file-selected">✓ <span id="file-name-text"></span></div>
       </div>
 
-      <!-- Paste tab -->
       <div id="tab-paste" style="display:none">
         <label class="field-label">Paste your resume text below</label>
         <textarea id="paste-text" placeholder="Copy and paste your full resume content here...&#10;&#10;Include all sections: contact info, summary, experience, education, skills, etc."></textarea>
       </div>
     </div>
 
-    <!-- JD Section -->
     <div class="card">
       <div class="card-title">
         <div class="ct-icon">🎯</div>
-        Job Description <span style="font-size:12px;font-weight:400;color:var(--text3);margin-left:4px;">(optional but recommended)</span>
+        Job Description <span style="font-size:11px;font-weight:400;color:var(--text3);margin-left:4px;">(optional but recommended)</span>
       </div>
       <label class="field-label">Paste the job description to get keyword match %</label>
-      <textarea id="jd-text" style="min-height:120px" placeholder="Paste the full job posting or job description here...&#10;&#10;The analyzer will compare your resume keywords against the JD requirements and show you what's missing."></textarea>
+      <textarea id="jd-text" style="min-height:110px" placeholder="Paste the full job posting here...&#10;&#10;The analyzer will compare your resume keywords against the JD requirements and show what's missing."></textarea>
       <p class="field-hint">Tip: Include the complete JD for the most accurate keyword analysis</p>
     </div>
 
-    <button class="btn-primary" id="analyze-btn" onclick="analyze()">
+    <button class="btn-primary" onclick="analyze()">
       Analyze My Resume
     </button>
 
-  </div><!-- /input-section -->
-
+  </div>
 
   <!-- RESULTS SECTION -->
   <div id="results-section">
 
     <!-- Score hero -->
-    <div class="score-hero" id="score-hero">
+    <div class="score-hero">
       <div class="score-ring">
-        <svg viewBox="0 0 110 110">
-          <circle class="ring-track" cx="55" cy="55" r="46"/>
-          <circle class="ring-fill" id="ring-fill" cx="55" cy="55" r="46" stroke-dasharray="289.0" stroke-dashoffset="289.0"/>
+        <svg viewBox="0 0 100 100">
+          <circle class="ring-track" cx="50" cy="50" r="42"/>
+          <circle class="ring-fill" id="ring-fill" cx="50" cy="50" r="42" stroke-dasharray="263.9" stroke-dashoffset="263.9"/>
         </svg>
         <div class="score-inner">
           <span class="big" id="score-num">0</span>
@@ -553,70 +580,66 @@
     <div class="metrics-grid" id="metrics-grid"></div>
 
     <!-- Issues -->
-    <div class="section-heading">📋 Issues &amp; Recommendations</div>
+    <div class="section-heading">📋 Issues & Recommendations</div>
     <div id="issues-list"></div>
 
-    <!-- Keywords -->
+    <!-- Skill gap heatmap -->
+    <div class="heatmap-section" id="heatmap-section">
+      <div class="section-heading">🔥 Skill Gap Heatmap</div>
+      <div class="heatmap-stat" id="heatmap-stat"></div>
+      <div class="heatmap-grid" id="heatmap-grid"></div>
+      <div class="heatmap-legend">
+        <span class="hm-cell match" style="padding:3px 10px;font-size:11px;">✓ Matched in resume</span>
+        <span class="hm-cell miss" style="padding:3px 10px;font-size:11px;">✗ Missing from resume</span>
+      </div>
+    </div>
+
+    <!-- Keywords chips -->
     <div class="kw-section" id="kw-section">
       <div class="section-heading">🔑 Keyword Analysis</div>
       <div class="chip-legend">
-        <span><span style="display:inline-block;width:8px;height:8px;background:var(--accent);border-radius:50%"></span> Found in resume</span>
-        <span><span style="display:inline-block;width:8px;height:8px;background:var(--danger);border-radius:50%"></span> Missing from resume</span>
+        <span><span style="display:inline-block;width:7px;height:7px;background:var(--accent);border-radius:50%"></span> Found in resume</span>
+        <span><span style="display:inline-block;width:7px;height:7px;background:var(--danger);border-radius:50%"></span> Missing from resume</span>
       </div>
       <div class="kw-chips" id="kw-chips"></div>
     </div>
 
-    <!-- AI Analysis -->
-    <div class="section-heading" style="margin-top:2rem">✦ Deep AI Analysis</div>
+    <!-- Animated keyword highlight -->
+    <div class="kw-highlight-section" id="kw-highlight-section">
+      <div class="section-heading">✨ Keyword Highlight View</div>
+      <div class="highlight-legend">
+        <span class="hl-pill found">✓ JD keyword found</span>
+        <span class="hl-pill missing">✗ JD keyword missing nearby</span>
+      </div>
+      <div class="kw-highlight-box" id="kw-highlight-box"></div>
+    </div>
+
+    <!-- AI coming soon -->
+    <div class="section-heading" style="margin-top:1.75rem">✦ Deep AI Analysis</div>
     <div class="ai-coming-soon">
       <div class="ai-cs-icon">✦</div>
       <div>
         <div class="ai-cs-title">AI-powered analysis — coming soon</div>
-        <div class="ai-cs-desc">This feature will provide role-specific keyword suggestions, tailored improvement tips, and a recruiter-perspective review. It requires a backend API integration and will be available in the next release.</div>
+        <div class="ai-cs-desc">Role-specific keyword suggestions, tailored improvement tips, and a recruiter-perspective review. Requires backend API integration — available in the next release.</div>
       </div>
     </div>
 
-    <div style="margin-top:1.5rem">
+    <div style="margin-top:1.25rem">
       <button class="btn-reset" onclick="reset()">← Analyze another resume</button>
     </div>
 
-  </div><!-- /results-section -->
+  </div>
 
-
-  <!-- TIPS (always shown) -->
+  <!-- TIPS -->
   <div id="tips-section">
     <div class="section-heading" style="margin-top:2rem">💡 Quick ATS Tips</div>
     <div class="tips-grid">
-      <div class="tip-card">
-        <div class="tip-num">TIP 01</div>
-        <h4>Use standard section headings</h4>
-        <p>ATS systems look for "Experience", "Education", "Skills" — avoid creative names like "My Journey".</p>
-      </div>
-      <div class="tip-card">
-        <div class="tip-num">TIP 02</div>
-        <h4>Avoid tables & columns</h4>
-        <p>Multi-column layouts and tables confuse most ATS parsers. Use a single-column format.</p>
-      </div>
-      <div class="tip-card">
-        <div class="tip-num">TIP 03</div>
-        <h4>Quantify achievements</h4>
-        <p>Add numbers: "reduced deploy time by 40%" beats "improved deployment process".</p>
-      </div>
-      <div class="tip-card">
-        <div class="tip-num">TIP 04</div>
-        <h4>Mirror the JD keywords</h4>
-        <p>Use the exact terms from the job description — ATS matches keywords literally.</p>
-      </div>
-      <div class="tip-card">
-        <div class="tip-num">TIP 05</div>
-        <h4>Use .docx over PDF</h4>
-        <p>While PDFs work better now, .docx is still the safest format for maximum ATS compatibility.</p>
-      </div>
-      <div class="tip-card">
-        <div class="tip-num">TIP 06</div>
-        <h4>Start bullets with action verbs</h4>
-        <p>Led, Built, Designed, Automated, Deployed — strong verbs signal impact to both ATS and humans.</p>
-      </div>
+      <div class="tip-card"><div class="tip-num">TIP 01</div><h4>Use standard section headings</h4><p>ATS systems look for "Experience", "Education", "Skills" — avoid creative names like "My Journey".</p></div>
+      <div class="tip-card"><div class="tip-num">TIP 02</div><h4>Avoid tables & columns</h4><p>Multi-column layouts and tables confuse most ATS parsers. Use a single-column format.</p></div>
+      <div class="tip-card"><div class="tip-num">TIP 03</div><h4>Quantify achievements</h4><p>Add numbers: "reduced deploy time by 40%" beats "improved deployment process".</p></div>
+      <div class="tip-card"><div class="tip-num">TIP 04</div><h4>Mirror the JD keywords</h4><p>Use the exact terms from the job description — ATS matches keywords literally.</p></div>
+      <div class="tip-card"><div class="tip-num">TIP 05</div><h4>Use .docx over PDF</h4><p>While PDFs work better now, .docx is still the safest format for maximum ATS compatibility.</p></div>
+      <div class="tip-card"><div class="tip-num">TIP 06</div><h4>Start bullets with action verbs</h4><p>Led, Built, Designed, Automated, Deployed — strong verbs signal impact to both ATS and humans.</p></div>
     </div>
   </div>
 
@@ -624,27 +647,25 @@
 
 <footer>
   <p>resumelytics — Free ATS Resume Analyzer &nbsp;·&nbsp; No data is stored or sent to any server</p>
-  <p style="margin-top:6px">Built with ❤️ by <a href="https://eknathalabs.com/" target="_blank">EknathaLabs</a> for job seekers</p>
-  <p style="margin-top:6px">Parsing powered by <a href="https://mozilla.github.io/pdf.js/" target="_blank">PDF.js</a> &amp; <a href="https://github.com/mwilliamson/mammoth.js" target="_blank">Mammoth.js</a></p>
+  <p style="margin-top:5px">Built with ❤️ by <a href="https://eknathalabs.com/" target="_blank">EknathaLabs</a> for job seekers</p>
+  <p style="margin-top:5px">Parsing powered by <a href="https://mozilla.github.io/pdf.js/" target="_blank">PDF.js</a> &amp; <a href="https://github.com/mwilliamson/mammoth.js" target="_blank">Mammoth.js</a></p>
 </footer>
 
-<!-- LIBRARIES -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
 <script>
-/* ===== STATE ===== */
+/* ── STATE ── */
 let resumeText = '';
 let jdText = '';
 let lastScores = null;
 
-/* ===== PDF.JS WORKER ===== */
 if (typeof pdfjsLib !== 'undefined') {
   pdfjsLib.GlobalWorkerOptions.workerSrc =
     'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 }
 
-/* ===== TABS ===== */
+/* ── TABS ── */
 function switchTab(tab, el) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
@@ -652,14 +673,13 @@ function switchTab(tab, el) {
   document.getElementById('tab-paste').style.display  = tab === 'paste'  ? '' : 'none';
 }
 
-/* ===== FILE HANDLING ===== */
+/* ── FILE HANDLING ── */
 async function handleFile(input) {
   const file = input.files[0];
   if (!file) return;
   const ext = file.name.split('.').pop().toLowerCase();
   document.getElementById('file-name-text').textContent = file.name;
   document.getElementById('file-selected').style.display = 'block';
-
   try {
     if (ext === 'txt') {
       resumeText = await file.text();
@@ -684,36 +704,29 @@ async function handleFile(input) {
   }
 }
 
-/* ===== DRAG & DROP ===== */
+/* ── DRAG & DROP ── */
 const dropZone = document.getElementById('drop-zone');
-dropZone.addEventListener('dragover', e => {
-  e.preventDefault();
-  dropZone.classList.add('drag-over');
-});
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
 dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
 dropZone.addEventListener('drop', e => {
-  e.preventDefault();
-  dropZone.classList.remove('drag-over');
+  e.preventDefault(); dropZone.classList.remove('drag-over');
   const file = e.dataTransfer.files[0];
   if (file) {
     const inp = document.getElementById('file-input');
-    const dt = new DataTransfer();
-    dt.items.add(file);
-    inp.files = dt.files;
+    const dt = new DataTransfer(); dt.items.add(file); inp.files = dt.files;
     handleFile(inp);
   }
 });
 
-/* ===== SCORING ENGINE ===== */
+/* ── SCORING ENGINE ── */
 const SECTIONS = {
-  contact:      ['email', 'phone', 'linkedin', 'github', 'portfolio', '@', 'mobile', 'contact'],
-  summary:      ['summary', 'objective', 'profile', 'about', 'overview', 'introduction'],
-  experience:   ['experience', 'employment', 'work history', 'career', 'roles', 'work experience', 'professional'],
-  education:    ['education', 'degree', 'university', 'college', 'bachelor', 'master', 'phd', 'b.tech', 'm.tech', 'b.e', 'mba', 'diploma'],
-  skills:       ['skills', 'technologies', 'tools', 'competencies', 'expertise', 'tech stack', 'technical skills'],
-  achievements: ['achievement', 'award', 'certification', 'certified', 'honor', 'recognition', 'accomplishment'],
+  contact:      ['email','phone','linkedin','github','portfolio','@','mobile','contact'],
+  summary:      ['summary','objective','profile','about','overview','introduction'],
+  experience:   ['experience','employment','work history','career','roles','work experience','professional'],
+  education:    ['education','degree','university','college','bachelor','master','phd','b.tech','m.tech','b.e','mba','diploma'],
+  skills:       ['skills','technologies','tools','competencies','expertise','tech stack','technical skills'],
+  achievements: ['achievement','award','certification','certified','honor','recognition','accomplishment'],
 };
-
 const ATS_KILLER_PATTERNS = [/<table/i, /<img/i, /text.?box/i, /multi.?column/i];
 const POWER_VERBS = [
   'led','built','designed','developed','optimized','implemented','architected',
@@ -732,11 +745,24 @@ const STOP_WORDS = new Set([
   'understand','provide','support','ensure','including','relevant','related'
 ]);
 
+/* Recruiter perspective notes per issue type */
+const RECRUITER_NOTES = {
+  missingSections: 'Recruiters spend ~6 seconds on first scan. Missing section headers mean key info gets overlooked entirely.',
+  lowQuant: 'Without numbers, recruiters can\'t gauge impact. "Improved performance" tells me nothing. "Improved response time by 60%" tells me everything.',
+  lowAction: 'Passive language ("responsible for", "worked on") signals a follower, not a leader. Strong verbs signal ownership.',
+  atsKiller: 'Many companies\' ATS (Workday, Greenhouse, iCIMS) will garble or skip multi-column resumes. I may never even see your experience.',
+  tooShort: 'A sparse resume raises questions — it suggests either limited experience or poor communication of what you actually did.',
+  tooLong: 'If I have 200 applications, I won\'t read past page 2. Focus on the last 8–10 years unless older work is directly relevant.',
+  noLinkedIn: 'I\'ll almost always Google you before reaching out. A missing LinkedIn makes that harder and creates doubt.',
+  noGitHub: 'For engineering roles, a GitHub with real projects shows me what you can actually build — not just what you claim on paper.',
+  lowKwMatch: 'Our ATS auto-ranks resumes by keyword match before I ever see them. A 40% match often means automatic rejection.',
+  modKwMatch: 'I can see you have some of the right skills, but the exact terminology matters. "K8s" and "Kubernetes" are often treated differently.',
+};
+
 function scoreResume(text, jd) {
   const lower = text.toLowerCase();
   const wordCount = text.trim().split(/\s+/).length;
 
-  /* 1. Section completeness */
   const sectionResults = {};
   let sectionHits = 0;
   Object.entries(SECTIONS).forEach(([sec, kws]) => {
@@ -745,19 +771,15 @@ function scoreResume(text, jd) {
   });
   const sectionScore = Math.round((sectionHits / Object.keys(SECTIONS).length) * 100);
 
-  /* 2. Quantified achievements */
   const quantMatches = (text.match(QUANT_PATTERN) || []).length;
   const quantScore = Math.min(100, quantMatches * 12);
 
-  /* 3. Action verbs */
   const verbsUsed = POWER_VERBS.filter(v => lower.includes(v)).length;
   const actionScore = Math.min(100, verbsUsed * 8);
 
-  /* 4. ATS formatting */
   const hasKiller = ATS_KILLER_PATTERNS.some(p => p.test(text));
   const formatScore = hasKiller ? 45 : 92;
 
-  /* 5. Length */
   let lengthScore = 100;
   if (wordCount < 150) lengthScore = 30;
   else if (wordCount < 300) lengthScore = 60;
@@ -765,14 +787,12 @@ function scoreResume(text, jd) {
   else if (wordCount > 1300) lengthScore = 70;
   else if (wordCount > 1000) lengthScore = 82;
 
-  /* 6. Keyword match (if JD provided) */
   let kwScore = 0, foundKws = [], missingKws = [];
   const hasJD = jd && jd.trim().length > 30;
   if (hasJD) {
     const jdLower = jd.toLowerCase();
     const rawWords = jdLower.match(/\b[a-z][a-z+#.\-]{2,}\b/g) || [];
     const candidates = [...new Set(rawWords.filter(w => !STOP_WORDS.has(w) && w.length > 3))];
-    // weight: pick words appearing 2+ times in JD as "important"
     const freq = {};
     rawWords.forEach(w => { if (!STOP_WORDS.has(w)) freq[w] = (freq[w]||0)+1; });
     const important = candidates.filter(w => freq[w] >= 2).slice(0, 50);
@@ -782,65 +802,75 @@ function scoreResume(text, jd) {
     kwScore = Math.round((foundKws.length / Math.max(all.length, 1)) * 100);
   }
 
-  /* Weighted total */
   const total = hasJD
     ? Math.round(sectionScore*0.22 + quantScore*0.18 + actionScore*0.15 + formatScore*0.15 + lengthScore*0.10 + kwScore*0.20)
     : Math.round(sectionScore*0.28 + quantScore*0.22 + actionScore*0.20 + formatScore*0.18 + lengthScore*0.12);
 
-  /* Issues */
   const issues = [];
   const missingSections = Object.entries(sectionResults).filter(([,v])=>!v).map(([k])=>k);
   if (missingSections.length) {
     issues.push({ type:'warn', title:`Missing sections: ${missingSections.join(', ')}`,
-      detail:'Add clear section headings so the ATS can categorize your content. Use standard names like "Experience", "Skills", "Education".' });
+      detail:'Add clear section headings so the ATS can categorize your content. Use standard names like "Experience", "Skills", "Education".',
+      recruiterKey: 'missingSections' });
   }
   if (quantScore < 40) {
     issues.push({ type:'warn', title:'Very few quantified achievements',
-      detail:'Add measurable outcomes to bullets. E.g. "Reduced deployment time by 45%" or "Managed a 3-node Kubernetes cluster serving 10K req/min".' });
+      detail:'Add measurable outcomes to bullets — e.g. "Reduced deployment time by 45%" or "Managed a 3-node Kubernetes cluster serving 10K req/min".',
+      recruiterKey: 'lowQuant' });
   } else if (quantScore < 60) {
     issues.push({ type:'info', title:'Could use more quantified achievements',
-      detail:`Found ${quantMatches} numbers/metrics. Aim for at least 5–8 across your experience section.` });
+      detail:`Found ${quantMatches} numbers/metrics. Aim for at least 5–8 across your experience section.`,
+      recruiterKey: 'lowQuant' });
   }
   if (actionScore < 40) {
     issues.push({ type:'warn', title:'Weak or missing action verbs',
-      detail:'Start each bullet with a strong action verb: Built, Designed, Automated, Led, Deployed, Optimized, Migrated, Architected.' });
+      detail:'Start each bullet with a strong action verb: Built, Designed, Automated, Led, Deployed, Optimized, Migrated, Architected.',
+      recruiterKey: 'lowAction' });
   }
   if (hasKiller) {
     issues.push({ type:'error', title:'ATS-unfriendly formatting detected',
-      detail:'Tables, images, text boxes, or multi-column layouts can break ATS parsing. Use a clean single-column format with plain text.' });
+      detail:'Tables, images, text boxes, or multi-column layouts can break ATS parsing. Use a clean single-column format with plain text.',
+      recruiterKey: 'atsKiller' });
   }
   if (wordCount < 300) {
     issues.push({ type:'warn', title:`Resume seems too short (${wordCount} words)`,
-      detail:'Most effective resumes are 450–800 words. Expand your experience descriptions with responsibilities, tools used, and outcomes.' });
+      detail:'Most effective resumes are 450–800 words. Expand your experience descriptions with responsibilities, tools used, and outcomes.',
+      recruiterKey: 'tooShort' });
   } else if (wordCount > 1100) {
     issues.push({ type:'info', title:`Resume may be too long (${wordCount} words)`,
-      detail:'Unless you have 15+ years of experience, aim for 1 page. Trim older or less-relevant experience.' });
+      detail:'Unless you have 15+ years of experience, aim for 1 page. Trim older or less-relevant experience.',
+      recruiterKey: 'tooLong' });
   }
   if (!lower.includes('linkedin')) {
     issues.push({ type:'info', title:'No LinkedIn URL found',
-      detail:'Include your full LinkedIn profile URL in your contact section — it helps both ATS and recruiters.' });
+      detail:'Include your full LinkedIn profile URL in your contact section — it helps both ATS and recruiters.',
+      recruiterKey: 'noLinkedIn' });
   }
   if (!lower.includes('github') && !lower.includes('portfolio') && !lower.includes('gitlab')) {
     issues.push({ type:'info', title:'No GitHub or portfolio link found',
-      detail:'For engineering roles, a GitHub or portfolio URL significantly strengthens your application.' });
+      detail:'For engineering roles, a GitHub or portfolio URL significantly strengthens your application.',
+      recruiterKey: 'noGitHub' });
   }
   if (hasJD && kwScore < 40) {
     issues.push({ type:'error', title:`Low keyword match with job description (${kwScore}%)`,
-      detail:'Fewer than half the JD keywords appear in your resume. Review the missing keywords below and add the ones you genuinely have experience with.' });
+      detail:'Fewer than half the JD keywords appear in your resume. Review the missing keywords and add the ones you genuinely have experience with.',
+      recruiterKey: 'lowKwMatch' });
   } else if (hasJD && kwScore < 65) {
     issues.push({ type:'warn', title:`Moderate keyword match (${kwScore}%)`,
-      detail:'Some JD keywords are missing. Adding relevant ones can significantly improve your chances of passing automated screening.' });
+      detail:'Some JD keywords are missing. Adding relevant ones can significantly improve your chances of passing automated screening.',
+      recruiterKey: 'modKwMatch' });
   }
   if (!issues.length) {
     issues.push({ type:'ok', title:'Great overall ATS compatibility!',
-      detail:'Your resume passes common ATS checks. Continue tailoring keywords to each specific job description.' });
+      detail:'Your resume passes common ATS checks. Continue tailoring keywords to each specific job description.',
+      recruiterKey: null });
   }
 
   return { total, sectionScore, quantScore, actionScore, formatScore, lengthScore, kwScore,
            sectionResults, issues, foundKws, missingKws, hasJD, wordCount, quantMatches, verbsUsed };
 }
 
-/* ===== ANALYZE ===== */
+/* ── ANALYZE ── */
 function analyze() {
   const pasteVal = document.getElementById('paste-text').value.trim();
   jdText = document.getElementById('jd-text').value.trim();
@@ -854,52 +884,50 @@ function analyze() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* ===== RENDER ===== */
+/* ── RENDER RESULTS ── */
 function renderResults(s) {
   document.getElementById('input-section').style.display = 'none';
   document.getElementById('results-section').style.display = 'block';
 
   /* Ring */
-  const circumference = 289.0;
+  const circumference = 263.9;
   const fill = document.getElementById('ring-fill');
   fill.style.strokeDashoffset = circumference;
   const color = s.total >= 75 ? '#2D6A4F' : s.total >= 50 ? '#C07B3A' : '#C0392B';
   fill.style.stroke = color;
-  setTimeout(() => {
-    fill.style.strokeDashoffset = circumference * (1 - s.total / 100);
-  }, 100);
+  setTimeout(() => { fill.style.strokeDashoffset = circumference * (1 - s.total / 100); }, 100);
 
-  /* Animated counter */
+  /* Counter */
   let n = 0;
-  const el = document.getElementById('score-num');
+  const numEl = document.getElementById('score-num');
   const iv = setInterval(() => {
     n = Math.min(n + Math.ceil(s.total / 40), s.total);
-    el.textContent = n;
+    numEl.textContent = n;
     if (n >= s.total) clearInterval(iv);
   }, 20);
 
   /* Grade */
   let grade, gradeStyle, title, desc;
   if (s.total >= 80) {
-    grade = 'Excellent'; gradeStyle = `background:var(--accent-light);color:var(--accent)`;
+    grade = 'Excellent'; gradeStyle = 'background:var(--accent-light);color:var(--accent)';
     title = 'Strong ATS pass';
     desc = 'Your resume is well-optimized for ATS. Tailor keywords per role to maximize match rates.';
   } else if (s.total >= 65) {
-    grade = 'Good'; gradeStyle = `background:var(--info-light);color:var(--info)`;
+    grade = 'Good'; gradeStyle = 'background:var(--info-light);color:var(--info)';
     title = 'Likely to pass ATS screening';
     desc = 'A few targeted improvements will push you higher. Check the recommendations below.';
   } else if (s.total >= 45) {
-    grade = 'Fair'; gradeStyle = `background:var(--warn-light);color:var(--warn)`;
+    grade = 'Fair'; gradeStyle = 'background:var(--warn-light);color:var(--warn)';
     title = 'May struggle with some ATS systems';
     desc = 'Several improvements are needed. Address the issues below before applying.';
   } else {
-    grade = 'Needs Work'; gradeStyle = `background:var(--danger-light);color:var(--danger)`;
+    grade = 'Needs Work'; gradeStyle = 'background:var(--danger-light);color:var(--danger)';
     title = 'High ATS rejection risk';
     desc = 'Significant improvements needed. Many ATS systems may reject this resume before a human sees it.';
   }
   const pill = document.getElementById('grade-pill');
   pill.textContent = grade;
-  pill.style.cssText = gradeStyle + ';border-radius:20px;padding:4px 12px;font-size:12px;font-weight:600;';
+  pill.style.cssText = gradeStyle + ';border-radius:20px;padding:3px 11px;font-size:11px;font-weight:600;';
   document.getElementById('score-title').textContent = title;
   document.getElementById('score-desc').textContent = desc;
 
@@ -917,54 +945,120 @@ function renderResults(s) {
       <div class="mc-label">${m.label}</div>
       <div class="mc-bar"><div class="mc-fill" style="width:0%;background:${m.color}" data-val="${m.val}"></div></div>
       <div class="mc-value" style="color:${m.color}">${m.val}<sup>%</sup></div>
-    </div>
-  `).join('');
+    </div>`).join('');
   setTimeout(() => {
-    document.querySelectorAll('.mc-fill').forEach(el => {
-      el.style.width = el.dataset.val + '%';
-    });
+    document.querySelectorAll('.mc-fill').forEach(el => { el.style.width = el.dataset.val + '%'; });
   }, 150);
 
-  /* Issues */
+  /* Issues with recruiter notes */
   const typeColors = { error:'#C0392B', warn:'#876019', info:'#1A5276', ok:'#2D6A4F' };
   const typeLabels = { error:'Critical', warn:'Warning', info:'Suggestion', ok:'Pass' };
   document.getElementById('issues-list').innerHTML = s.issues.map((issue, i) => `
     <div class="issue-item" style="animation-delay:${i*0.05}s">
-      <div class="issue-dot" style="background:${typeColors[issue.type]||'#888'}"></div>
-      <div>
+      <div class="issue-left"><div class="issue-dot" style="background:${typeColors[issue.type]||'#888'}"></div></div>
+      <div class="issue-body">
         <div class="issue-type" style="color:${typeColors[issue.type]}">${typeLabels[issue.type]}</div>
         <div class="issue-title">${issue.title}</div>
         <div class="issue-detail">${issue.detail}</div>
+        ${issue.recruiterKey && RECRUITER_NOTES[issue.recruiterKey]
+          ? `<div class="recruiter-note">${RECRUITER_NOTES[issue.recruiterKey]}</div>`
+          : ''}
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
 
-  /* Keywords */
+  /* Skill gap heatmap */
+  if (s.hasJD && (s.foundKws.length || s.missingKws.length)) {
+    document.getElementById('heatmap-section').style.display = '';
+    const total = s.foundKws.length + s.missingKws.length;
+    const pct = Math.round((s.foundKws.length / Math.max(total, 1)) * 100);
+    document.getElementById('heatmap-stat').innerHTML =
+      `<strong style="color:var(--accent)">${s.foundKws.length}</strong>&nbsp;of&nbsp;<strong>${total}</strong>&nbsp;JD skills matched&nbsp;·&nbsp;<strong>${pct}%</strong> coverage`;
+    const allKws = [
+      ...s.foundKws.slice(0, 20).map(k => ({ k, match: true })),
+      ...s.missingKws.slice(0, 20).map(k => ({ k, match: false }))
+    ];
+    document.getElementById('heatmap-grid').innerHTML = allKws.map(({ k, match }) => `
+      <div class="hm-cell ${match ? 'match' : 'miss'}">
+        <span class="hm-icon">${match ? '✓' : '✗'}</span>
+        ${k}
+      </div>`).join('');
+  } else {
+    document.getElementById('heatmap-section').style.display = 'none';
+  }
+
+  /* Keyword chips */
   if (s.hasJD && (s.foundKws.length || s.missingKws.length)) {
     document.getElementById('kw-section').style.display = '';
-    const chips = [
+    document.getElementById('kw-chips').innerHTML = [
       ...s.foundKws.slice(0, 25).map(k => `<span class="chip found">✓ ${k}</span>`),
       ...s.missingKws.map(k => `<span class="chip missing">✗ ${k}</span>`)
     ].join('');
-    document.getElementById('kw-chips').innerHTML = chips;
   } else {
     document.getElementById('kw-section').style.display = 'none';
   }
+
+  /* Animated keyword highlight */
+  if (s.hasJD && s.foundKws.length) {
+    document.getElementById('kw-highlight-section').style.display = '';
+    renderHighlight(resumeText, s.foundKws, s.missingKws);
+  } else {
+    document.getElementById('kw-highlight-section').style.display = 'none';
+  }
 }
 
-/* ===== AI ANALYSIS — backend integration required (coming soon) ===== */
+/* ── ANIMATED KEYWORD HIGHLIGHT ── */
+function renderHighlight(text, foundKws, missingKws) {
+  const box = document.getElementById('kw-highlight-box');
+  const preview = text.slice(0, 3000);
 
-/* ===== RESET ===== */
+  /* Build a map of word → class */
+  const foundSet = new Set(foundKws.map(w => w.toLowerCase()));
+
+  /* Escape HTML */
+  function escapeHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  /* Tokenize: split by word boundaries, highlight matches */
+  const tokens = preview.split(/(\s+)/);
+  let html = '';
+  let delay = 0;
+  for (const token of tokens) {
+    if (/^\s+$/.test(token)) {
+      html += escapeHtml(token);
+      continue;
+    }
+    const clean = token.toLowerCase().replace(/[^a-z0-9+#.\-]/g, '');
+    if (foundSet.has(clean)) {
+      html += `<mark class="kw-found" style="animation:kwPop 0.3s ease ${delay}ms both">${escapeHtml(token)}</mark>`;
+      delay = Math.min(delay + 18, 600);
+    } else {
+      html += escapeHtml(token);
+    }
+  }
+
+  box.innerHTML = html;
+
+  /* Inject animation */
+  if (!document.getElementById('kw-anim-style')) {
+    const style = document.createElement('style');
+    style.id = 'kw-anim-style';
+    style.textContent = '@keyframes kwPop { from { opacity:0; transform:scale(0.85); } to { opacity:1; transform:scale(1); } }';
+    document.head.appendChild(style);
+  }
+}
+
+/* ── RESET ── */
 function reset() {
-  resumeText = '';
-  jdText = '';
-  lastScores = null;
+  resumeText = ''; jdText = ''; lastScores = null;
   document.getElementById('paste-text').value = '';
   document.getElementById('jd-text').value = '';
   document.getElementById('file-input').value = '';
   document.getElementById('file-selected').style.display = 'none';
   document.getElementById('file-name-text').textContent = '';
   document.getElementById('kw-section').style.display = 'none';
+  document.getElementById('heatmap-section').style.display = 'none';
+  document.getElementById('kw-highlight-section').style.display = 'none';
   document.getElementById('results-section').style.display = 'none';
   document.getElementById('input-section').style.display = '';
   window.scrollTo({ top: 0, behavior: 'smooth' });
