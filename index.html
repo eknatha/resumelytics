@@ -614,6 +614,85 @@ textarea::placeholder { color: var(--text3); }
 .ref-copy-btn:hover { background: var(--surface2); }
 @media (max-width: 480px) { .ref-fields { grid-template-columns: 1fr; } .cert-grid { grid-template-columns: 1fr 1fr; } }
 
+/* ── GAP YEAR DETECTOR ── */
+.gap-section { display: none; }
+.timeline-wrap { margin-top: 10px; overflow-x: auto; }
+.timeline { display: flex; flex-direction: column; gap: 4px; }
+.tl-row { display: flex; align-items: center; gap: 10px; }
+.tl-label { font-size: 12px; color: var(--text2); min-width: 130px; text-align: right; font-family: 'DM Mono', monospace; }
+.tl-bar-wrap { flex: 1; height: 22px; position: relative; border-radius: 4px; overflow: hidden; background: var(--surface2); }
+.tl-bar { height: 100%; border-radius: 4px; display: flex; align-items: center; padding: 0 8px; font-size: 11px; font-weight: 500; transition: width 0.6s ease; }
+.tl-bar.work { background: var(--accent-light); color: var(--accent); }
+.tl-bar.gap { background: var(--danger-light); color: var(--danger); border: 1px dashed var(--danger); }
+.tl-bar.education { background: var(--info-light); color: var(--info); }
+.tl-legend { display: flex; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
+.tl-leg { font-size: 11px; color: var(--text3); display: flex; align-items: center; gap: 5px; }
+.tl-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+.gap-note { font-size: 12px; color: var(--text2); margin-top: 8px; padding: 7px 10px; background: var(--warn-light); border-radius: 6px; line-height: 1.55; }
+
+/* ── RESUME A/B COMPARE ── */
+.ab-section { margin-top: 2rem; }
+.ab-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-top: 8px; }
+.ab-upload-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.ab-upload-zone { border: 1.5px dashed var(--border2); border-radius: var(--radius); padding: 1rem; text-align: center; cursor: pointer; background: var(--surface2); position: relative; transition: border-color 0.15s, background 0.15s; }
+.ab-upload-zone:hover { border-color: var(--accent); background: var(--accent-light); }
+.ab-upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.ab-upload-label { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+.ab-upload-sub { font-size: 11px; color: var(--text3); }
+.ab-file-name { font-size: 11px; color: var(--accent); margin-top: 4px; min-height: 14px; }
+.btn-compare { width: 100%; padding: 10px; border-radius: var(--radius); background: var(--accent); color: #fff; border: none; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'Figtree', sans-serif; transition: background 0.15s; }
+.btn-compare:hover { background: #235C42; }
+.ab-result { margin-top: 14px; display: none; }
+.ab-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ab-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; }
+.ab-card.winner { border-color: var(--accent); background: var(--accent-light); }
+.ab-card-title { font-size: 12px; font-weight: 500; color: var(--text2); margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
+.ab-score { font-size: 28px; font-weight: 600; margin-bottom: 4px; }
+.ab-grade { font-size: 11px; padding: 2px 8px; border-radius: 10px; display: inline-block; }
+.ab-diff { text-align: center; padding: 10px; margin-top: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+.ab-diff-num { font-size: 22px; font-weight: 600; }
+.ab-diff-label { font-size: 12px; color: var(--text2); margin-top: 2px; }
+.ab-metrics { margin-top: 10px; display: flex; flex-direction: column; gap: 4px; }
+.ab-metric-row { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--text2); }
+.ab-metric-label { min-width: 110px; }
+.ab-metric-bars { flex: 1; display: flex; gap: 4px; align-items: center; }
+.ab-bar { height: 6px; border-radius: 3px; transition: width 0.5s ease; }
+.ab-bar.a { background: var(--info); }
+.ab-bar.b { background: var(--accent); }
+@media (max-width: 480px) { .ab-upload-row { grid-template-columns: 1fr; } .ab-cards { grid-template-columns: 1fr; } }
+
+/* ── NOTICE PERIOD CALCULATOR ── */
+.notice-section { margin-top: 2rem; }
+.notice-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-top: 8px; }
+.notice-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.notice-input { border: 1px solid var(--border); border-radius: 7px; padding: 8px 10px; font-size: 13px; font-family: 'Figtree', sans-serif; color: var(--text); background: var(--surface2); width: 100%; transition: border-color 0.15s; }
+.notice-input:focus { outline: none; border-color: var(--accent); background: var(--surface); }
+.notice-select { border: 1px solid var(--border); border-radius: 7px; padding: 8px 10px; font-size: 13px; font-family: 'Figtree', sans-serif; color: var(--text); background: var(--surface2); width: 100%; }
+.btn-notice { width: 100%; padding: 9px; border-radius: 7px; background: var(--accent); color: #fff; border: none; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'Figtree', sans-serif; transition: background 0.15s; margin-top: 4px; }
+.btn-notice:hover { background: #235C42; }
+.notice-result { display: none; margin-top: 12px; }
+.notice-dates { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin-bottom: 10px; }
+.notice-date-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; }
+.notice-date-label { font-size: 11px; color: var(--text3); margin-bottom: 3px; }
+.notice-date-val { font-size: 15px; font-weight: 500; color: var(--text); }
+.notice-email-box { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; font-size: 13px; color: var(--text); line-height: 1.65; white-space: pre-wrap; font-family: 'Figtree', sans-serif; margin-top: 8px; }
+@media (max-width: 480px) { .notice-fields { grid-template-columns: 1fr; } }
+
+/* ── NEGOTIATION EMAIL GENERATOR ── */
+.nego-section { margin-top: 2rem; }
+.nego-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-top: 8px; }
+.nego-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.nego-input { border: 1px solid var(--border); border-radius: 7px; padding: 8px 10px; font-size: 13px; font-family: 'Figtree', sans-serif; color: var(--text); background: var(--surface2); width: 100%; transition: border-color 0.15s; }
+.nego-input:focus { outline: none; border-color: var(--accent); background: var(--surface); }
+.btn-nego { width: 100%; padding: 9px; border-radius: 7px; background: var(--accent); color: #fff; border: none; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'Figtree', sans-serif; transition: background 0.15s; margin-top: 4px; }
+.btn-nego:hover { background: #235C42; }
+.nego-output { display: none; margin-top: 10px; }
+.nego-msg-box { background: var(--surface2); border: 1px solid var(--border); border-radius: 7px; padding: 12px; font-size: 13px; color: var(--text); line-height: 1.65; white-space: pre-wrap; font-family: 'Figtree', sans-serif; }
+.nego-tip { font-size: 11px; color: var(--text3); margin-top: 6px; line-height: 1.5; }
+.nego-copy-btn { margin-top: 6px; padding: 6px 12px; border-radius: 7px; background: none; border: 1px solid var(--border2); font-size: 12px; cursor: pointer; color: var(--text2); font-family: 'Figtree', sans-serif; transition: background 0.15s; }
+.nego-copy-btn:hover { background: var(--surface2); }
+@media (max-width: 480px) { .nego-fields { grid-template-columns: 1fr; } }
+
 /* ── TIPS ── */
 .tips-grid {
   display: grid;
@@ -661,6 +740,8 @@ footer a:hover { text-decoration: underline; }
   .tips-grid { grid-template-columns: 1fr; }
 }
 </style>
+<!-- Plausible analytics — privacy-first, no cookies -->
+<script defer data-domain="eknatha.github.io/resumelytics" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
 
@@ -936,6 +1017,25 @@ footer a:hover { text-decoration: underline; }
       </div>
     </div>
 
+    <!-- Gap year detector (collapsible, inside results) -->
+    <div class="collapsible-section gap-section" id="sec-gap">
+      <div class="collapse-header" onclick="toggleSection('sec-gap')">
+        <div class="section-heading">📅 Career Timeline & Gap Detector</div>
+        <span class="collapse-toggle" id="tog-sec-gap">▲ collapse</span>
+      </div>
+      <div class="collapse-body" id="body-sec-gap">
+        <div class="timeline-wrap">
+          <div class="timeline" id="gap-timeline"></div>
+        </div>
+        <div class="tl-legend">
+          <span class="tl-leg"><span class="tl-dot" style="background:var(--accent)"></span>Employment</span>
+          <span class="tl-leg"><span class="tl-dot" style="background:var(--info)"></span>Education</span>
+          <span class="tl-leg"><span class="tl-dot" style="background:var(--danger);border:1px dashed var(--danger)"></span>Gap detected</span>
+        </div>
+        <div class="gap-note" id="gap-note"></div>
+      </div>
+    </div>
+
     <!-- AI coming soon -->
     <div class="section-heading" style="margin-top:1.75rem">✦ Deep AI Analysis</div>
     <div class="ai-coming-soon">
@@ -948,6 +1048,111 @@ footer a:hover { text-decoration: underline; }
 
     <div style="margin-top:1.25rem">
       <button class="btn-reset" onclick="reset()">← Analyze another resume</button>
+    </div>
+
+  </div>
+
+  <!-- STANDALONE TOOLS (always visible) -->
+  <div id="tools-section">
+
+    <!-- Resume A/B compare -->
+    <div class="ab-section card" id="ab-section">
+      <div class="card-title">
+        <div class="ct-icon">⚖️</div>
+        Resume A/B Compare
+        <span style="font-size:11px;font-weight:400;color:var(--text3);margin-left:4px;">upload two versions → see score diff</span>
+      </div>
+      <div class="ab-box">
+        <div class="ab-upload-row">
+          <div class="ab-upload-zone" id="ab-zone-a">
+            <input type="file" id="ab-file-a" accept=".pdf,.docx,.txt" onchange="handleAbFile('a',this)">
+            <div class="ab-upload-label">Version A</div>
+            <div class="ab-upload-sub">Original / older resume</div>
+            <div class="ab-file-name" id="ab-name-a">No file selected</div>
+          </div>
+          <div class="ab-upload-zone" id="ab-zone-b">
+            <input type="file" id="ab-file-b" accept=".pdf,.docx,.txt" onchange="handleAbFile('b',this)">
+            <div class="ab-upload-label">Version B</div>
+            <div class="ab-upload-sub">Updated / new resume</div>
+            <div class="ab-file-name" id="ab-name-b">No file selected</div>
+          </div>
+        </div>
+        <button class="btn-compare" onclick="runAbCompare()">Compare versions →</button>
+        <div class="ab-result" id="ab-result"></div>
+      </div>
+    </div>
+
+    <!-- Notice period calculator -->
+    <div class="notice-section card" id="notice-section">
+      <div class="card-title">
+        <div class="ct-icon">📆</div>
+        Notice Period Calculator
+      </div>
+      <div class="notice-box">
+        <div class="notice-fields">
+          <div>
+            <label class="field-label">Your name</label>
+            <input class="notice-input" id="notice-name" placeholder="e.g. Eknatha Reddy">
+          </div>
+          <div>
+            <label class="field-label">Manager's name</label>
+            <input class="notice-input" id="notice-manager" placeholder="e.g. Priya Singh">
+          </div>
+          <div>
+            <label class="field-label">Last working day</label>
+            <input class="notice-input" id="notice-lwd" type="date">
+          </div>
+          <div>
+            <label class="field-label">Notice period</label>
+            <select class="notice-select" id="notice-period">
+              <option value="30">30 days</option>
+              <option value="45">45 days</option>
+              <option value="60">60 days</option>
+              <option value="90">90 days</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-notice" onclick="calcNotice()">Calculate &amp; generate email →</button>
+        <div class="notice-result" id="notice-result"></div>
+      </div>
+    </div>
+
+    <!-- Negotiation email generator -->
+    <div class="nego-section card" id="nego-section">
+      <div class="card-title">
+        <div class="ct-icon">💼</div>
+        Salary Negotiation Email
+      </div>
+      <div class="nego-box">
+        <div class="nego-fields">
+          <div>
+            <label class="field-label">Your name</label>
+            <input class="nego-input" id="nego-name" placeholder="e.g. Eknatha Reddy">
+          </div>
+          <div>
+            <label class="field-label">Recruiter / HR name</label>
+            <input class="nego-input" id="nego-hr" placeholder="e.g. Divya">
+          </div>
+          <div>
+            <label class="field-label">Role</label>
+            <input class="nego-input" id="nego-role" placeholder="e.g. Senior DevOps Engineer">
+          </div>
+          <div>
+            <label class="field-label">Company</label>
+            <input class="nego-input" id="nego-company" placeholder="e.g. Razorpay">
+          </div>
+          <div>
+            <label class="field-label">Offer received (₹L/yr)</label>
+            <input class="nego-input" id="nego-offer" type="number" placeholder="e.g. 18">
+          </div>
+          <div>
+            <label class="field-label">Counter ask (₹L/yr)</label>
+            <input class="nego-input" id="nego-counter" type="number" placeholder="e.g. 22">
+          </div>
+        </div>
+        <button class="btn-nego" onclick="generateNego()">Generate negotiation email →</button>
+        <div class="nego-output" id="nego-output"></div>
+      </div>
     </div>
 
   </div>
@@ -1330,6 +1535,9 @@ function renderResults(s) {
 
   /* Tense checker */
   renderTenseCheck(resumeText);
+
+  /* Gap year detector */
+  renderGapDetector(resumeText);
 
   /* Overused word detector */
   renderOverusedWords(resumeText);
@@ -1779,6 +1987,314 @@ function copyReferral() {
   });
 }
 
+
+/* ── GAP YEAR DETECTOR ── */
+function detectCareerGaps(text) {
+  const yearMatches = [...text.matchAll(/(19|20)\d{2}/g)].map(m => parseInt(m[0]));
+  if (yearMatches.length < 2) return null;
+  const uniqueYears = [...new Set(yearMatches)].sort((a,b) => a-b);
+  const minYear = uniqueYears[0];
+  const maxYear = Math.min(uniqueYears[uniqueYears.length-1], new Date().getFullYear());
+  if (maxYear - minYear < 2) return null;
+
+  // Build simple segments from consecutive year pairs mentioned in text
+  const segments = [];
+  const lower = text.toLowerCase();
+  const lines = text.split(/
+/);
+  const processed = new Set();
+
+  lines.forEach(line => {
+    const yrs = [...line.matchAll(/(19|20)\d{2}/g)].map(m => parseInt(m[0]));
+    if (yrs.length < 1) return;
+    const start = Math.min(...yrs);
+    const end = Math.max(...yrs);
+    if (processed.has(start)) return;
+    processed.add(start);
+    const ll = line.toLowerCase();
+    const isEdu = /university|college|bachelor|master|degree|b\.tech|m\.tech|b\.e|diploma|mba/i.test(ll);
+    if (start >= minYear && start <= maxYear) {
+      segments.push({ start, end: end || start + 1, type: isEdu ? 'education' : 'work', label: line.trim().slice(0, 40) });
+    }
+  });
+
+  if (!segments.length) return null;
+  segments.sort((a,b) => a.start - b.start);
+
+  // Detect gaps between segments
+  const gaps = [];
+  for (let i = 0; i < segments.length - 1; i++) {
+    const gapStart = segments[i].end;
+    const gapEnd = segments[i+1].start;
+    if (gapEnd - gapStart >= 1) {
+      gaps.push({ start: gapStart, end: gapEnd, months: (gapEnd - gapStart) * 12 });
+    }
+  }
+
+  return { segments, gaps, minYear, maxYear };
+}
+
+function renderGapDetector(text) {
+  const sec = document.getElementById('sec-gap');
+  const data = detectCareerGaps(text);
+  if (!data || data.segments.length < 2) { sec.style.display = 'none'; return; }
+  sec.style.display = '';
+
+  const { segments, gaps, minYear, maxYear } = data;
+  const span = maxYear - minYear || 1;
+  const tl = document.getElementById('gap-timeline');
+
+  const allItems = [
+    ...segments.map(s => ({...s, isGap: false})),
+    ...gaps.map(g => ({start: g.start, end: g.end, type: 'gap', label: `Gap ~${g.months}mo`, isGap: true}))
+  ].sort((a,b) => a.start - b.start);
+
+  tl.innerHTML = allItems.map(item => {
+    const left = ((item.start - minYear) / span) * 100;
+    const width = Math.max(((item.end - item.start) / span) * 100, 2);
+    const cls = item.type === 'gap' ? 'gap' : item.type === 'education' ? 'education' : 'work';
+    return `<div class="tl-row">
+      <div class="tl-label">${item.start}${item.end !== item.start ? '–' + item.end : ''}</div>
+      <div class="tl-bar-wrap">
+        <div class="tl-bar ${cls}" style="margin-left:${left}%;width:${width}%">${item.label.slice(0,25)}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  const gapNote = document.getElementById('gap-note');
+  if (gaps.length === 0) {
+    gapNote.textContent = '✓ No significant career gaps detected. Your timeline looks continuous.';
+    gapNote.style.background = 'var(--accent-light)';
+    gapNote.style.color = 'var(--accent)';
+  } else {
+    const sig = gaps.filter(g => g.months >= 6);
+    gapNote.textContent = `${gaps.length} gap${gaps.length>1?'s':''} detected${sig.length ? ' — ' + sig.length + ' significant (6+ months)' : ''}. Prepare a brief, honest explanation for any gaps over 3 months.`;
+    gapNote.style.background = 'var(--warn-light)';
+    gapNote.style.color = 'var(--warn)';
+  }
+}
+
+/* ── RESUME A/B COMPARE ── */
+let abTexts = { a: '', b: '' };
+
+async function handleAbFile(version, input) {
+  const file = input.files[0];
+  if (!file) return;
+  document.getElementById('ab-name-' + version).textContent = file.name;
+  const ext = file.name.split('.').pop().toLowerCase();
+  try {
+    if (ext === 'txt') {
+      abTexts[version] = await file.text();
+    } else if (ext === 'pdf') {
+      const buf = await file.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+      let txt = '';
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const pg = await pdf.getPage(i);
+        const tc = await pg.getTextContent();
+        txt += tc.items.map(s => s.str).join(' ') + '
+';
+      }
+      abTexts[version] = txt;
+    } else if (ext === 'docx') {
+      const buf = await file.arrayBuffer();
+      const result = await mammoth.extractRawText({ arrayBuffer: buf });
+      abTexts[version] = result.value;
+    }
+  } catch(e) {
+    alert('Could not parse file. Try .txt format.');
+    abTexts[version] = '';
+  }
+}
+
+function runAbCompare() {
+  if (!abTexts.a || !abTexts.b) { alert('Please upload both Version A and Version B resumes.'); return; }
+  const sA = scoreResume(abTexts.a, '');
+  const sB = scoreResume(abTexts.b, '');
+  renderAbResult(sA, sB);
+}
+
+function getGrade(score) {
+  if (score >= 80) return { label: 'Excellent', style: 'background:var(--accent-light);color:var(--accent)' };
+  if (score >= 65) return { label: 'Good', style: 'background:var(--info-light);color:var(--info)' };
+  if (score >= 45) return { label: 'Fair', style: 'background:var(--warn-light);color:var(--warn)' };
+  return { label: 'Needs Work', style: 'background:var(--danger-light);color:var(--danger)' };
+}
+
+function renderAbResult(sA, sB) {
+  const res = document.getElementById('ab-result');
+  res.style.display = 'block';
+  const diff = sB.total - sA.total;
+  const winner = diff >= 0 ? 'b' : 'a';
+  const gA = getGrade(sA.total), gB = getGrade(sB.total);
+
+  const metrics = [
+    { label: 'Sections', a: sA.sectionScore, b: sB.sectionScore },
+    { label: 'Quant impact', a: sA.quantScore, b: sB.quantScore },
+    { label: 'Action verbs', a: sA.actionScore, b: sB.actionScore },
+    { label: 'Formatting', a: sA.formatScore, b: sB.formatScore },
+    { label: 'Length', a: sA.lengthScore, b: sB.lengthScore },
+  ];
+
+  res.innerHTML = `
+    <div class="ab-cards">
+      <div class="ab-card${winner==='a'?' winner':''}">
+        <div class="ab-card-title">Version A ${winner==='a'?'<span style="font-size:10px;color:var(--accent)">★ winner</span>':''}</div>
+        <div class="ab-score" style="color:${sA.total>=65?'var(--accent)':'var(--danger)'}">${sA.total}</div>
+        <span class="ab-grade" style="${gA.style}">${gA.label}</span>
+        <div style="font-size:11px;color:var(--text3);margin-top:4px">${sA.wordCount} words</div>
+      </div>
+      <div class="ab-card${winner==='b'?' winner':''}">
+        <div class="ab-card-title">Version B ${winner==='b'?'<span style="font-size:10px;color:var(--accent)">★ winner</span>':''}</div>
+        <div class="ab-score" style="color:${sB.total>=65?'var(--accent)':'var(--danger)'}">${sB.total}</div>
+        <span class="ab-grade" style="${gB.style}">${gB.label}</span>
+        <div style="font-size:11px;color:var(--text3);margin-top:4px">${sB.wordCount} words</div>
+      </div>
+    </div>
+    <div class="ab-diff">
+      <div class="ab-diff-num" style="color:${diff>=0?'var(--accent)':'var(--danger)'}">${diff>=0?'+':''}${diff} pts</div>
+      <div class="ab-diff-label">${diff>0?'Version B is stronger':'Version A is stronger'}</div>
+    </div>
+    <div class="ab-metrics">
+      ${metrics.map(m => `<div class="ab-metric-row">
+        <div class="ab-metric-label">${m.label}</div>
+        <div class="ab-metric-bars">
+          <div class="ab-bar a" style="width:${m.a * 0.5}px" title="A: ${m.a}%"></div>
+          <span style="font-size:10px;min-width:28px">${m.a}%</span>
+          <div class="ab-bar b" style="width:${m.b * 0.5}px" title="B: ${m.b}%"></div>
+          <span style="font-size:10px;min-width:28px">${m.b}%</span>
+        </div>
+      </div>`).join('')}
+      <div style="font-size:10px;color:var(--text3);margin-top:4px;display:flex;gap:12px;">
+        <span>■ Version A (blue)</span><span>■ Version B (green)</span>
+      </div>
+    </div>`;
+}
+
+/* ── NOTICE PERIOD CALCULATOR ── */
+function calcNotice() {
+  const name = document.getElementById('notice-name').value.trim() || 'I';
+  const manager = document.getElementById('notice-manager').value.trim() || 'Sir/Madam';
+  const lwd = document.getElementById('notice-lwd').value;
+  const noticeDays = parseInt(document.getElementById('notice-period').value);
+
+  if (!lwd) { alert('Please select your last working day.'); return; }
+
+  const lwdDate = new Date(lwd);
+  const resignDate = new Date(lwdDate);
+  resignDate.setDate(resignDate.getDate() - noticeDays);
+
+  const fmt = d => d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+  const today = new Date();
+  const daysUntilLWD = Math.ceil((lwdDate - today) / (1000 * 60 * 60 * 24));
+
+  const email = `Subject: Resignation Letter — ${name}
+
+Dear ${manager},
+
+I am writing to formally inform you of my resignation from my current position, effective ${fmt(lwdDate)}.
+
+As per the notice period of ${noticeDays} days, my last working day will be ${fmt(lwdDate)}. I am committed to ensuring a smooth transition and will complete all ongoing tasks and handover documentation before my departure.
+
+I am grateful for the opportunities and experiences I have gained during my tenure. Working with this team has been a valuable chapter in my career.
+
+Please let me know how I can best support the transition process during this period.
+
+Thank you for your understanding.
+
+Warm regards,
+${name}`;
+
+  const res = document.getElementById('notice-result');
+  res.style.display = 'block';
+  res.innerHTML = `
+    <div class="notice-dates">
+      <div class="notice-date-card">
+        <div class="notice-date-label">Resignation date</div>
+        <div class="notice-date-val">${fmt(resignDate)}</div>
+      </div>
+      <div class="notice-date-card">
+        <div class="notice-date-label">Last working day</div>
+        <div class="notice-date-val">${fmt(lwdDate)}</div>
+      </div>
+      <div class="notice-date-card">
+        <div class="notice-date-label">Days remaining</div>
+        <div class="notice-date-val" style="color:var(--accent)">${Math.max(0, daysUntilLWD)} days</div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--text3);margin-bottom:6px;">Resignation email draft:</div>
+    <div class="notice-email-box">${email}</div>
+    <button class="ref-copy-btn" onclick="copyNoticeEmail()" style="margin-top:6px">📋 Copy email</button>`;
+
+  window._noticeEmail = email;
+}
+
+function copyNoticeEmail() {
+  navigator.clipboard.writeText(window._noticeEmail || '').then(() => {
+    const btn = document.querySelector('#notice-result .ref-copy-btn');
+    if (btn) { btn.textContent = '✓ Copied!'; setTimeout(() => btn.textContent = '📋 Copy email', 1800); }
+  });
+}
+
+/* ── NEGOTIATION EMAIL GENERATOR ── */
+function generateNego() {
+  const name    = document.getElementById('nego-name').value.trim() || 'I';
+  const hr      = document.getElementById('nego-hr').value.trim() || 'HR';
+  const role    = document.getElementById('nego-role').value.trim() || 'the role';
+  const company = document.getElementById('nego-company').value.trim() || 'your company';
+  const offer   = parseFloat(document.getElementById('nego-offer').value) || 0;
+  const counter = parseFloat(document.getElementById('nego-counter').value) || 0;
+
+  if (!offer || !counter) { alert('Please enter both the offer and your counter ask.'); return; }
+  if (counter <= offer) { alert('Counter ask should be higher than the offer received.'); return; }
+
+  const pctDiff = Math.round(((counter - offer) / offer) * 100);
+  const midpoint = ((offer + counter) / 2).toFixed(1);
+
+  const skills = [];
+  if (resumeText) {
+    const lower = resumeText.toLowerCase();
+    if (/kubernetes|k8s/.test(lower)) skills.push('Kubernetes');
+    if (/terraform/.test(lower)) skills.push('Terraform');
+    if (/aws|gcp|azure/.test(lower)) skills.push('cloud infrastructure');
+    if (/python/.test(lower)) skills.push('Python automation');
+    if (/ci.?cd|jenkins|github.actions/.test(lower)) skills.push('CI/CD pipelines');
+  }
+  const skillStr = skills.length ? skills.slice(0,2).join(' and ') : 'platform engineering and DevOps';
+
+  const email = `Subject: Re: Offer for ${role} — Salary Discussion
+
+Dear ${hr},
+
+Thank you for the offer letter for the ${role} position at ${company}. I am genuinely excited about this opportunity and confident I can make a strong contribution to the team.
+
+After careful consideration of the role, responsibilities, and market benchmarks, I would like to respectfully discuss the compensation. The current offer is ₹${offer}L per annum. Based on my experience in ${skillStr}, and current market rates for this level in the India tech industry, I was hoping we could consider ₹${counter}L per annum.
+
+This is a ${pctDiff}% adjustment from the current offer. If the full amount isn't possible, I would be open to discussing a midpoint of ₹${midpoint}L, or alternative benefits such as an early review at 6 months.
+
+I want to be transparent — I am very interested in joining ${company} and this is not a rejection of the offer. I simply want to ensure we start on terms that reflect the value I bring.
+
+I would be happy to discuss this at your earliest convenience. Thank you for your time and consideration.
+
+Warm regards,
+${name}`;
+
+  const out = document.getElementById('nego-output');
+  out.style.display = 'block';
+  out.innerHTML = `
+    <div class="nego-msg-box" id="nego-msg-text">${email}</div>
+    <div class="nego-tip">💡 Tip: Send this within 24–48 hours of receiving the offer. Keep your tone warm and collaborative — you are negotiating a partnership, not a confrontation.</div>
+    <button class="nego-copy-btn" onclick="copyNegoEmail()">📋 Copy email</button>`;
+  window._negoEmail = email;
+}
+
+function copyNegoEmail() {
+  navigator.clipboard.writeText(window._negoEmail || '').then(() => {
+    const btn = document.querySelector('.nego-copy-btn');
+    if (btn) { btn.textContent = '✓ Copied!'; setTimeout(() => btn.textContent = '📋 Copy email', 1800); }
+  });
+}
+
 /* ── RESET ── */
 function reset() {
   resumeText = ''; jdText = ''; lastScores = null;
@@ -1787,7 +2303,7 @@ function reset() {
   document.getElementById('file-input').value = '';
   document.getElementById('file-selected').style.display = 'none';
   document.getElementById('file-name-text').textContent = '';
-  ['sec-kw','sec-heatmap','sec-highlight','sec-tense','sec-overused','sec-certs','sec-salary','sec-referral','sec-iq'].forEach(id => {
+  ['sec-kw','sec-heatmap','sec-highlight','sec-tense','sec-overused','sec-certs','sec-salary','sec-referral','sec-iq','sec-gap'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.style.display = 'none';
     const body = document.getElementById('body-' + id);
