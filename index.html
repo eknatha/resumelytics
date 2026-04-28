@@ -500,6 +500,120 @@ textarea::placeholder { color: var(--text3); }
 .ai-cs-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
 .ai-cs-desc { font-size: 12px; color: var(--text2); line-height: 1.55; }
 
+/* ── COLLAPSIBLE SECTIONS ── */
+.collapsible-section { margin-top: 1.4rem; }
+.collapsible-section.hidden-sec { display: none; }
+.collapse-header {
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer; user-select: none; padding: 2px 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.collapse-header .section-heading { margin-top: 0; margin-bottom: 0; flex: 1; }
+.collapse-toggle {
+  font-size: 11px; color: var(--text3); background: var(--surface2);
+  border: 1px solid var(--border); border-radius: 5px;
+  padding: 2px 8px; font-family: 'DM Mono', monospace;
+  flex-shrink: 0; transition: background 0.15s;
+}
+.collapse-header:hover .collapse-toggle { background: var(--border); }
+.collapse-body { margin-top: 10px; }
+.collapse-body.closed { display: none; }
+
+/* ── CERTIFICATION SPOTLIGHT ── */
+.cert-section { display: none; }
+.cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; margin-top: 10px; }
+.cert-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 10px 12px;
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.cert-icon { font-size: 18px; flex-shrink: 0; line-height: 1; margin-top: 1px; }
+.cert-name { font-size: 12px; font-weight: 500; color: var(--text); line-height: 1.35; }
+.cert-body { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+/* ── SALARY ESTIMATOR ── */
+.salary-section { display: none; }
+.salary-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px; margin-top: 10px;
+}
+.salary-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+.salary-select {
+  flex: 1; min-width: 140px; border: 1px solid var(--border);
+  border-radius: 7px; padding: 7px 10px; font-size: 13px;
+  font-family: 'Figtree', sans-serif; color: var(--text);
+  background: var(--surface2); cursor: pointer;
+}
+.salary-select:focus { outline: none; border-color: var(--accent); }
+.btn-salary {
+  padding: 7px 14px; border-radius: 7px; background: var(--accent);
+  color: #fff; border: none; font-size: 13px; font-weight: 500;
+  cursor: pointer; font-family: 'Figtree', sans-serif;
+  transition: background 0.15s; white-space: nowrap;
+}
+.btn-salary:hover { background: #235C42; }
+.salary-result { display: none; }
+.salary-band {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--accent-light); border-radius: 8px;
+  padding: 12px 14px; margin-bottom: 8px;
+}
+.salary-range { font-size: 20px; font-weight: 600; color: var(--accent); }
+.salary-label { font-size: 12px; color: var(--text2); }
+.salary-note { font-size: 11px; color: var(--text3); line-height: 1.55; }
+.salary-factors { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 5px; }
+.salary-tag { font-size: 11px; padding: 3px 8px; border-radius: 12px; background: var(--surface2); color: var(--text2); border: 1px solid var(--border); }
+
+/* ── OVERUSED WORD DETECTOR ── */
+.overused-section { display: none; }
+.overused-list { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.overused-item {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 9px 12px;
+}
+.overused-word { font-size: 13px; font-weight: 500; color: var(--danger); font-family: 'DM Mono', monospace; flex-shrink: 0; min-width: 130px; }
+.overused-count { font-size: 11px; color: var(--text3); flex-shrink: 0; }
+.overused-bar-wrap { flex: 1; height: 4px; background: var(--surface2); border-radius: 2px; overflow: hidden; }
+.overused-bar { height: 100%; border-radius: 2px; background: var(--danger); transition: width 0.6s ease; }
+.overused-alt { font-size: 11px; color: var(--accent); margin-top: 4px; }
+.overused-summary { font-size: 12px; color: var(--text2); padding: 7px 10px; background: var(--warn-light); border-radius: 6px; margin-top: 8px; }
+
+/* ── REFERRAL MESSAGE GENERATOR ── */
+.referral-section { margin-top: 1.4rem; }
+.referral-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-top: 8px; }
+.ref-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.ref-input {
+  border: 1px solid var(--border); border-radius: 7px;
+  padding: 8px 10px; font-size: 13px; font-family: 'Figtree', sans-serif;
+  color: var(--text); background: var(--surface2);
+  width: 100%; transition: border-color 0.15s;
+}
+.ref-input:focus { outline: none; border-color: var(--accent); background: var(--surface); }
+.ref-input::placeholder { color: var(--text3); }
+.btn-ref {
+  padding: 8px 14px; border-radius: 7px; background: var(--accent);
+  color: #fff; border: none; font-size: 13px; font-weight: 500;
+  cursor: pointer; font-family: 'Figtree', sans-serif;
+  transition: background 0.15s; width: 100%; margin-top: 4px;
+}
+.btn-ref:hover { background: #235C42; }
+.ref-output { display: none; margin-top: 10px; }
+.ref-msg-box {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 7px; padding: 12px; font-size: 13px;
+  color: var(--text); line-height: 1.65; white-space: pre-wrap;
+  font-family: 'Figtree', sans-serif;
+}
+.ref-copy-btn {
+  margin-top: 6px; padding: 6px 12px; border-radius: 7px;
+  background: none; border: 1px solid var(--border2);
+  font-size: 12px; cursor: pointer; color: var(--text2);
+  font-family: 'Figtree', sans-serif; transition: background 0.15s;
+}
+.ref-copy-btn:hover { background: var(--surface2); }
+@media (max-width: 480px) { .ref-fields { grid-template-columns: 1fr; } .cert-grid { grid-template-columns: 1fr 1fr; } }
+
 /* ── TIPS ── */
 .tips-grid {
   display: grid;
@@ -652,65 +766,174 @@ footer a:hover { text-decoration: underline; }
     <!-- Metrics -->
     <div class="metrics-grid" id="metrics-grid"></div>
 
-    <!-- Issues -->
-    <div class="section-heading">📋 Issues & Recommendations</div>
-    <div id="issues-list"></div>
-
-    <!-- Skill gap heatmap -->
-    <div class="heatmap-section" id="heatmap-section">
-      <div class="section-heading">🔥 Skill Gap Heatmap</div>
-      <div class="heatmap-stat" id="heatmap-stat"></div>
-      <div class="heatmap-grid" id="heatmap-grid"></div>
-      <div class="heatmap-legend">
-        <span class="hm-cell match" style="padding:3px 10px;font-size:11px;">✓ Matched in resume</span>
-        <span class="hm-cell miss" style="padding:3px 10px;font-size:11px;">✗ Missing from resume</span>
+    <!-- Issues (collapsible) -->
+    <div class="collapsible-section" id="sec-issues">
+      <div class="collapse-header" onclick="toggleSection('sec-issues')">
+        <div class="section-heading">📋 Issues &amp; Recommendations</div>
+        <span class="collapse-toggle" id="tog-sec-issues">▲ collapse</span>
+      </div>
+      <div class="collapse-body" id="body-sec-issues">
+        <div id="issues-list"></div>
       </div>
     </div>
 
-    <!-- Keywords chips -->
-    <div class="kw-section" id="kw-section">
-      <div class="section-heading">🔑 Keyword Analysis</div>
-      <div class="chip-legend">
-        <span><span style="display:inline-block;width:7px;height:7px;background:var(--accent);border-radius:50%"></span> Found in resume</span>
-        <span><span style="display:inline-block;width:7px;height:7px;background:var(--danger);border-radius:50%"></span> Missing from resume</span>
+    <!-- Overused word detector (collapsible) -->
+    <div class="collapsible-section overused-section" id="sec-overused">
+      <div class="collapse-header" onclick="toggleSection('sec-overused')">
+        <div class="section-heading">🔁 Overused Words</div>
+        <span class="collapse-toggle" id="tog-sec-overused">▲ collapse</span>
       </div>
-      <div class="kw-chips" id="kw-chips"></div>
-    </div>
-
-    <!-- Animated keyword highlight -->
-    <div class="kw-highlight-section" id="kw-highlight-section">
-      <div class="section-heading">✨ Keyword Highlight View</div>
-      <div class="highlight-legend">
-        <span class="hl-pill found">✓ JD keyword found</span>
-        <span class="hl-pill missing">✗ JD keyword missing nearby</span>
+      <div class="collapse-body" id="body-sec-overused">
+        <div class="overused-list" id="overused-list"></div>
       </div>
-      <div class="kw-highlight-box" id="kw-highlight-box"></div>
     </div>
 
-
-    <!-- Tense consistency checker -->
-    <div class="tense-section" id="tense-section">
-      <div class="section-heading">🔤 Tense Consistency</div>
-      <div id="tense-list" class="tense-list"></div>
+    <!-- Certification spotlight (collapsible) -->
+    <div class="collapsible-section cert-section" id="sec-certs">
+      <div class="collapse-header" onclick="toggleSection('sec-certs')">
+        <div class="section-heading">🏆 Certifications Detected</div>
+        <span class="collapse-toggle" id="tog-sec-certs">▲ collapse</span>
+      </div>
+      <div class="collapse-body" id="body-sec-certs">
+        <div class="cert-grid" id="cert-grid"></div>
+      </div>
     </div>
 
-    <!-- Bullet point rewriter -->
-    <div class="rewriter-section">
-      <div class="section-heading">&#9998;&#65039; Bullet Point Rewriter</div>
-      <div class="rewriter-box">
-        <div class="rewriter-row">
-          <textarea class="rewriter-input" id="rewriter-input" placeholder="Paste a weak bullet point here..."></textarea>
-          <button class="btn-rewrite" onclick="rewriteBullet()">Rewrite &rarr;</button>
+    <!-- Skill gap heatmap (collapsible) -->
+    <div class="collapsible-section heatmap-section" id="sec-heatmap">
+      <div class="collapse-header" onclick="toggleSection('sec-heatmap')">
+        <div class="section-heading">🔥 Skill Gap Heatmap</div>
+        <span class="collapse-toggle" id="tog-sec-heatmap">▲ collapse</span>
+      </div>
+      <div class="collapse-body" id="body-sec-heatmap">
+        <div class="heatmap-stat" id="heatmap-stat"></div>
+        <div class="heatmap-grid" id="heatmap-grid"></div>
+        <div class="heatmap-legend">
+          <span class="hm-cell match" style="padding:3px 10px;font-size:11px;">✓ Matched in resume</span>
+          <span class="hm-cell miss" style="padding:3px 10px;font-size:11px;">✗ Missing from resume</span>
         </div>
-        <div class="rewriter-output" id="rewriter-output"></div>
       </div>
     </div>
 
-    <!-- Interview question generator -->
-    <div class="iq-section" id="iq-section">
-      <div class="section-heading">&#127908; Likely Interview Questions</div>
-      <p style="font-size:12px;color:var(--text2);margin-bottom:8px;">Based on your resume and JD &mdash; prepare answers to these before your interview.</p>
-      <div class="iq-list" id="iq-list"></div>
+    <!-- Keywords chips (collapsible) -->
+    <div class="collapsible-section kw-section" id="sec-kw">
+      <div class="collapse-header" onclick="toggleSection('sec-kw')">
+        <div class="section-heading">🔑 Keyword Analysis</div>
+        <span class="collapse-toggle" id="tog-sec-kw">▲ collapse</span>
+      </div>
+      <div class="collapse-body" id="body-sec-kw">
+        <div class="chip-legend">
+          <span><span style="display:inline-block;width:7px;height:7px;background:var(--accent);border-radius:50%"></span> Found in resume</span>
+          <span><span style="display:inline-block;width:7px;height:7px;background:var(--danger);border-radius:50%"></span> Missing from resume</span>
+        </div>
+        <div class="kw-chips" id="kw-chips"></div>
+      </div>
+    </div>
+
+    <!-- Animated keyword highlight (collapsible) -->
+    <div class="collapsible-section kw-highlight-section" id="sec-highlight">
+      <div class="collapse-header" onclick="toggleSection('sec-highlight')">
+        <div class="section-heading">✨ Keyword Highlight View</div>
+        <span class="collapse-toggle" id="tog-sec-highlight">▲ collapse</span>
+      </div>
+      <div class="collapse-body" id="body-sec-highlight">
+        <div class="highlight-legend">
+          <span class="hl-pill found">✓ JD keyword found</span>
+          <span class="hl-pill missing">✗ JD keyword missing nearby</span>
+        </div>
+        <div class="kw-highlight-box" id="kw-highlight-box"></div>
+      </div>
+    </div>
+
+    <!-- Tense checker (collapsible) -->
+    <div class="collapsible-section tense-section" id="sec-tense">
+      <div class="collapse-header" onclick="toggleSection('sec-tense')">
+        <div class="section-heading">🔤 Tense Consistency</div>
+        <span class="collapse-toggle" id="tog-sec-tense">▲ collapse</span>
+      </div>
+      <div class="collapse-body" id="body-sec-tense">
+        <div id="tense-list" class="tense-list"></div>
+      </div>
+    </div>
+
+    <!-- Salary estimator (collapsible) -->
+    <div class="collapsible-section salary-section" id="sec-salary">
+      <div class="collapse-header" onclick="toggleSection('sec-salary')">
+        <div class="section-heading">💰 Salary Range Estimator</div>
+        <span class="collapse-toggle" id="tog-sec-salary">▲ collapse</span>
+      </div>
+      <div class="collapse-body" id="body-sec-salary">
+        <div class="salary-box">
+          <div class="salary-row">
+            <select class="salary-select" id="salary-role">
+              <option value="">Select role...</option>
+              <option value="devops-junior">DevOps Engineer — Junior (0–3 yrs)</option>
+              <option value="devops-mid">DevOps Engineer — Mid (3–6 yrs)</option>
+              <option value="devops-senior">DevOps Engineer — Senior (6–10 yrs)</option>
+              <option value="sre-mid">SRE — Mid (3–6 yrs)</option>
+              <option value="sre-senior">SRE — Senior (6–10 yrs)</option>
+              <option value="platform-mid">Platform Engineer — Mid (3–6 yrs)</option>
+              <option value="platform-senior">Platform Engineer — Senior (6–10 yrs)</option>
+              <option value="platform-principal">Platform Engineer — Principal (10+ yrs)</option>
+              <option value="backend-mid">Backend Engineer — Mid (3–6 yrs)</option>
+              <option value="backend-senior">Backend Engineer — Senior (6–10 yrs)</option>
+              <option value="cloud-mid">Cloud Architect — Mid (5–8 yrs)</option>
+              <option value="cloud-senior">Cloud Architect — Senior (8+ yrs)</option>
+            </select>
+            <button class="btn-salary" onclick="showSalary()">Show range</button>
+          </div>
+          <div class="salary-result" id="salary-result"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bullet point rewriter (collapsible) -->
+    <div class="collapsible-section rewriter-section" id="sec-rewriter">
+      <div class="collapse-header" onclick="toggleSection('sec-rewriter')">
+        <div class="section-heading">✍️ Bullet Point Rewriter</div>
+        <span class="collapse-toggle" id="tog-sec-rewriter">▲ collapse</span>
+      </div>
+      <div class="collapse-body" id="body-sec-rewriter">
+        <div class="rewriter-box">
+          <div class="rewriter-row">
+            <textarea class="rewriter-input" id="rewriter-input" placeholder="Paste a weak bullet point here..."></textarea>
+            <button class="btn-rewrite" onclick="rewriteBullet()">Rewrite →</button>
+          </div>
+          <div class="rewriter-output" id="rewriter-output"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interview questions (collapsible) -->
+    <div class="collapsible-section iq-section" id="sec-iq">
+      <div class="collapse-header" onclick="toggleSection('sec-iq')">
+        <div class="section-heading">🎤 Likely Interview Questions</div>
+        <span class="collapse-toggle" id="tog-sec-iq">▲ collapse</span>
+      </div>
+      <div class="collapse-body" id="body-sec-iq">
+        <p style="font-size:12px;color:var(--text2);margin-bottom:8px;">Based on your resume and JD — prepare answers before your interview.</p>
+        <div class="iq-list" id="iq-list"></div>
+      </div>
+    </div>
+
+    <!-- Referral message generator (always shown in results) -->
+    <div class="collapsible-section referral-section" id="sec-referral">
+      <div class="collapse-header" onclick="toggleSection('sec-referral')">
+        <div class="section-heading">📨 Referral Message Generator</div>
+        <span class="collapse-toggle" id="tog-sec-referral">▲ collapse</span>
+      </div>
+      <div class="collapse-body" id="body-sec-referral">
+        <div class="referral-box">
+          <div class="ref-fields">
+            <input class="ref-input" id="ref-contact" placeholder="Contact's name (e.g. Rahul)">
+            <input class="ref-input" id="ref-company" placeholder="Company (e.g. Razorpay)">
+            <input class="ref-input" id="ref-role" placeholder="Role (e.g. Platform Engineer)">
+            <input class="ref-input" id="ref-your-name" placeholder="Your name">
+          </div>
+          <button class="btn-ref" onclick="generateReferral()">Generate message →</button>
+          <div class="ref-output" id="ref-output"></div>
+        </div>
+      </div>
     </div>
 
     <!-- AI coming soon -->
@@ -1068,7 +1291,7 @@ function renderResults(s) {
 
   /* Skill gap heatmap */
   if (s.hasJD && (s.foundKws.length || s.missingKws.length)) {
-    document.getElementById('heatmap-section').style.display = '';
+    document.getElementById('sec-heatmap').style.display = '';
     const total = s.foundKws.length + s.missingKws.length;
     const pct = Math.round((s.foundKws.length / Math.max(total, 1)) * 100);
     document.getElementById('heatmap-stat').innerHTML =
@@ -1083,30 +1306,42 @@ function renderResults(s) {
         ${k}
       </div>`).join('');
   } else {
-    document.getElementById('heatmap-section').style.display = 'none';
+    document.getElementById('sec-heatmap').style.display = 'none';
   }
 
   /* Keyword chips */
   if (s.hasJD && (s.foundKws.length || s.missingKws.length)) {
-    document.getElementById('kw-section').style.display = '';
+    document.getElementById('sec-kw').style.display = '';
     document.getElementById('kw-chips').innerHTML = [
       ...s.foundKws.slice(0, 25).map(k => `<span class="chip found">✓ ${k}</span>`),
       ...s.missingKws.map(k => `<span class="chip missing">✗ ${k}</span>`)
     ].join('');
   } else {
-    document.getElementById('kw-section').style.display = 'none';
+    document.getElementById('sec-kw').style.display = 'none';
   }
 
   /* Animated keyword highlight */
   if (s.hasJD && s.foundKws.length) {
-    document.getElementById('kw-highlight-section').style.display = '';
+    document.getElementById('sec-highlight').style.display = '';
     renderHighlight(resumeText, s.foundKws, s.missingKws);
   } else {
-    document.getElementById('kw-highlight-section').style.display = 'none';
+    document.getElementById('sec-highlight').style.display = 'none';
   }
 
   /* Tense checker */
   renderTenseCheck(resumeText);
+
+  /* Overused word detector */
+  renderOverusedWords(resumeText);
+
+  /* Certification spotlight */
+  renderCertifications(resumeText);
+
+  /* Salary section — always show */
+  document.getElementById('sec-salary').style.display = '';
+
+  /* Referral section — always show */
+  document.getElementById('sec-referral').style.display = '';
 
   /* Interview questions */
   generateInterviewQuestions(resumeText, jdText);
@@ -1210,7 +1445,7 @@ function checkTense(text) {
 
 function renderTenseCheck(text) {
   const result = checkTense(text);
-  const section = document.getElementById('tense-section');
+  const section = document.getElementById('sec-tense');
   const list = document.getElementById('tense-list');
 
   if (!result.hasMix) { section.style.display = 'none'; return; }
@@ -1319,7 +1554,7 @@ const IQ_BANK = {
 function generateInterviewQuestions(text, jd) {
   const lower = text.toLowerCase();
   const jdLower = jd ? jd.toLowerCase() : '';
-  const section = document.getElementById('iq-section');
+  const section = document.getElementById('sec-iq');
   const list = document.getElementById('iq-list');
 
   const questions = [];
@@ -1353,6 +1588,197 @@ function generateInterviewQuestions(text, jd) {
     </div>`).join('');
 }
 
+
+/* ── COLLAPSIBLE SECTIONS ── */
+function toggleSection(id) {
+  const body = document.getElementById('body-' + id);
+  const tog  = document.getElementById('tog-' + id);
+  if (!body) return;
+  const closed = body.classList.toggle('closed');
+  if (tog) tog.textContent = closed ? '▼ expand' : '▲ collapse';
+}
+
+/* ── OVERUSED WORD DETECTOR ── */
+const OVERUSED_WORDS = [
+  { word: 'responsible for', alts: ['Led', 'Owned', 'Delivered', 'Managed'] },
+  { word: 'worked on', alts: ['Built', 'Developed', 'Engineered', 'Implemented'] },
+  { word: 'helped with', alts: ['Supported', 'Enabled', 'Facilitated', 'Collaborated on'] },
+  { word: 'assisted with', alts: ['Contributed to', 'Supported', 'Co-developed'] },
+  { word: 'involved in', alts: ['Participated in', 'Contributed to', 'Part of'] },
+  { word: 'team player', alts: ['Collaborative', 'Cross-functional contributor'] },
+  { word: 'detail-oriented', alts: ['Precise', 'Thorough', 'Meticulous'] },
+  { word: 'hard worker', alts: ['Results-driven', 'Delivery-focused'] },
+  { word: 'good communication', alts: ['Clear communicator', 'Effective cross-team communicator'] },
+  { word: 'passionate about', alts: ['Focused on', 'Specializing in', 'Experienced in'] },
+  { word: 'dynamic', alts: ['Adaptable', 'Versatile'] },
+  { word: 'synergy', alts: ['Collaboration', 'Alignment'] },
+  { word: 'leverage', alts: ['Use', 'Apply', 'Utilize'] },
+  { word: 'proactive', alts: ['Initiative-driven', 'Self-directed'] },
+  { word: 'go-to person', alts: ['Subject-matter expert', 'Technical lead'] },
+];
+
+function detectOverusedWords(text) {
+  const lower = text.toLowerCase();
+  const found = [];
+  OVERUSED_WORDS.forEach(({ word, alts }) => {
+    const re = new RegExp(word.replace(/[-\/\^$*+?.()|[\]{}]/g, '\$&'), 'gi');
+    const matches = lower.match(re) || [];
+    if (matches.length > 0) found.push({ word, count: matches.length, alts, pct: Math.min(100, matches.length * 25) });
+  });
+  return found.sort((a, b) => b.count - a.count);
+}
+
+function renderOverusedWords(text) {
+  const found = detectOverusedWords(text);
+  const sec = document.getElementById('sec-overused');
+  if (!found.length) { sec.style.display = 'none'; return; }
+  sec.style.display = '';
+  const list = document.getElementById('overused-list');
+  list.innerHTML = found.map(f => `
+    <div class="overused-item">
+      <div style="flex:1;min-width:0;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span class="overused-word">"${f.word}"</span>
+          <span class="overused-count">×${f.count}</span>
+          <div class="overused-bar-wrap"><div class="overused-bar" style="width:0%" data-pct="${f.pct}"></div></div>
+        </div>
+        <div class="overused-alt">✦ Try instead: ${f.alts.join(' · ')}</div>
+      </div>
+    </div>`).join('') +
+    `<div class="overused-summary">Replace these phrases with specific action verbs and measurable outcomes for stronger ATS signal and recruiter impact.</div>`;
+  setTimeout(() => {
+    list.querySelectorAll('.overused-bar').forEach(el => { el.style.width = el.dataset.pct + '%'; });
+  }, 100);
+}
+
+/* ── CERTIFICATION SPOTLIGHT ── */
+const CERT_PATTERNS = [
+  { pattern: /CKA/i, name: 'CKA', full: 'Certified Kubernetes Administrator', icon: '☸️' },
+  { pattern: /CKS/i, name: 'CKS', full: 'Certified Kubernetes Security', icon: '🔒' },
+  { pattern: /CKAD/i, name: 'CKAD', full: 'Certified Kubernetes App Developer', icon: '☸️' },
+  { pattern: /AWS.{0,10}(SAA|Solutions Architect|Developer|SysOps|DevOps)/i, name: 'AWS Cert', full: 'AWS Certification', icon: '☁️' },
+  { pattern: /AWS\s+Certified/i, name: 'AWS Certified', full: 'AWS Certification', icon: '☁️' },
+  { pattern: /GCP.*certif|Google\s+Certified/i, name: 'GCP Cert', full: 'Google Cloud Certification', icon: '☁️' },
+  { pattern: /AZ-\d{3}/i, name: 'Azure Cert', full: 'Microsoft Azure Certification', icon: '☁️' },
+  { pattern: /Terraform\s+Associate/i, name: 'Terraform Assoc.', full: 'HashiCorp Terraform Associate', icon: '🏗️' },
+  { pattern: /PMP/i, name: 'PMP', full: 'Project Management Professional', icon: '📋' },
+  { pattern: /CCNA|CCNP/i, name: 'Cisco Cert', full: 'Cisco Network Certification', icon: '🌐' },
+  { pattern: /Linux\s+Foundation\s+Certified/i, name: 'LF Cert', full: 'Linux Foundation Certification', icon: '🐧' },
+  { pattern: /RHCE|RHCSA/i, name: 'Red Hat Cert', full: 'Red Hat Certification', icon: '🎩' },
+  { pattern: /SAFe/i, name: 'SAFe', full: 'Scaled Agile Framework', icon: '🔄' },
+  { pattern: /CISSP/i, name: 'CISSP', full: 'Certified Info Systems Security', icon: '🔐' },
+];
+
+function detectCertifications(text) {
+  const found = [];
+  const seen = new Set();
+  CERT_PATTERNS.forEach(c => {
+    if (c.pattern.test(text) && !seen.has(c.name)) {
+      found.push(c);
+      seen.add(c.name);
+    }
+  });
+  return found;
+}
+
+function renderCertifications(text) {
+  const certs = detectCertifications(text);
+  const sec = document.getElementById('sec-certs');
+  if (!certs.length) { sec.style.display = 'none'; return; }
+  sec.style.display = '';
+  document.getElementById('cert-grid').innerHTML = certs.map(c => `
+    <div class="cert-card">
+      <div class="cert-icon">${c.icon}</div>
+      <div><div class="cert-name">${c.name}</div><div class="cert-body">${c.full}</div></div>
+    </div>`).join('');
+}
+
+/* ── SALARY RANGE ESTIMATOR ── */
+const SALARY_DATA = {
+  'devops-junior':      { min: 5, max: 10,  median: 7,  note: 'Entry-level DevOps. Docker + Linux proficiency is baseline.', tags: ['₹5–10L/yr', 'Bengaluru/Hyderabad', 'Service companies'] },
+  'devops-mid':         { min: 12, max: 22, median: 16, note: 'Kubernetes + CI/CD experience expected. Certifications add ₹2–4L.', tags: ['₹12–22L/yr', 'Product + MNC', 'CKA preferred'] },
+  'devops-senior':      { min: 22, max: 38, median: 28, note: 'Architecture experience + mentoring. GCP/AWS depth required.', tags: ['₹22–38L/yr', 'Tech companies', '6–10 yrs exp'] },
+  'sre-mid':            { min: 14, max: 24, median: 18, note: 'Observability + SLO/SLI knowledge is a must. Python/Go scripting valued.', tags: ['₹14–24L/yr', 'Product companies', 'On-call readiness'] },
+  'sre-senior':         { min: 24, max: 42, median: 32, note: 'Incident management ownership. Chaos engineering experience is a differentiator.', tags: ['₹24–42L/yr', 'Scale-ups/MNCs', '6–10 yrs'] },
+  'platform-mid':       { min: 16, max: 28, median: 20, note: 'Internal developer platform experience. Backstage/Crossplane knowledge valued.', tags: ['₹16–28L/yr', 'Product tech', 'IDP tooling'] },
+  'platform-senior':    { min: 26, max: 45, median: 34, note: 'Platform strategy ownership. Terraform + Kubernetes mastery expected.', tags: ['₹26–45L/yr', 'Series B+ startups', 'CKA + IaC'] },
+  'platform-principal': { min: 40, max: 70, median: 52, note: 'Technical leadership + cross-org influence. Less than 8% of Platform Engineers in India reach this level.', tags: ['₹40–70L/yr', 'Top MNCs/Unicorns', '10+ yrs'] },
+  'backend-mid':        { min: 14, max: 26, median: 18, note: 'Language depth (Go/Python/Java) + system design basics. Cloud exposure adds 10–15%.', tags: ['₹14–26L/yr', 'Startups + MNCs', '3–6 yrs'] },
+  'backend-senior':     { min: 24, max: 42, median: 30, note: 'Distributed systems + performance optimization experience expected.', tags: ['₹24–42L/yr', 'Product companies', '6–10 yrs'] },
+  'cloud-mid':          { min: 18, max: 32, median: 24, note: 'Multi-cloud design experience. AWS/GCP certs add 15–20% to offers.', tags: ['₹18–32L/yr', 'Consulting + MNC', 'Cloud certs'] },
+  'cloud-senior':       { min: 30, max: 55, median: 40, note: 'Enterprise architecture ownership. FinOps and security posture expertise valued.', tags: ['₹30–55L/yr', 'MNCs + Big4', '8+ yrs'] },
+};
+
+function showSalary() {
+  const role = document.getElementById('salary-role').value;
+  const result = document.getElementById('salary-result');
+  if (!role) { result.style.display = 'none'; return; }
+  const d = SALARY_DATA[role];
+  if (!d) return;
+  result.style.display = 'block';
+  result.innerHTML = `
+    <div class="salary-band">
+      <div>
+        <div class="salary-range">₹${d.min}–${d.max}L <span style="font-size:13px;font-weight:400;color:var(--accent)">/ year</span></div>
+        <div class="salary-label">Median: ₹${d.median}L · India market (2024–25)</div>
+      </div>
+    </div>
+    <div class="salary-factors">${d.tags.map(t => `<span class="salary-tag">${t}</span>`).join('')}</div>
+    <div class="salary-note" style="margin-top:8px;">💡 ${d.note}</div>`;
+}
+
+/* ── REFERRAL MESSAGE GENERATOR ── */
+function generateReferral() {
+  const contact  = document.getElementById('ref-contact').value.trim() || 'Hi';
+  const company  = document.getElementById('ref-company').value.trim() || 'your company';
+  const role     = document.getElementById('ref-role').value.trim() || 'the open role';
+  const yourName = document.getElementById('ref-your-name').value.trim() || 'I';
+
+  // Detect top skills from resume
+  const skills = [];
+  const lower = resumeText.toLowerCase();
+  if (/kubernetes|k8s/.test(lower)) skills.push('Kubernetes');
+  if (/terraform/.test(lower)) skills.push('Terraform');
+  if (/aws|gcp|azure/.test(lower)) skills.push('cloud infrastructure');
+  if (/python/.test(lower)) skills.push('Python');
+  if (/docker/.test(lower)) skills.push('Docker');
+  if (/ci.?cd|jenkins|github.actions/.test(lower)) skills.push('CI/CD');
+  const skillStr = skills.length ? skills.slice(0, 3).join(', ') : 'DevOps and cloud infrastructure';
+
+  const yrsMatch = resumeText.match(/(\d{4})/g);
+  const currentYear = new Date().getFullYear();
+  const years = yrsMatch ? Math.min(currentYear - Math.min(...yrsMatch.map(Number).filter(y => y > 1990 && y <= currentYear)), 20) : null;
+  const expStr = years && years > 1 ? `${years}+ years of experience` : 'strong hands-on experience';
+
+  const msg = `Hi ${contact},
+
+I hope you're doing well! I came across the ${role} opening at ${company} and believe I'd be a strong fit.
+
+I have ${expStr} in ${skillStr}, with a track record of delivering production-grade infrastructure and platform solutions.
+
+I'd really appreciate it if you could refer me for this position or point me to the right person on the team. I've attached my resume for your reference.
+
+Happy to share more details — thank you so much for your time!
+
+Warm regards,
+${yourName}`;
+
+  const out = document.getElementById('ref-output');
+  out.style.display = 'block';
+  out.innerHTML = `
+    <div class="ref-msg-box" id="ref-msg-text">${msg}</div>
+    <button class="ref-copy-btn" onclick="copyReferral()">📋 Copy message</button>`;
+}
+
+function copyReferral() {
+  const el = document.getElementById('ref-msg-text');
+  const text = el ? el.textContent : '';
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.ref-copy-btn');
+    if (btn) { btn.textContent = '✓ Copied!'; setTimeout(() => btn.textContent = '📋 Copy message', 1800); }
+  });
+}
+
 /* ── RESET ── */
 function reset() {
   resumeText = ''; jdText = ''; lastScores = null;
@@ -1361,13 +1787,23 @@ function reset() {
   document.getElementById('file-input').value = '';
   document.getElementById('file-selected').style.display = 'none';
   document.getElementById('file-name-text').textContent = '';
-  document.getElementById('kw-section').style.display = 'none';
-  document.getElementById('heatmap-section').style.display = 'none';
-  document.getElementById('kw-highlight-section').style.display = 'none';
-  document.getElementById('tense-section').style.display = 'none';
-  document.getElementById('iq-section').style.display = 'none';
+  ['sec-kw','sec-heatmap','sec-highlight','sec-tense','sec-overused','sec-certs','sec-salary','sec-referral','sec-iq'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+    const body = document.getElementById('body-' + id);
+    if (body) body.classList.remove('closed');
+    const tog = document.getElementById('tog-' + id);
+    if (tog) tog.textContent = '▲ collapse';
+  });
   document.getElementById('rewriter-output').style.display = 'none';
   document.getElementById('rewriter-input').value = '';
+  document.getElementById('ref-output').style.display = 'none';
+  document.getElementById('ref-contact').value = '';
+  document.getElementById('ref-company').value = '';
+  document.getElementById('ref-role').value = '';
+  document.getElementById('ref-your-name').value = '';
+  document.getElementById('salary-result').style.display = 'none';
+  document.getElementById('salary-role').value = '';
   document.getElementById('file-warning').classList.remove('show');
   document.getElementById('results-section').style.display = 'none';
   document.getElementById('input-section').style.display = '';
