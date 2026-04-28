@@ -7,7 +7,7 @@
 ![No backend](https://img.shields.io/badge/backend-none-blue?style=flat-square)
 ![GitHub Pages](https://img.shields.io/badge/deploy-GitHub%20Pages-black?style=flat-square)
 
-🔗 **Live demo:** [eknathareddyp.github.io/resumelytics](https://eknathareddyp.github.io/resumelytics/)
+🔗 **Live demo:** [eknatha.github.io/resumelytics](https://eknatha.github.io/resumelytics/)
 
 ---
 
