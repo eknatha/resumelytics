@@ -32,6 +32,26 @@
   --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
 }
 
+body.dark {
+  --bg: #111110;
+  --surface: #1C1B1A;
+  --surface2: #242322;
+  --border: #2E2D2B;
+  --border2: #3A3937;
+  --text: #F0EDE8;
+  --text2: #A09890;
+  --text3: #6B6560;
+  --accent: #4ABA80;
+  --accent-light: #0E2E1E;
+  --danger: #E05C4B;
+  --danger-light: #2C1210;
+  --info: #5B9BD5;
+  --info-light: #0D1F33;
+  --warn: #D4A040;
+  --warn-light: #2A1E08;
+  --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2);
+}
+
 body {
   font-family: 'Figtree', sans-serif;
   background: var(--bg);
@@ -410,6 +430,55 @@ textarea::placeholder { color: var(--text3); }
 .heatmap-stat { font-size: 12px; color: var(--text2); display: flex; align-items: center; gap: 5px; }
 .heatmap-stat strong { font-weight: 600; }
 
+/* ── DARK TOGGLE ── */
+.dark-toggle {
+  background: none; border: 1px solid var(--border2);
+  border-radius: 20px; padding: 4px 10px;
+  font-size: 12px; font-weight: 500; color: var(--text2);
+  cursor: pointer; font-family: 'Figtree', sans-serif;
+  display: flex; align-items: center; gap: 5px;
+  transition: background 0.15s, color 0.15s;
+  -webkit-tap-highlight-color: transparent; flex-shrink: 0;
+}
+.dark-toggle:hover { background: var(--surface2); color: var(--text); }
+
+/* ── FILE SIZE WARNING ── */
+.file-warning {
+  display: none; margin-top: 8px; padding: 7px 10px; border-radius: 7px;
+  background: var(--warn-light); color: var(--warn);
+  font-size: 12px; gap: 6px; align-items: flex-start; line-height: 1.5;
+}
+.file-warning.show { display: flex; }
+
+/* ── TENSE CHECKER ── */
+.tense-section { margin-top: 1.4rem; display: none; }
+.tense-list { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; }
+.tense-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 12px; font-size: 12px; line-height: 1.55; }
+.tense-item .tense-bad { color: var(--danger); font-weight: 500; }
+.tense-item .tense-fix { color: var(--accent); font-size: 11px; margin-top: 3px; }
+.tense-summary { font-size: 12px; color: var(--text2); padding: 6px 10px; background: var(--warn-light); border-radius: 6px; margin-top: 8px; }
+
+/* ── BULLET REWRITER ── */
+.rewriter-section { margin-top: 1.4rem; }
+.rewriter-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-top: 8px; }
+.rewriter-row { display: flex; gap: 8px; align-items: flex-start; flex-wrap: wrap; }
+.rewriter-input { flex: 1; min-width: 200px; border: 1px solid var(--border); border-radius: 7px; padding: 8px 10px; font-size: 13px; font-family: 'DM Mono', monospace; color: var(--text); background: var(--surface2); resize: none; min-height: 60px; line-height: 1.5; transition: border-color 0.15s; }
+.rewriter-input:focus { outline: none; border-color: var(--accent); background: var(--surface); }
+.rewriter-input::placeholder { color: var(--text3); }
+.btn-rewrite { padding: 8px 14px; border-radius: 7px; background: var(--accent); color: #fff; border: none; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'Figtree', sans-serif; white-space: nowrap; transition: background 0.15s; -webkit-tap-highlight-color: transparent; }
+.btn-rewrite:hover { background: #235C42; }
+.rewriter-output { margin-top: 10px; display: none; }
+.rewritten-bullet { background: var(--accent-light); color: var(--accent); border-radius: 7px; padding: 10px 12px; font-size: 13px; line-height: 1.6; font-family: 'DM Mono', monospace; margin-bottom: 6px; cursor: pointer; border: 1px solid transparent; transition: border-color 0.15s; }
+.rewritten-bullet:hover { border-color: var(--accent); }
+.rewriter-hint { font-size: 11px; color: var(--text3); margin-top: 4px; }
+
+/* ── INTERVIEW QUESTIONS ── */
+.iq-section { margin-top: 1.4rem; display: none; }
+.iq-list { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; }
+.iq-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: var(--radius); padding: 10px 13px; font-size: 13px; color: var(--text); line-height: 1.5; }
+.iq-cat { font-size: 10px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 3px; }
+.iq-tip { font-size: 11px; color: var(--text3); margin-top: 4px; font-style: italic; }
+
 /* ── AI COMING SOON ── */
 .ai-coming-soon {
   display: flex; gap: 12px; align-items: flex-start;
@@ -486,7 +555,10 @@ footer a:hover { text-decoration: underline; }
     <div class="logo-dot"></div>
     resumelytics
   </a>
-  <span class="header-badge">100% Free · No Signup</span>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <button class="dark-toggle" id="dark-toggle" onclick="toggleDark()" title="Toggle dark mode">🌙 Dark</button>
+    <span class="header-badge">100% Free · No Signup</span>
+  </div>
 </header>
 
 <section class="hero">
@@ -530,6 +602,7 @@ footer a:hover { text-decoration: underline; }
           </div>
         </div>
         <div class="file-selected" id="file-selected">✓ <span id="file-name-text"></span></div>
+        <div class="file-warning" id="file-warning">⚠️ <span id="file-warning-text"></span></div>
       </div>
 
       <div id="tab-paste" style="display:none">
@@ -614,6 +687,32 @@ footer a:hover { text-decoration: underline; }
       <div class="kw-highlight-box" id="kw-highlight-box"></div>
     </div>
 
+
+    <!-- Tense consistency checker -->
+    <div class="tense-section" id="tense-section">
+      <div class="section-heading">🔤 Tense Consistency</div>
+      <div id="tense-list" class="tense-list"></div>
+    </div>
+
+    <!-- Bullet point rewriter -->
+    <div class="rewriter-section">
+      <div class="section-heading">&#9998;&#65039; Bullet Point Rewriter</div>
+      <div class="rewriter-box">
+        <div class="rewriter-row">
+          <textarea class="rewriter-input" id="rewriter-input" placeholder="Paste a weak bullet point here..."></textarea>
+          <button class="btn-rewrite" onclick="rewriteBullet()">Rewrite &rarr;</button>
+        </div>
+        <div class="rewriter-output" id="rewriter-output"></div>
+      </div>
+    </div>
+
+    <!-- Interview question generator -->
+    <div class="iq-section" id="iq-section">
+      <div class="section-heading">&#127908; Likely Interview Questions</div>
+      <p style="font-size:12px;color:var(--text2);margin-bottom:8px;">Based on your resume and JD &mdash; prepare answers to these before your interview.</p>
+      <div class="iq-list" id="iq-list"></div>
+    </div>
+
     <!-- AI coming soon -->
     <div class="section-heading" style="margin-top:1.75rem">✦ Deep AI Analysis</div>
     <div class="ai-coming-soon">
@@ -680,6 +779,7 @@ async function handleFile(input) {
   const ext = file.name.split('.').pop().toLowerCase();
   document.getElementById('file-name-text').textContent = file.name;
   document.getElementById('file-selected').style.display = 'block';
+  checkFileSize(file);
   try {
     if (ext === 'txt') {
       resumeText = await file.text();
@@ -1004,6 +1104,12 @@ function renderResults(s) {
   } else {
     document.getElementById('kw-highlight-section').style.display = 'none';
   }
+
+  /* Tense checker */
+  renderTenseCheck(resumeText);
+
+  /* Interview questions */
+  generateInterviewQuestions(resumeText, jdText);
 }
 
 /* ── ANIMATED KEYWORD HIGHLIGHT ── */
@@ -1048,6 +1154,205 @@ function renderHighlight(text, foundKws, missingKws) {
   }
 }
 
+
+/* ── DARK MODE ── */
+(function(){
+  const saved = localStorage.getItem('rl-dark');
+  if (saved === '1' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.body.classList.add('dark');
+  }
+})();
+function toggleDark() {
+  const isDark = document.body.classList.toggle('dark');
+  localStorage.setItem('rl-dark', isDark ? '1' : '0');
+  const btn = document.getElementById('dark-toggle');
+  btn.textContent = isDark ? '☀️ Light' : '🌙 Dark';
+}
+(function(){
+  const btn = document.getElementById('dark-toggle');
+  if (btn && document.body.classList.contains('dark')) btn.textContent = '☀️ Light';
+})();
+
+/* ── FILE SIZE CHECK ── */
+function checkFileSize(file) {
+  const warn = document.getElementById('file-warning');
+  const warnText = document.getElementById('file-warning-text');
+  const sizeMB = (file.size / (1024*1024)).toFixed(2);
+  if (file.size > 2 * 1024 * 1024) {
+    warnText.textContent = `File is ${sizeMB}MB — resumes over 2MB often fail ATS upload portals. Compress or remove embedded images.`;
+    warn.classList.add('show');
+  } else if (file.size > 1 * 1024 * 1024) {
+    warnText.textContent = `File is ${sizeMB}MB — slightly large. Consider optimising to under 1MB for best ATS compatibility.`;
+    warn.classList.add('show');
+  } else {
+    warn.classList.remove('show');
+  }
+}
+
+/* ── TENSE CHECKER ── */
+const PAST_VERBS = ['led','built','designed','developed','implemented','managed','created','deployed','reduced','improved','increased','delivered','established','launched','scaled','migrated','integrated','maintained','configured','monitored','resolved','streamlined','engineered','coordinated','spearheaded','oversaw','mentored','trained','analyzed','automated','optimized','architected'];
+const PRESENT_VERBS = ['lead','build','design','develop','implement','manage','create','deploy','reduce','improve','increase','deliver','establish','launch','scale','migrate','integrate','maintain','configure','monitor','resolve','streamline','engineer','coordinate','spearhead','oversee','mentor','train','analyze','automate','optimize','architect'];
+
+function checkTense(text) {
+  const lines = text.split(/[.\n]/);
+  const issues = [];
+  const pastFound = [], presentFound = [];
+
+  lines.forEach(line => {
+    const l = line.trim().toLowerCase();
+    if (!l) return;
+    PAST_VERBS.forEach(v => { if (new RegExp('\\b' + v + '\\b').test(l)) pastFound.push({verb: v, line: line.trim().slice(0,80)}); });
+    PRESENT_VERBS.forEach(v => { if (new RegExp('\\b' + v + 's?\\b').test(l)) presentFound.push({verb: v, line: line.trim().slice(0,80)}); });
+  });
+
+  return { pastFound: pastFound.slice(0,5), presentFound: presentFound.slice(0,3), hasMix: pastFound.length > 0 && presentFound.length > 0 };
+}
+
+function renderTenseCheck(text) {
+  const result = checkTense(text);
+  const section = document.getElementById('tense-section');
+  const list = document.getElementById('tense-list');
+
+  if (!result.hasMix) { section.style.display = 'none'; return; }
+  section.style.display = '';
+  let html = '';
+  result.presentFound.forEach(p => {
+    html += `<div class="tense-item"><span class="tense-bad">Present tense detected: "${p.verb}"</span><br><span style="color:var(--text2)">"${p.line}..."</span><div class="tense-fix">✓ Fix: Use past tense for previous roles — change to past tense equivalent if this refers to a past position.</div></div>`;
+  });
+  if (result.hasMix) {
+    html += `<div class="tense-summary">⚠️ Mixed tenses detected. Use <strong>past tense</strong> for previous roles, <strong>present tense</strong> only for your current job.</div>`;
+  }
+  list.innerHTML = html;
+}
+
+/* ── BULLET REWRITER ── */
+const WEAK_PHRASES = [
+  { pattern: /responsible for/gi, label: 'responsible for' },
+  { pattern: /worked on/gi, label: 'worked on' },
+  { pattern: /helped (with|to)/gi, label: 'helped with' },
+  { pattern: /assisted (with|in)/gi, label: 'assisted with' },
+  { pattern: /involved in/gi, label: 'involved in' },
+  { pattern: /participated in/gi, label: 'participated in' },
+];
+
+const REWRITE_TEMPLATES = [
+  (verb, obj) => `${verb} ${obj}, resulting in measurable improvement to team productivity and delivery timelines.`,
+  (verb, obj) => `${verb} and optimized ${obj}, reducing manual effort by 30–40% through automation and process improvement.`,
+  (verb, obj) => `${verb} ${obj} from scratch, collaborating cross-functionally to deliver on schedule and within scope.`,
+  (verb, obj) => `${verb} ${obj} and established best practices adopted by the wider engineering team.`,
+];
+
+const STRONG_VERBS_MAP = {
+  'build': 'Built', 'develop': 'Developed', 'manage': 'Managed', 'create': 'Created',
+  'design': 'Designed', 'implement': 'Implemented', 'deploy': 'Deployed', 'lead': 'Led',
+  'work': 'Delivered', 'help': 'Supported', 'assist': 'Facilitated', 'involve': 'Contributed to',
+  'participate': 'Collaborated on',
+};
+
+function rewriteBullet() {
+  const input = document.getElementById('rewriter-input').value.trim();
+  if (!input || input.length < 10) { alert('Please paste a bullet point to rewrite.'); return; }
+
+  const lower = input.toLowerCase();
+  let cleanInput = input;
+  WEAK_PHRASES.forEach(p => { cleanInput = cleanInput.replace(p.pattern, ''); });
+  cleanInput = cleanInput.replace(/^[-•·*]\s*/, '').trim();
+
+  // Detect object/subject of the bullet
+  const words = cleanInput.split(' ').filter(w => w.length > 2);
+  const firstNoun = words.slice(0, 3).join(' ') || 'the project';
+
+  // Pick a strong verb
+  let strongVerb = 'Delivered';
+  Object.entries(STRONG_VERBS_MAP).forEach(([weak, strong]) => {
+    if (lower.includes(weak)) strongVerb = strong;
+  });
+
+  // Generate 3 rewrites
+  const rewrites = REWRITE_TEMPLATES.map(fn => fn(strongVerb, firstNoun));
+
+  const out = document.getElementById('rewriter-output');
+  out.style.display = 'block';
+  out.innerHTML = `<div style="font-size:11px;color:var(--text3);margin-bottom:6px;font-weight:500;">CLICK ANY VERSION TO COPY ↓</div>` +
+    rewrites.map(r => `<div class="rewritten-bullet" onclick="copyText(this, '${r.replace(/'/g,"\\'")}')">✦ ${r}</div>`).join('') +
+    `<div class="rewriter-hint">These are templates — add your specific numbers, tools, and outcomes for maximum impact.</div>`;
+}
+
+function copyText(el, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = el.textContent;
+    el.textContent = '✓ Copied!';
+    setTimeout(() => { el.textContent = orig; }, 1500);
+  }).catch(() => {
+    el.textContent = '✓ Select & copy manually';
+  });
+}
+
+/* ── INTERVIEW QUESTION GENERATOR ── */
+const IQ_BANK = {
+  experience: [
+    { q: "Walk me through your most technically challenging project.", tip: "Use STAR format: Situation, Task, Action, Result." },
+    { q: "Tell me about a time you had to learn a new technology quickly under pressure.", tip: "Show adaptability — mention what you learned and how fast." },
+    { q: "Describe a production incident you resolved. What was your approach?", tip: "Mention monitoring, RCA process, and what you changed afterward." },
+  ],
+  devops: [
+    { q: "How have you implemented CI/CD pipelines? What tools did you use?", tip: "Mention the full pipeline: code → build → test → deploy → monitor." },
+    { q: "How do you approach infrastructure as code? Walk me through your Terraform workflow.", tip: "Cover state management, modules, and drift detection." },
+    { q: "Describe how you've managed Kubernetes clusters at scale.", tip: "Cover: resource limits, HPA, node pools, RBAC, and observability." },
+  ],
+  leadership: [
+    { q: "Tell me about a time you disagreed with a technical decision. How did you handle it?", tip: "Show you can advocate firmly but collaborate respectfully." },
+    { q: "How do you mentor junior engineers or share knowledge with your team?", tip: "Mention: code reviews, documentation, pairing sessions, runbooks." },
+    { q: "Describe a situation where you had to balance technical debt vs feature delivery.", tip: "Show pragmatism — not perfectionism, not cowboy coding." },
+  ],
+  behavioral: [
+    { q: "Why are you leaving your current role?", tip: "Keep it professional — focus on growth, not frustration." },
+    { q: "Where do you see yourself in 3 years?", tip: "Align your answer with the role level (Senior → Principal → Architect)." },
+    { q: "What makes you the right fit for this specific role?", tip: "Connect your top 3 skills directly to their job description keywords." },
+  ],
+  cloud: [
+    { q: "Compare your experience with AWS vs GCP vs Azure. Where are you strongest?", tip: "Be honest about gaps — show willingness to learn the missing one." },
+    { q: "How do you approach cloud cost optimization?", tip: "Mention: right-sizing, reserved instances, spot/preemptible, cost alerts." },
+  ],
+};
+
+function generateInterviewQuestions(text, jd) {
+  const lower = text.toLowerCase();
+  const jdLower = jd ? jd.toLowerCase() : '';
+  const section = document.getElementById('iq-section');
+  const list = document.getElementById('iq-list');
+
+  const questions = [];
+
+  // Always add experience + behavioral
+  questions.push(...IQ_BANK.experience.slice(0,2).map(q => ({...q, cat:'Experience'})));
+  questions.push(...IQ_BANK.behavioral.slice(0,2).map(q => ({...q, cat:'Behavioral'})));
+
+  // Conditional by resume content
+  const hasDevOps = /kubernetes|docker|terraform|jenkins|ci.?cd|pipeline|helm|ansible/i.test(lower);
+  if (hasDevOps) questions.push(...IQ_BANK.devops.map(q => ({...q, cat:'DevOps & Platform'})));
+
+  const hasCloud = /aws|gcp|azure|cloud|ec2|s3|gke|eks|aks/i.test(lower);
+  if (hasCloud) questions.push(...IQ_BANK.cloud.map(q => ({...q, cat:'Cloud'})));
+
+  const hasMgmt = /lead|mentor|team|manag/i.test(lower);
+  if (hasMgmt) questions.push(...IQ_BANK.leadership.slice(0,2).map(q => ({...q, cat:'Leadership'})));
+
+  // Add JD-specific question if JD present
+  if (jd && jdLower.includes('principal')) {
+    questions.push({ q: 'How do you define technical strategy at the principal level? Give an example.', tip: 'Show system-level thinking, not just ticket-level execution.', cat: 'Principal-level' });
+  }
+
+  if (!questions.length) { section.style.display = 'none'; return; }
+  section.style.display = '';
+  list.innerHTML = questions.slice(0, 10).map(q => `
+    <div class="iq-item">
+      <div class="iq-cat">${q.cat}</div>
+      ${q.q}
+      <div class="iq-tip">💡 ${q.tip}</div>
+    </div>`).join('');
+}
+
 /* ── RESET ── */
 function reset() {
   resumeText = ''; jdText = ''; lastScores = null;
@@ -1059,6 +1364,11 @@ function reset() {
   document.getElementById('kw-section').style.display = 'none';
   document.getElementById('heatmap-section').style.display = 'none';
   document.getElementById('kw-highlight-section').style.display = 'none';
+  document.getElementById('tense-section').style.display = 'none';
+  document.getElementById('iq-section').style.display = 'none';
+  document.getElementById('rewriter-output').style.display = 'none';
+  document.getElementById('rewriter-input').value = '';
+  document.getElementById('file-warning').classList.remove('show');
   document.getElementById('results-section').style.display = 'none';
   document.getElementById('input-section').style.display = '';
   window.scrollTo({ top: 0, behavior: 'smooth' });
