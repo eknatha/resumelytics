@@ -52,6 +52,153 @@ body.dark {
   --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2);
 }
 
+
+body.hc {
+  --bg: #000000;
+  --surface: #0A0A0A;
+  --surface2: #111111;
+  --border: #555555;
+  --border2: #777777;
+  --text: #FFFFFF;
+  --text2: #DDDDDD;
+  --text3: #AAAAAA;
+  --accent: #00FF88;
+  --accent-light: #003322;
+  --danger: #FF4444;
+  --danger-light: #330000;
+  --info: #44AAFF;
+  --info-light: #001133;
+  --warn: #FFCC00;
+  --warn-light: #332200;
+}
+body.font-lg { font-size: 18px; }
+body.font-xl { font-size: 20px; }
+
+/* ── FONT SIZE + HC TOGGLE BUTTONS ── */
+.font-toggle {
+  background: none; border: 1px solid var(--border2);
+  border-radius: 20px; padding: 4px 10px;
+  font-size: 12px; font-weight: 500; color: var(--text2);
+  cursor: pointer; font-family: 'Figtree', sans-serif;
+  display: flex; align-items: center; gap: 4px;
+  transition: background 0.15s; flex-shrink: 0;
+}
+.font-toggle:hover { background: var(--surface2); }
+.hc-toggle {
+  background: none; border: 1px solid var(--border2);
+  border-radius: 20px; padding: 4px 10px;
+  font-size: 12px; font-weight: 500; color: var(--text2);
+  cursor: pointer; font-family: 'Figtree', sans-serif;
+  transition: background 0.15s; flex-shrink: 0;
+}
+.hc-toggle:hover { background: var(--surface2); }
+
+/* ── SCORE ROADMAP ── */
+.roadmap-section { display: none; }
+.roadmap-list { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.roadmap-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 10px 13px;
+}
+.roadmap-step {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--accent); color: var(--surface);
+  font-size: 11px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.roadmap-pts { font-size: 11px; font-weight: 600; color: var(--accent); flex-shrink: 0; margin-top: 2px; min-width: 36px; }
+.roadmap-text { font-size: 13px; color: var(--text); line-height: 1.45; }
+.roadmap-sub { font-size: 11px; color: var(--text2); margin-top: 2px; }
+
+/* ── BEFORE/AFTER PREVIEW ── */
+.bap-section { display: none; }
+.bap-pair {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  margin-bottom: 10px;
+}
+.bap-box { border-radius: var(--radius); padding: 10px 12px; }
+.bap-before { background: var(--danger-light); border: 1px solid var(--danger); }
+.bap-after { background: var(--accent-light); border: 1px solid var(--accent); }
+.bap-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 5px; }
+.bap-before .bap-label { color: var(--danger); }
+.bap-after .bap-label { color: var(--accent); }
+.bap-text { font-size: 12px; line-height: 1.55; color: var(--text); font-family: 'DM Mono', monospace; }
+@media (max-width: 480px) { .bap-pair { grid-template-columns: 1fr; } }
+
+/* ── 6-SECOND SCAN SIMULATOR ── */
+.scan-section { margin-top: 2rem; }
+.scan-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-top: 8px; }
+.scan-preview {
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 14px; font-size: 13px; font-family: 'DM Mono', monospace;
+  line-height: 1.8; color: var(--text2); background: var(--surface2);
+  max-height: 260px; overflow-y: auto; margin-top: 10px;
+  word-break: break-word; white-space: pre-wrap;
+  transition: filter 0.4s ease;
+}
+.scan-preview.blurred { filter: blur(3.5px) brightness(0.85); user-select: none; }
+.scan-controls { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.btn-scan {
+  padding: 7px 14px; border-radius: 7px; background: var(--accent);
+  color: var(--surface); border: none; font-size: 13px; font-weight: 500;
+  cursor: pointer; font-family: 'Figtree', sans-serif; transition: opacity 0.15s;
+}
+.btn-scan:hover { opacity: 0.85; }
+.btn-scan.outline {
+  background: none; border: 1px solid var(--border2);
+  color: var(--text2);
+}
+.scan-hint { font-size: 12px; color: var(--text3); margin-top: 8px; line-height: 1.5; }
+
+/* ── COLD OUTREACH EMAIL ── */
+.cold-section { margin-top: 2rem; }
+.cold-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-top: 8px; }
+.cold-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.cold-input { border: 1px solid var(--border); border-radius: 7px; padding: 8px 10px; font-size: 13px; font-family: 'Figtree', sans-serif; color: var(--text); background: var(--surface2); width: 100%; transition: border-color 0.15s; }
+.cold-input:focus { outline: none; border-color: var(--accent); background: var(--surface); }
+.cold-input::placeholder { color: var(--text3); }
+.btn-cold { width: 100%; padding: 9px; border-radius: 7px; background: var(--accent); color: var(--surface); border: none; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'Figtree', sans-serif; transition: background 0.15s; margin-top: 4px; }
+.btn-cold:hover { background: #235C42; }
+.cold-output { display: none; margin-top: 10px; }
+@media (max-width: 480px) { .cold-fields { grid-template-columns: 1fr; } }
+
+/* ── FOLLOW-UP EMAIL ── */
+.followup-section { margin-top: 2rem; }
+.followup-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-top: 8px; }
+.followup-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.followup-input { border: 1px solid var(--border); border-radius: 7px; padding: 8px 10px; font-size: 13px; font-family: 'Figtree', sans-serif; color: var(--text); background: var(--surface2); width: 100%; transition: border-color 0.15s; }
+.followup-input:focus { outline: none; border-color: var(--accent); background: var(--surface); }
+.followup-input::placeholder { color: var(--text3); }
+.btn-followup { width: 100%; padding: 9px; border-radius: 7px; background: var(--accent); color: var(--surface); border: none; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'Figtree', sans-serif; transition: background 0.15s; margin-top: 4px; }
+.btn-followup:hover { background: #235C42; }
+.followup-output { display: none; margin-top: 10px; }
+@media (max-width: 480px) { .followup-fields { grid-template-columns: 1fr; } }
+
+/* ── SCORE ROAST MODE ── */
+.roast-toggle-btn {
+  width: 100%; margin-top: 10px; padding: 9px; border-radius: 7px;
+  background: none; border: 1px dashed var(--border2);
+  color: var(--text2); font-size: 13px; font-weight: 500;
+  cursor: pointer; font-family: 'Figtree', sans-serif;
+  transition: background 0.15s;
+}
+.roast-toggle-btn:hover { background: var(--surface2); }
+.roast-box { display: none; margin-top: 10px; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; }
+.roast-text { font-size: 14px; line-height: 1.65; color: var(--text); font-style: italic; }
+.roast-label { font-size: 10px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 6px; }
+
+/* ── RESUME HEALTH PET ── */
+.pet-section { display: none; }
+.pet-wrap { display: flex; align-items: center; gap: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-top: 10px; flex-wrap: wrap; }
+.pet-canvas { flex-shrink: 0; image-rendering: pixelated; }
+.pet-info { flex: 1; min-width: 160px; }
+.pet-name { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+.pet-status { font-size: 12px; color: var(--text2); margin-bottom: 8px; }
+.pet-hp-wrap { height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+.pet-hp-bar { height: 100%; border-radius: 4px; transition: width 1s ease; }
+.pet-hp-label { font-size: 11px; color: var(--text3); margin-top: 4px; font-family: 'DM Mono', monospace; }
 body {
   font-family: 'Figtree', sans-serif;
   background: var(--bg);
@@ -750,7 +897,9 @@ footer a:hover { text-decoration: underline; }
     <div class="logo-dot"></div>
     resumelytics
   </a>
-  <div style="display:flex;align-items:center;gap:8px;">
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end;">
+    <button class="font-toggle" id="font-toggle" onclick="cycleFont()" title="Font size">A+</button>
+    <button class="hc-toggle" id="hc-toggle" onclick="toggleHC()" title="High contrast">◑</button>
     <button class="dark-toggle" id="dark-toggle" onclick="toggleDark()" title="Toggle dark mode">🌙 Dark</button>
     <span class="header-badge">100% Free · No Signup</span>
   </div>
@@ -1017,6 +1166,47 @@ footer a:hover { text-decoration: underline; }
       </div>
     </div>
 
+    <!-- Score improvement roadmap (collapsible) -->
+    <div class="collapsible-section roadmap-section" id="sec-roadmap">
+      <div class="collapse-header" onclick="toggleSection('sec-roadmap')">
+        <div class="section-heading">🗺️ Score Improvement Roadmap</div>
+        <span class="collapse-toggle" id="tog-sec-roadmap">▲ collapse</span>
+      </div>
+      <div class="collapse-body" id="body-sec-roadmap">
+        <div class="roadmap-list" id="roadmap-list"></div>
+      </div>
+    </div>
+
+    <!-- Before/after bullet preview (collapsible) -->
+    <div class="collapsible-section bap-section" id="sec-bap">
+      <div class="collapse-header" onclick="toggleSection('sec-bap')">
+        <div class="section-heading">👁️ Before / After Preview</div>
+        <span class="collapse-toggle" id="tog-sec-bap">▲ collapse</span>
+      </div>
+      <div class="collapse-body" id="body-sec-bap">
+        <div id="bap-list"></div>
+      </div>
+    </div>
+
+    <!-- Resume health pet (collapsible) -->
+    <div class="collapsible-section pet-section" id="sec-pet">
+      <div class="collapse-header" onclick="toggleSection('sec-pet')">
+        <div class="section-heading">🐾 Resume Health Pet</div>
+        <span class="collapse-toggle" id="tog-sec-pet">▲ collapse</span>
+      </div>
+      <div class="collapse-body" id="body-sec-pet">
+        <div class="pet-wrap">
+          <canvas class="pet-canvas" id="pet-canvas" width="64" height="64"></canvas>
+          <div class="pet-info">
+            <div class="pet-name" id="pet-name">Resumo</div>
+            <div class="pet-status" id="pet-status"></div>
+            <div class="pet-hp-wrap"><div class="pet-hp-bar" id="pet-hp-bar" style="width:0%"></div></div>
+            <div class="pet-hp-label" id="pet-hp-label"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Gap year detector (collapsible, inside results) -->
     <div class="collapsible-section gap-section" id="sec-gap">
       <div class="collapse-header" onclick="toggleSection('sec-gap')">
@@ -1044,6 +1234,13 @@ footer a:hover { text-decoration: underline; }
         <div class="ai-cs-title">AI-powered analysis — coming soon</div>
         <div class="ai-cs-desc">Role-specific keyword suggestions, tailored improvement tips, and a recruiter-perspective review. Requires backend API integration — available in the next release.</div>
       </div>
+    </div>
+
+    <!-- Score roast mode -->
+    <button class="roast-toggle-btn" id="roast-toggle-btn" onclick="toggleRoast()" style="display:none">🔥 Roast my resume</button>
+    <div class="roast-box" id="roast-box">
+      <div class="roast-label">Recruiter roast</div>
+      <div class="roast-text" id="roast-text"></div>
     </div>
 
     <div style="margin-top:1.25rem">
@@ -1152,6 +1349,97 @@ footer a:hover { text-decoration: underline; }
         </div>
         <button class="btn-nego" onclick="generateNego()">Generate negotiation email →</button>
         <div class="nego-output" id="nego-output"></div>
+      </div>
+    </div>
+
+    <!-- 6-second scan simulator -->
+    <div class="scan-section card" id="scan-section">
+      <div class="card-title">
+        <div class="ct-icon">👁️</div>
+        6-Second Scan Simulator
+        <span style="font-size:11px;font-weight:400;color:var(--text3);margin-left:4px;">see what a recruiter sees first</span>
+      </div>
+      <div class="scan-box">
+        <p style="font-size:13px;color:var(--text2);margin-bottom:10px;">Upload or analyze your resume first, then simulate a recruiter's 6-second first impression — only bold headings stay legible.</p>
+        <div id="scan-preview-wrap" style="display:none">
+          <div class="scan-preview blurred" id="scan-preview"></div>
+          <div class="scan-controls">
+            <button class="btn-scan" onclick="startScan()">▶ Run 6-second scan</button>
+            <button class="btn-scan outline" onclick="clearScan()">Reset blur</button>
+          </div>
+          <div class="scan-hint" id="scan-hint">Tap "Run 6-second scan" — the resume will blur for 6 seconds, then reveal. Notice what you can still read.</div>
+        </div>
+        <p style="font-size:12px;color:var(--text3)" id="scan-no-resume">Analyze a resume first to enable the scan simulator.</p>
+      </div>
+    </div>
+
+    <!-- Cold outreach email -->
+    <div class="cold-section card" id="cold-section">
+      <div class="card-title">
+        <div class="ct-icon">📧</div>
+        Cold Outreach Email
+        <span style="font-size:11px;font-weight:400;color:var(--text3);margin-left:4px;">informational interview / job inquiry</span>
+      </div>
+      <div class="cold-box">
+        <div class="cold-fields">
+          <div>
+            <label class="field-label">Contact's name</label>
+            <input class="cold-input" id="cold-contact" placeholder="e.g. Arjun Sharma">
+          </div>
+          <div>
+            <label class="field-label">Their role / title</label>
+            <input class="cold-input" id="cold-title" placeholder="e.g. Engineering Manager">
+          </div>
+          <div>
+            <label class="field-label">Company</label>
+            <input class="cold-input" id="cold-company" placeholder="e.g. Razorpay">
+          </div>
+          <div>
+            <label class="field-label">Your name</label>
+            <input class="cold-input" id="cold-yourname" placeholder="e.g. Eknatha Reddy">
+          </div>
+          <div style="grid-column:1/-1">
+            <label class="field-label">Purpose of outreach</label>
+            <input class="cold-input" id="cold-purpose" placeholder="e.g. learn about the Platform Engineering team / explore open roles">
+          </div>
+        </div>
+        <button class="btn-cold" onclick="generateColdEmail()">Generate cold outreach email →</button>
+        <div class="cold-output" id="cold-output"></div>
+      </div>
+    </div>
+
+    <!-- Follow-up after interview -->
+    <div class="followup-section card" id="followup-section">
+      <div class="card-title">
+        <div class="ct-icon">✉️</div>
+        Interview Follow-Up Email
+        <span style="font-size:11px;font-weight:400;color:var(--text3);margin-left:4px;">thank-you + follow-up</span>
+      </div>
+      <div class="followup-box">
+        <div class="followup-fields">
+          <div>
+            <label class="field-label">Interviewer's name</label>
+            <input class="followup-input" id="fu-interviewer" placeholder="e.g. Priya Nair">
+          </div>
+          <div>
+            <label class="field-label">Your name</label>
+            <input class="followup-input" id="fu-yourname" placeholder="e.g. Eknatha Reddy">
+          </div>
+          <div>
+            <label class="field-label">Role you interviewed for</label>
+            <input class="followup-input" id="fu-role" placeholder="e.g. Platform Engineer">
+          </div>
+          <div>
+            <label class="field-label">Company</label>
+            <input class="followup-input" id="fu-company" placeholder="e.g. Freshworks">
+          </div>
+          <div style="grid-column:1/-1">
+            <label class="field-label">One thing that stood out in the interview</label>
+            <input class="followup-input" id="fu-highlight" placeholder="e.g. the GitOps-first infrastructure philosophy your team uses">
+          </div>
+        </div>
+        <button class="btn-followup" onclick="generateFollowUp()">Generate follow-up email →</button>
+        <div class="followup-output" id="followup-output"></div>
       </div>
     </div>
 
@@ -1544,6 +1832,22 @@ function renderResults(s) {
 
   /* Certification spotlight */
   renderCertifications(resumeText);
+
+  /* Score improvement roadmap */
+  renderRoadmap(s);
+
+  /* Before/after preview */
+  renderBeforeAfter(s);
+
+  /* Health pet */
+  renderPet(s.total);
+
+  /* Roast button — show after analysis */
+  document.getElementById('roast-toggle-btn').style.display = '';
+  document.getElementById('roast-box').style.display = 'none';
+
+  /* Scan simulator init */
+  initScanSimulator(resumeText);
 
   /* Salary section — always show */
   document.getElementById('sec-salary').style.display = '';
@@ -2295,6 +2599,364 @@ function copyNegoEmail() {
   });
 }
 
+
+/* ── FONT SIZE CYCLE ── */
+const FONT_SIZES = ['normal', 'lg', 'xl'];
+let fontIdx = 0;
+function cycleFont() {
+  fontIdx = (fontIdx + 1) % FONT_SIZES.length;
+  document.body.classList.remove('font-lg', 'font-xl');
+  if (fontIdx === 1) document.body.classList.add('font-lg');
+  if (fontIdx === 2) document.body.classList.add('font-xl');
+  localStorage.setItem('rl-font', fontIdx);
+  const btn = document.getElementById('font-toggle');
+  btn.textContent = fontIdx === 0 ? 'A+' : fontIdx === 1 ? 'A++' : 'A+ reset';
+}
+(function(){
+  const saved = parseInt(localStorage.getItem('rl-font') || '0');
+  if (saved) { fontIdx = saved - 1; cycleFont(); }
+})();
+
+/* ── HIGH CONTRAST MODE ── */
+function toggleHC() {
+  const on = document.body.classList.toggle('hc');
+  localStorage.setItem('rl-hc', on ? '1' : '0');
+  document.getElementById('hc-toggle').textContent = on ? '◑ off' : '◑';
+}
+(function(){
+  if (localStorage.getItem('rl-hc') === '1') {
+    document.body.classList.add('hc');
+    setTimeout(() => {
+      const btn = document.getElementById('hc-toggle');
+      if (btn) btn.textContent = '◑ off';
+    }, 100);
+  }
+})();
+
+/* ── SCORE IMPROVEMENT ROADMAP ── */
+function buildRoadmap(scores) {
+  const steps = [];
+  if (scores.quantScore < 60)
+    steps.push({ pts: 8, text: 'Add quantified achievements', sub: 'Add numbers to at least 5 bullet points (%, x, ms, ₹, users, nodes).' });
+  if (scores.actionScore < 60)
+    steps.push({ pts: 6, text: 'Strengthen action verbs', sub: 'Start every bullet with: Built, Led, Deployed, Automated, Reduced, Scaled.' });
+  if (scores.sectionScore < 80)
+    steps.push({ pts: 7, text: 'Add missing sections', sub: 'Ensure Contact, Summary, Experience, Education, Skills are all present with clear headings.' });
+  if (!resumeText.toLowerCase().includes('linkedin'))
+    steps.push({ pts: 3, text: 'Add LinkedIn URL', sub: 'Place your full LinkedIn profile URL in the contact section.' });
+  if (!resumeText.toLowerCase().includes('github') && !resumeText.toLowerCase().includes('gitlab'))
+    steps.push({ pts: 3, text: 'Add GitHub / portfolio URL', sub: 'Essential for engineering roles — show what you can actually build.' });
+  if (scores.hasJD && scores.kwScore < 65)
+    steps.push({ pts: 10, text: 'Add missing JD keywords', sub: 'Review the keyword heatmap and add relevant missing skills you genuinely have.' });
+  if (scores.lengthScore < 75)
+    steps.push({ pts: 4, text: 'Expand resume content', sub: 'Add more detail to experience bullets — responsibilities, tools used, outcomes.' });
+  steps.sort((a, b) => b.pts - a.pts);
+  return steps.slice(0, 6);
+}
+
+function renderRoadmap(scores) {
+  const sec = document.getElementById('sec-roadmap');
+  const list = document.getElementById('roadmap-list');
+  const steps = buildRoadmap(scores);
+  if (!steps.length) { sec.style.display = 'none'; return; }
+  sec.style.display = '';
+  list.innerHTML = steps.map((s, i) => `
+    <div class="roadmap-item">
+      <div class="roadmap-step">${i + 1}</div>
+      <div style="flex:1">
+        <div class="roadmap-text">${s.text}</div>
+        <div class="roadmap-sub">${s.sub}</div>
+      </div>
+      <div class="roadmap-pts">+${s.pts}pts</div>
+    </div>`).join('');
+}
+
+/* ── BEFORE / AFTER PREVIEW ── */
+const BAP_EXAMPLES = [
+  {
+    before: '• Responsible for managing Kubernetes clusters and ensuring uptime of production services.',
+    after: '• Managed 3 production Kubernetes clusters (48 nodes) on GKE, achieving 99.97% uptime across 12 microservices.'
+  },
+  {
+    before: '• Worked on CI/CD pipeline improvements to reduce deployment time.',
+    after: '• Redesigned Jenkins CI/CD pipelines, reducing average deployment time from 42 min to 8 min — a 81% improvement.'
+  },
+  {
+    before: '• Helped the team with infrastructure migration to AWS.',
+    after: '• Led lift-and-shift migration of 60+ services from on-prem to AWS EC2/RDS, completing 3 weeks ahead of schedule.'
+  },
+  {
+    before: '• Involved in monitoring and alerting setup using Prometheus.',
+    after: '• Built a Prometheus + Grafana observability stack covering 200+ metrics, reducing MTTR from 4 hours to 35 minutes.'
+  },
+];
+
+function renderBeforeAfter(scores) {
+  const sec = document.getElementById('sec-bap');
+  const list = document.getElementById('bap-list');
+  if (scores.actionScore >= 80 && scores.quantScore >= 80) { sec.style.display = 'none'; return; }
+  sec.style.display = '';
+  const count = scores.quantScore < 40 ? 4 : 2;
+  list.innerHTML = BAP_EXAMPLES.slice(0, count).map(ex => `
+    <div class="bap-pair">
+      <div class="bap-box bap-before">
+        <div class="bap-label">Before</div>
+        <div class="bap-text">${ex.before}</div>
+      </div>
+      <div class="bap-box bap-after">
+        <div class="bap-label">After</div>
+        <div class="bap-text">${ex.after}</div>
+      </div>
+    </div>`).join('');
+}
+
+/* ── RESUME HEALTH PET ── */
+function drawPet(canvas, score) {
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, 64, 64);
+  const s = score;
+  let bodyColor, eyeColor, mood;
+  if (s >= 80)      { bodyColor = '#4ABA80'; eyeColor = '#27500A'; mood = 'thriving'; }
+  else if (s >= 65) { bodyColor = '#7F77DD'; eyeColor = '#26215C'; mood = 'healthy'; }
+  else if (s >= 45) { bodyColor = '#D4A040'; eyeColor = '#412402'; mood = 'recovering'; }
+  else              { bodyColor = '#E05C4B'; eyeColor = '#501313'; mood = 'sick'; }
+
+  const cs = window.getComputedStyle(document.body);
+  const bg = cs.getPropertyValue('--surface2').trim() || '#F0EDE8';
+
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, 64, 64);
+
+  // Body
+  ctx.fillStyle = bodyColor;
+  ctx.beginPath();
+  ctx.ellipse(32, 36, 18, 16, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Head
+  ctx.beginPath();
+  ctx.arc(32, 20, 14, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Eyes
+  ctx.fillStyle = '#fff';
+  ctx.beginPath(); ctx.arc(27, 18, 4, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(37, 18, 4, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = eyeColor;
+  ctx.beginPath(); ctx.arc(27, 19, 2, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(37, 19, 2, 0, Math.PI*2); ctx.fill();
+
+  // Mouth
+  ctx.strokeStyle = eyeColor;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  if (s >= 65) {
+    ctx.arc(32, 25, 5, 0.2, Math.PI - 0.2); // smile
+  } else {
+    ctx.arc(32, 29, 5, Math.PI + 0.2, 2*Math.PI - 0.2); // frown
+  }
+  ctx.stroke();
+
+  // Sick squiggles
+  if (s < 45) {
+    ctx.strokeStyle = '#E05C4B';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(14, 40); ctx.lineTo(18, 36); ctx.lineTo(22, 40); ctx.lineTo(26, 36);
+    ctx.stroke();
+  }
+
+  // Stars if thriving
+  if (s >= 80) {
+    ctx.fillStyle = '#FFD700';
+    for (const [x,y] of [[8,8],[56,8],[8,56]]) {
+      ctx.font = '10px serif'; ctx.fillText('★', x-5, y+4);
+    }
+  }
+
+  return mood;
+}
+
+function renderPet(score) {
+  const sec = document.getElementById('sec-pet');
+  sec.style.display = '';
+  const canvas = document.getElementById('pet-canvas');
+  const mood = drawPet(canvas, score);
+  document.getElementById('pet-name').textContent = 'Resumo';
+  const statusMap = {
+    thriving: '🌟 Thriving — your resume is in excellent health!',
+    healthy:  '💪 Healthy — looking good, a few tweaks away from perfect.',
+    recovering: '😐 Recovering — needs attention in a few areas.',
+    sick:     '🤒 Sick — urgent care needed before applying.',
+  };
+  document.getElementById('pet-status').textContent = statusMap[mood];
+  const bar = document.getElementById('pet-hp-bar');
+  bar.style.width = '0%';
+  bar.style.background = score >= 80 ? '#4ABA80' : score >= 65 ? '#7F77DD' : score >= 45 ? '#D4A040' : '#E05C4B';
+  setTimeout(() => { bar.style.width = score + '%'; }, 150);
+  document.getElementById('pet-hp-label').textContent = `HP: ${score} / 100`;
+}
+
+/* ── SCORE ROAST MODE ── */
+const ROASTS = {
+  excellent: [
+    "80+? Look at you, overachiever. You probably colour-code your handover docs too.",
+    "Scoring 80+ while the rest of us are out here copy-pasting our job descriptions into our resumes.",
+    "This resume would make even a Taleo ATS feel something. Respect."
+  ],
+  good: [
+    "65–79. Not bad. You're in the 'maybe' pile — which is better than the 'hard no' pile, statistically.",
+    "Good score. The ATS won't reject you immediately. That's... genuinely the bar. You cleared it.",
+    "You're one strong action verb away from Excellent. Go on. You can do it. I believe in you (barely)."
+  ],
+  fair: [
+    "45–64. Your resume is trying its best. So is a bicycle in a Formula 1 race.",
+    "Fair score. Your resume passed the vibe check but failed the keyword check, the metric check, and honestly the font check too.",
+    "You listed 'team player' twice. A recruiter somewhere just sighed and moved to the next application."
+  ],
+  poor: [
+    "Under 45. I've seen better ATS scores on blank documents. At least they don't have 'responsible for' in them.",
+    "The ATS didn't reject your resume — it flagged it for further study by scientists.",
+    "Your resume survived the upload. That's the only thing it survived."
+  ]
+};
+
+function getRoastText(score) {
+  const bank = score >= 80 ? ROASTS.excellent : score >= 65 ? ROASTS.good : score >= 45 ? ROASTS.fair : ROASTS.poor;
+  return bank[Math.floor(Math.random() * bank.length)];
+}
+
+function toggleRoast() {
+  const box = document.getElementById('roast-box');
+  const btn = document.getElementById('roast-toggle-btn');
+  if (box.style.display === 'none' || !box.style.display) {
+    document.getElementById('roast-text').textContent = getRoastText(lastScores ? lastScores.total : 50);
+    box.style.display = 'block';
+    btn.textContent = '🔥 New roast';
+  } else {
+    document.getElementById('roast-text').textContent = getRoastText(lastScores ? lastScores.total : 50);
+  }
+}
+
+/* ── 6-SECOND SCAN SIMULATOR ── */
+function initScanSimulator(text) {
+  const wrap = document.getElementById('scan-preview-wrap');
+  const noRes = document.getElementById('scan-no-resume');
+  const preview = document.getElementById('scan-preview');
+  if (!text || text.length < 50) {
+    wrap.style.display = 'none'; noRes.style.display = '';
+    return;
+  }
+  wrap.style.display = ''; noRes.style.display = 'none';
+  preview.textContent = text.slice(0, 1800);
+  preview.classList.add('blurred');
+}
+
+function startScan() {
+  const preview = document.getElementById('scan-preview');
+  const hint = document.getElementById('scan-hint');
+  preview.classList.add('blurred');
+  hint.textContent = 'Simulating recruiter first impression... (6 seconds)';
+  let countdown = 6;
+  const iv = setInterval(() => {
+    countdown--;
+    hint.textContent = countdown > 0 ? `Revealing in ${countdown}s...` : 'Time's up — this is what stood out.';
+    if (countdown <= 0) {
+      clearInterval(iv);
+      preview.classList.remove('blurred');
+    }
+  }, 1000);
+}
+
+function clearScan() {
+  const preview = document.getElementById('scan-preview');
+  const hint = document.getElementById('scan-hint');
+  preview.classList.add('blurred');
+  hint.textContent = 'Tap "Run 6-second scan" — the resume will blur for 6 seconds, then reveal.';
+}
+
+/* ── COLD OUTREACH EMAIL ── */
+function generateColdEmail() {
+  const contact  = document.getElementById('cold-contact').value.trim() || 'there';
+  const title    = document.getElementById('cold-title').value.trim() || 'Engineering Manager';
+  const company  = document.getElementById('cold-company').value.trim() || 'your company';
+  const yourname = document.getElementById('cold-yourname').value.trim() || 'I';
+  const purpose  = document.getElementById('cold-purpose').value.trim() || 'learn more about the team and explore potential opportunities';
+
+  const skills = [];
+  if (resumeText) {
+    const lower = resumeText.toLowerCase();
+    if (/kubernetes|k8s/.test(lower)) skills.push('Kubernetes');
+    if (/terraform/.test(lower)) skills.push('Terraform');
+    if (/aws|gcp|azure/.test(lower)) skills.push('cloud infrastructure');
+    if (/python/.test(lower)) skills.push('Python');
+    if (/ci.?cd/.test(lower)) skills.push('CI/CD automation');
+  }
+  const skillStr = skills.length ? skills.slice(0,2).join(' and ') : 'DevOps and platform engineering';
+
+  const email = `Subject: Quick question from a ${skillStr} practitioner
+
+Hi ${contact},
+
+I hope this message finds you well. My name is ${yourname}, and I came across your profile while researching the ${title} role at ${company}.
+
+I have hands-on experience in ${skillStr} and I'm reaching out to ${purpose}.
+
+I know your time is valuable, so I'll keep this brief — I'd love a 15-minute conversation at your convenience. Happy to work around your schedule completely.
+
+Would a short call or even a few questions over LinkedIn work for you?
+
+Thank you for considering this. I really appreciate it.
+
+Warm regards,
+${yourname}`;
+
+  const out = document.getElementById('cold-output');
+  out.style.display = 'block';
+  out.innerHTML = `<div class="ref-msg-box">${email}</div>
+    <button class="ref-copy-btn" onclick="copyToClipboard(this,'${email.replace(/'/g,"&#39;").replace(/
+/g,'\n')}')">📋 Copy email</button>`;
+}
+
+/* ── FOLLOW-UP EMAIL ── */
+function generateFollowUp() {
+  const interviewer = document.getElementById('fu-interviewer').value.trim() || 'there';
+  const yourname    = document.getElementById('fu-yourname').value.trim() || 'I';
+  const role        = document.getElementById('fu-role').value.trim() || 'the role';
+  const company     = document.getElementById('fu-company').value.trim() || 'your company';
+  const highlight   = document.getElementById('fu-highlight').value.trim() || 'the technical challenges you described';
+
+  const email = `Subject: Thank you — ${role} interview follow-up
+
+Dear ${interviewer},
+
+Thank you so much for taking the time to speak with me today about the ${role} position at ${company}. I really enjoyed our conversation and came away genuinely excited about the opportunity.
+
+I was particularly struck by ${highlight} — it reinforced my belief that this role is exactly the kind of challenge I'm looking for at this stage in my career.
+
+I remain very enthusiastic about the possibility of joining the team and contributing from day one. Please don't hesitate to reach out if you need any additional information or references.
+
+Looking forward to hearing about the next steps. Thank you again for your time and consideration.
+
+Warm regards,
+${yourname}`;
+
+  const out = document.getElementById('followup-output');
+  out.style.display = 'block';
+  out.innerHTML = `<div class="ref-msg-box">${email}</div>
+    <button class="ref-copy-btn" onclick="copyToClipboard(this,'${email.replace(/'/g,"&#39;").replace(/
+/g,'\n')}')">📋 Copy email</button>`;
+}
+
+function copyToClipboard(btn, text) {
+  navigator.clipboard.writeText(text.replace(/\n/g,'
+')).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copied!';
+    setTimeout(() => btn.textContent = orig, 1800);
+  });
+}
+
 /* ── RESET ── */
 function reset() {
   resumeText = ''; jdText = ''; lastScores = null;
@@ -2303,7 +2965,7 @@ function reset() {
   document.getElementById('file-input').value = '';
   document.getElementById('file-selected').style.display = 'none';
   document.getElementById('file-name-text').textContent = '';
-  ['sec-kw','sec-heatmap','sec-highlight','sec-tense','sec-overused','sec-certs','sec-salary','sec-referral','sec-iq','sec-gap'].forEach(id => {
+  ['sec-kw','sec-heatmap','sec-highlight','sec-tense','sec-overused','sec-certs','sec-salary','sec-referral','sec-iq','sec-gap','sec-roadmap','sec-bap','sec-pet'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.style.display = 'none';
     const body = document.getElementById('body-' + id);
@@ -2321,6 +2983,12 @@ function reset() {
   document.getElementById('salary-result').style.display = 'none';
   document.getElementById('salary-role').value = '';
   document.getElementById('file-warning').classList.remove('show');
+  const roastBtn = document.getElementById('roast-toggle-btn');
+  if (roastBtn) roastBtn.style.display = 'none';
+  const roastBox = document.getElementById('roast-box');
+  if (roastBox) roastBox.style.display = 'none';
+  const scanWrap = document.getElementById('scan-preview-wrap');
+  if (scanWrap) scanWrap.style.display = 'none';
   document.getElementById('results-section').style.display = 'none';
   document.getElementById('input-section').style.display = '';
   window.scrollTo({ top: 0, behavior: 'smooth' });
