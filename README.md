@@ -1,6 +1,6 @@
 # resumelytics 📄
 
-> **Free ATS Resume Analyzer & Score Checker** — instant, browser-side, zero backend needed.
+> **Free ATS Resume Analyzer & Job Search Toolkit** — instant, browser-side, zero backend needed.
 
 ![HTML](https://img.shields.io/badge/HTML-single--file-orange?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
@@ -8,7 +8,8 @@
 ![GitHub Pages](https://img.shields.io/badge/deploy-GitHub%20Pages-black?style=flat-square)
 ![Mobile Friendly](https://img.shields.io/badge/mobile-friendly-brightgreen?style=flat-square)
 ![Dark Mode](https://img.shields.io/badge/dark%20mode-supported-9B59B6?style=flat-square)
-![Features](https://img.shields.io/badge/features-20+-blueviolet?style=flat-square)
+![Features](https://img.shields.io/badge/features-25+-blueviolet?style=flat-square)
+![Analytics](https://img.shields.io/badge/analytics-Plausible-4F46E5?style=flat-square)
 
 🔗 **Live demo:** [eknatha.github.io/resumelytics](https://eknatha.github.io/resumelytics/)
 
@@ -16,9 +17,9 @@
 
 ## ✨ What is resumelytics?
 
-**resumelytics** is a fully client-side ATS resume analyzer packed with 20+ tools to help job seekers write, fix, and prepare better resumes — with zero backend, zero signup, and zero cost.
+**resumelytics** is a fully client-side ATS resume analyzer and job search toolkit packed with 25+ tools — from instant ATS scoring and keyword heatmaps to salary negotiation emails and notice period calculators.
 
-Upload your resume, paste a job description, and get an instant score out of 100 with specific fixes, keyword match analysis, a recruiter's perspective on every issue, and a full suite of job preparation tools — all running 100% in the browser.
+Upload your resume, paste a job description, and get an instant score out of 100 with specific fixes, keyword match analysis, a recruiter's perspective on every issue, and a full suite of job preparation tools — all running 100% in the browser. No signup. No cost. No data leaves your device.
 
 ---
 
@@ -34,17 +35,22 @@ Upload your resume, paste a job description, and get an instant score out of 100
 | 🔥 Skill gap heatmap | Visual grid: matched JD skills (green) vs. missing skills (red) with % coverage |
 | ✨ Animated keyword highlight | Resume text viewer with JD keywords lighting up with staggered animation |
 | 👤 Recruiter perspective | Every issue card shows a real recruiter's view on that specific problem |
-| 🔁 Overused word detector | Flags weak phrases ("responsible for", "worked on") with count + stronger alternatives |
-| 🏆 Certification spotlight | Auto-detects CKA, CKS, AWS, GCP, Terraform, PMP and 14 other certs — displays as icon cards |
+| 🔁 Overused word detector | Flags weak phrases with count + stronger alternatives |
+| 🏆 Certification spotlight | Auto-detects CKA, CKS, AWS, GCP, Terraform, PMP and 14 other certs |
 | 🔤 Tense consistency checker | Detects mixed past/present tense — flags exact lines with fix suggestions |
-| ✍️ Bullet point rewriter | Paste weak bullet → get 3 upgraded versions with strong verbs + impact framing |
+| 📅 Gap year detector | Visual career timeline with colour-coded bars — flags gaps ≥ 6 months |
+| ⚖️ Resume A/B compare | Upload two versions → side-by-side score diff + 5-metric bar chart |
+| ✍️ Bullet point rewriter | Paste weak bullet → 3 upgraded versions with strong verbs + impact framing |
 | 💰 Salary range estimator | ₹ salary bands for 12 India role/level combos (DevOps, SRE, Platform, Backend, Cloud) |
-| 📨 Referral message generator | 4-field form → tailored LinkedIn DM / email referral ask with auto-detected skills |
-| 🎤 Interview question generator | 6–10 tailored questions based on resume + JD (DevOps, Cloud, Leadership, Behavioral) |
-| ▲ Collapsible result sections | All panels collapse/expand individually — reduce scroll fatigue on long reports |
-| 🌙 Dark mode | Header toggle, saved to localStorage, respects OS preference on first visit |
-| 📱 Mobile-first design | Fully responsive — tested on phones, tablets, and desktops |
-| 💡 ATS tips | 6 built-in quick-fix tips for job seekers |
+| 📨 Referral message generator | 4-field form → tailored LinkedIn DM / email referral ask |
+| 💼 Salary negotiation email | 6-field form → polished negotiation email with % gap + midpoint suggestion |
+| 📆 Notice period calculator | Date picker + period → resignation date, days remaining + full email draft |
+| 🎤 Interview question generator | 6–10 tailored questions based on resume + JD |
+| ▲ Collapsible result sections | All panels collapse/expand — reduce scroll fatigue |
+| 🌙 Dark mode | Header toggle, localStorage, respects OS preference |
+| 📱 Mobile-first design | Fully responsive — phones, tablets, and desktops |
+| 📊 Plausible analytics | Privacy-first, no-cookie analytics — no GDPR issues |
+| 💡 ATS tips | 6 built-in quick-fix tips |
 | ⚡ Zero dependencies | No npm, no build step, no framework — single HTML file |
 
 ---
@@ -71,69 +77,61 @@ Upload your resume, paste a job description, and get an instant score out of 100
 
 ---
 
-## 🔁 Overused word detector
+## 📅 Gap year detector
 
-Scans resume text for 15 common weak phrases and shows:
-- The exact phrase detected with occurrence count
-- A red frequency bar scaled to how often it appears
-- 2–4 stronger action verb alternatives
+Automatically runs after every analysis. Parses year ranges from the resume text and builds a visual horizontal timeline with colour-coded bars:
 
-Detected phrases include: `responsible for`, `worked on`, `helped with`, `team player`, `detail-oriented`, `passionate about`, `leverage`, `synergy`, `proactive`, and more.
+- **Green** — Employment period
+- **Blue** — Education period
+- **Red dashed** — Gap detected
 
----
-
-## 🏆 Certification spotlight
-
-Automatically detects 14 certification types and displays them as icon cards:
-
-| Cert | Full name |
-|---|---|
-| CKA / CKS / CKAD | Kubernetes certifications |
-| AWS Certified | All AWS cert variants |
-| GCP / Azure AZ-xxx | Google Cloud & Microsoft Azure |
-| Terraform Associate | HashiCorp certification |
-| PMP | Project Management Professional |
-| CCNA / CCNP | Cisco networking |
-| RHCE / RHCSA | Red Hat certifications |
-| CISSP | Security certification |
-| SAFe | Scaled Agile Framework |
+Gaps ≥ 6 months are flagged with a preparation tip. Only appears when enough date data is detected in the resume.
 
 ---
 
-## 💰 Salary range estimator
+## ⚖️ Resume A/B compare
 
-12 role + experience level combinations with India market data (2024–25):
+Upload two resume files (PDF / DOCX / TXT) as Version A and Version B → click Compare:
 
-| Role | Level | Range |
-|---|---|---|
-| DevOps Engineer | Junior (0–3 yrs) | ₹5–10L/yr |
-| DevOps Engineer | Mid (3–6 yrs) | ₹12–22L/yr |
-| DevOps Engineer | Senior (6–10 yrs) | ₹22–38L/yr |
-| SRE | Mid (3–6 yrs) | ₹14–24L/yr |
-| SRE | Senior (6–10 yrs) | ₹24–42L/yr |
-| Platform Engineer | Mid (3–6 yrs) | ₹16–28L/yr |
-| Platform Engineer | Senior (6–10 yrs) | ₹26–45L/yr |
-| Platform Engineer | Principal (10+ yrs) | ₹40–70L/yr |
-| Backend Engineer | Mid / Senior | ₹14–42L/yr |
-| Cloud Architect | Mid / Senior | ₹18–55L/yr |
+- Side-by-side score cards with the winner highlighted
+- `+X pts` / `−X pts` score difference indicator
+- 5-metric bar chart: sections, quantified impact, action verbs, formatting, length
 
-Each estimate includes a median, market context tags, and a recruiter insight tip.
+Useful for validating improvements before sending an updated resume.
 
 ---
 
-## 📨 Referral message generator
+## 💼 Salary negotiation email
 
-Fill 4 fields — contact name, company, role, your name — and get a tailored referral ask message for LinkedIn DM or email. The message auto-pulls:
+6 fields — your name, HR name, role, company, offer received (₹L/yr), counter ask (₹L/yr):
 
-- Your top 3 detected skills from the resume (Kubernetes, Terraform, cloud, etc.)
-- Implied years of experience from date ranges in the resume
+- Calculates the % gap between offer and counter
+- Suggests a midpoint as a fallback ask
+- Auto-pulls your top 2 skills detected from the uploaded resume
+- Includes an early 6-month review as an alternative ask
+- One-click copy to clipboard
+
+> Tip: Send within 24–48 hours of receiving the offer. Keep your tone warm — you're negotiating a partnership.
+
+---
+
+## 📆 Notice period calculator
+
+4 fields — your name, manager's name, last working day (date picker), notice period (30/45/60/90 days):
+
+- Calculates exact resignation date
+- Shows days remaining until last working day
+- Generates a complete, professional resignation email draft
 - One-click copy to clipboard
 
 ---
 
-## ▲ Collapsible result sections
+## 📊 Plausible analytics
 
-Every results panel can be individually collapsed or expanded using the toggle button in the section header. Useful when re-analyzing multiple times — collapse sections you've already acted on. All sections reset to expanded on "Analyze another resume."
+Privacy-first analytics via [Plausible.io](https://plausible.io) — no cookies, no fingerprinting, fully GDPR-compliant. Tracks page views and key interactions without collecting any personal data.
+
+To activate: add your domain in the [Plausible dashboard](https://plausible.io/sites) after deploying to GitHub Pages. The script is already included in `<head>`.
+
 
 ---
 
@@ -143,6 +141,7 @@ Every results panel can be individually collapsed or expanded using the toggle b
 |---|---|---|
 | [PDF.js](https://mozilla.github.io/pdf.js/) | 3.11.174 | Extract text from PDF resumes |
 | [Mammoth.js](https://github.com/mwilliamson/mammoth.js) | 1.6.0 | Extract text from DOCX resumes |
+| [Plausible](https://plausible.io) | latest | Privacy-first analytics |
 | Vanilla JS + CSS | — | Everything else |
 
 Fonts: DM Serif Display + Figtree + DM Mono via Google Fonts.
@@ -161,20 +160,25 @@ Fonts: DM Serif Display + Figtree + DM Mono via Google Fonts.
 - [x] Overused word detector with alternatives
 - [x] Certification spotlight (14 cert types)
 - [x] Tense consistency checker
+- [x] Gap year detector with visual career timeline
+- [x] Resume A/B compare (score diff + metric breakdown)
 - [x] Bullet point rewriter (3 versions, click to copy)
 - [x] Salary range estimator (12 India role/level combos)
-- [x] Referral message generator (LinkedIn DM / email)
-- [x] Interview question generator (role-aware, 6–10 questions)
+- [x] Referral message generator
+- [x] Salary negotiation email generator
+- [x] Notice period calculator + resignation email
+- [x] Interview question generator (role-aware, 6–10 Qs)
 - [x] Collapsible result sections
 - [x] Dark mode (localStorage + OS preference)
 - [x] Mobile-first responsive design
-- [ ] Score history — compare versions over time with sparkline chart
+- [x] Plausible privacy-first analytics
+- [ ] Score history — sparkline chart of improvement over time
+- [ ] "Share my score" PNG card for LinkedIn
 - [ ] Export score report as PDF
 - [ ] Role presets — pre-loaded keyword sets (DevOps / SRE / Backend / Data)
-- [ ] Resume A/B compare — score diff between two versions
-- [ ] "Share my score" PNG card for LinkedIn
 - [ ] PWA — installable on phone home screen
 - [ ] AI deep analysis via Cloudflare Worker → Claude API backend
+- [ ] Job board URL scanner (paste LinkedIn/Naukri URL → auto-fetch JD)
 
 ---
 
@@ -186,7 +190,7 @@ Fonts: DM Serif Display + Figtree + DM Mono via Google Fonts.
 Browser  →  Cloudflare Worker / Vercel Edge  →  Claude API
 ```
 
-Keeps the API key server-side, avoids CORS, zero infrastructure cost on the free tier.
+Keeps the API key server-side, avoids CORS, zero infrastructure cost on the free tier. The "Deep AI Analysis" panel is already in the UI — just needs the backend wired up.
 
 ---
 
