@@ -1493,9 +1493,22 @@ function rewriteBullet(){
   var rewrites=REWRITE_TPL.map(function(fn){return fn(verb,obj)});
   var out=document.getElementById('rout');
   out.style.display='block';
-  out.innerHTML='<div style="font-size:11px;color:var(--text3);margin-bottom:6px;font-weight:500">CLICK ANY VERSION TO COPY ↓</div>'+rewrites.map(function(r){
-    return'<div class="rbullet" onclick="copyBullet(this,\''+r.replace(/'/g,"\\'")+'\')" >✦ '+r+'</div>';
-  }).join('')+'<div style="font-size:11px;color:var(--text3);margin-top:6px">Add your specific numbers, tools, and outcomes for max impact.</div>';
+  out.innerHTML='';
+  var hint1=document.createElement('div');
+  hint1.style.cssText='font-size:11px;color:var(--text3);margin-bottom:6px;font-weight:500';
+  hint1.textContent='CLICK ANY VERSION TO COPY';
+  out.appendChild(hint1);
+  rewrites.forEach(function(r){
+    var d=document.createElement('div');
+    d.className='rbullet';
+    d.textContent='✦ '+r;
+    d.onclick=function(){copyBullet(this,r)};
+    out.appendChild(d);
+  });
+  var hint2=document.createElement('div');
+  hint2.style.cssText='font-size:11px;color:var(--text3);margin-top:6px';
+  hint2.textContent='Add your specific numbers, tools, and outcomes for max impact.';
+  out.appendChild(hint2);
 }
 function copyBullet(el,text){
   navigator.clipboard.writeText(text).then(function(){
@@ -1585,10 +1598,24 @@ function genReferral(){
   var role=document.getElementById('ref-role').value.trim()||'the open role';
   var name=document.getElementById('ref-name').value.trim()||'I';
   var sk=getSkills();
-  var msg='Hi '+contact+',\n\nI hope you\'re doing well! I came across the '+role+' opening at '+company+' and believe I\'d be a strong fit.\n\nI have strong hands-on experience in '+sk+', with a track record of delivering production-grade infrastructure solutions.\n\nI\'d really appreciate it if you could refer me or point me to the right person. I\'ve attached my resume for your reference.\n\nHappy to share more details — thank you so much!\n\nWarm regards,\n'+name;
+  var lines=[
+    'Hi '+contact+',',
+    '',
+    'I hope you are doing well! I came across the '+role+' opening at '+company+' and believe I would be a strong fit.',
+    '',
+    'I have strong hands-on experience in '+sk+', with a track record of delivering production-grade infrastructure solutions.',
+    '',
+    'I would really appreciate it if you could refer me or point me to the right person. I have attached my resume for your reference.',
+    '',
+    'Happy to share more details — thank you so much!',
+    '',
+    'Warm regards,',
+    name
+  ];
   document.getElementById('ref-out').style.display='block';
-  document.getElementById('ref-embox').textContent=msg;
+  document.getElementById('ref-embox').textContent=lines.join('\n');
 }
+
 
 /* ── COPY HELPER ── */
 function copyEl(boxId,btnId){
@@ -1615,12 +1642,40 @@ function calcNotice(){
   var today=new Date();
   var remaining=Math.ceil((lwdDate-today)/(1000*60*60*24));
   var fmt=function(d){return d.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})};
-  var email='Subject: Resignation Letter — '+name+'\n\nDear '+mgr+',\n\nI am writing to formally inform you of my resignation from my current position, effective '+fmt(lwdDate)+'.\n\nAs per the '+days+'-day notice period, my last working day will be '+fmt(lwdDate)+'. I am committed to ensuring a smooth transition and will complete all ongoing tasks and handover documentation before my departure.\n\nI am grateful for the opportunities and experiences gained during my tenure. Working with this team has been a valuable chapter in my career.\n\nPlease let me know how I can best support the transition process during this period.\n\nThank you for your understanding.\n\nWarm regards,\n'+name;
+  var lines=[
+    'Subject: Resignation Letter -- '+name,
+    '',
+    'Dear '+mgr+',',
+    '',
+    'I am writing to formally inform you of my resignation from my current position, effective '+fmt(lwdDate)+'.',
+    '',
+    'As per the '+days+'-day notice period, my last working day will be '+fmt(lwdDate)+'. I am committed to ensuring a smooth transition and will complete all ongoing tasks and handover documentation before my departure.',
+    '',
+    'I am grateful for the opportunities and experiences gained during my tenure. Working with this team has been a valuable chapter in my career.',
+    '',
+    'Please let me know how I can best support the transition process during this period.',
+    '',
+    'Thank you for your understanding.',
+    '',
+    'Warm regards,',
+    name
+  ];
+  var email=lines.join('\n');
   var res=document.getElementById('notice-result');
   res.style.display='block';
-  res.innerHTML='<div class="ndates"><div class="ndate"><div class="ndlbl">Resignation date</div><div class="ndval">'+fmt(resignDate)+'</div></div><div class="ndate"><div class="ndlbl">Last working day</div><div class="ndval">'+fmt(lwdDate)+'</div></div><div class="ndate"><div class="ndlbl">Days remaining</div><div class="ndval" style="color:var(--accent)">'+Math.max(0,remaining)+'</div></div></div><div class="embox" id="notice-embox" style="margin-top:8px"></div><button class="btn-copy" onclick="copyEl(\'notice-embox\',\'notice-copybtn\')" id="notice-copybtn" style="margin-top:6px">📋 Copy email</button>';
+  var h='';
+  h+='<div class="ndates">';
+  h+='<div class="ndate"><div class="ndlbl">Resignation date</div><div class="ndval">'+fmt(resignDate)+'</div></div>';
+  h+='<div class="ndate"><div class="ndlbl">Last working day</div><div class="ndval">'+fmt(lwdDate)+'</div></div>';
+  h+='<div class="ndate"><div class="ndlbl">Days remaining</div><div class="ndval" style="color:var(--accent)">'+Math.max(0,remaining)+'</div></div>';
+  h+='</div>';
+  h+='<div style="font-size:12px;color:var(--text3);margin:8px 0 4px">Resignation email draft:</div>';
+  h+='<div class="embox" id="notice-embox"></div>';
+  h+='<button class="btn-copy" id="notice-copybtn" data-box="notice-embox" data-btn="notice-copybtn" onclick="copyEl(this.dataset.box,this.dataset.btn)" style="margin-top:6px">Copy email</button>';
+  res.innerHTML=h;
   document.getElementById('notice-embox').textContent=email;
 }
+
 
 /* ── NEGOTIATION ── */
 function genNego(){
@@ -1635,10 +1690,28 @@ function genNego(){
   var pct=Math.round(((counter-offer)/offer)*100);
   var mid=((offer+counter)/2).toFixed(1);
   var sk=getSkills();
-  var email='Subject: Re: Offer for '+role+' — Salary Discussion\n\nDear '+hr+',\n\nThank you for the offer for the '+role+' position at '+company+'. I am genuinely excited about this opportunity.\n\nAfter careful consideration, I would like to respectfully discuss the compensation. The current offer is ₹'+offer+'L per annum. Based on my experience in '+sk+' and current market rates for this level, I was hoping we could consider ₹'+counter+'L per annum.\n\nThis is a '+pct+'% adjustment. If the full amount isn\'t possible, I\'m open to a midpoint of ₹'+mid+'L, or an early performance review at 6 months.\n\nI want to be transparent — I am very interested in joining '+company+'. I simply want to ensure we start on terms that reflect the value I bring.\n\nI\'d be happy to discuss at your earliest convenience. Thank you.\n\nWarm regards,\n'+name;
+  var lines=[
+    'Subject: Re: Offer for '+role+' -- Salary Discussion',
+    '',
+    'Dear '+hr+',',
+    '',
+    'Thank you for the offer for the '+role+' position at '+company+'. I am genuinely excited about this opportunity.',
+    '',
+    'After careful consideration, I would like to respectfully discuss the compensation. The current offer is Rs.'+offer+'L per annum. Based on my experience in '+sk+' and current market rates for this level, I was hoping we could consider Rs.'+counter+'L per annum.',
+    '',
+    'This is a '+pct+'% adjustment. If the full amount is not possible, I am open to a midpoint of Rs.'+mid+'L, or an early performance review at 6 months.',
+    '',
+    'I want to be transparent -- I am very interested in joining '+company+'. I simply want to ensure we start on terms that reflect the value I bring.',
+    '',
+    'I would be happy to discuss at your earliest convenience. Thank you.',
+    '',
+    'Warm regards,',
+    name
+  ];
   document.getElementById('nego-out').style.display='block';
-  document.getElementById('nego-embox').textContent=email;
+  document.getElementById('nego-embox').textContent=lines.join('\n');
 }
+
 
 /* ── COLD OUTREACH ── */
 function genCold(){
@@ -1648,10 +1721,28 @@ function genCold(){
   var name=document.getElementById('cold-name').value.trim()||'I';
   var purpose=document.getElementById('cold-purpose').value.trim()||'learn more about the team and explore potential opportunities';
   var sk=getSkills();
-  var email='Subject: Quick question from a '+sk+' practitioner\n\nHi '+contact+',\n\nI hope this message finds you well. My name is '+name+', and I came across your profile while researching the '+title+' role at '+company+'.\n\nI have hands-on experience in '+sk+' and I\'m reaching out to '+purpose+'.\n\nI know your time is valuable, so I\'ll keep this brief — I\'d love a 15-minute conversation at your convenience. Happy to work around your schedule completely.\n\nWould a short call or a few questions over LinkedIn work for you?\n\nThank you for considering this.\n\nWarm regards,\n'+name;
+  var lines=[
+    'Subject: Quick question from a '+sk+' practitioner',
+    '',
+    'Hi '+contact+',',
+    '',
+    'I hope this message finds you well. My name is '+name+', and I came across your profile while researching the '+title+' role at '+company+'.',
+    '',
+    'I have hands-on experience in '+sk+' and I am reaching out to '+purpose+'.',
+    '',
+    'I know your time is valuable, so I will keep this brief -- I would love a 15-minute conversation at your convenience. Happy to work around your schedule completely.',
+    '',
+    'Would a short call or a few questions over LinkedIn work for you?',
+    '',
+    'Thank you for considering this.',
+    '',
+    'Warm regards,',
+    name
+  ];
   document.getElementById('cold-out').style.display='block';
-  document.getElementById('cold-embox').textContent=email;
+  document.getElementById('cold-embox').textContent=lines.join('\n');
 }
+
 
 /* ── FOLLOW-UP ── */
 function genFollowUp(){
@@ -1660,10 +1751,26 @@ function genFollowUp(){
   var role=document.getElementById('fu-role').value.trim()||'the role';
   var company=document.getElementById('fu-company').value.trim()||'your company';
   var highlight=document.getElementById('fu-highlight').value.trim()||'the technical challenges you described';
-  var email='Subject: Thank you — '+role+' interview follow-up\n\nDear '+interviewer+',\n\nThank you for taking the time to speak with me about the '+role+' position at '+company+'. I really enjoyed our conversation and came away genuinely excited about the opportunity.\n\nI was particularly struck by '+highlight+' — it reinforced my belief that this role is exactly the challenge I\'m looking for.\n\nI remain very enthusiastic about joining the team. Please don\'t hesitate to reach out if you need any additional information or references.\n\nLooking forward to hearing about next steps.\n\nWarm regards,\n'+name;
+  var lines=[
+    'Subject: Thank you -- '+role+' interview follow-up',
+    '',
+    'Dear '+interviewer+',',
+    '',
+    'Thank you for taking the time to speak with me about the '+role+' position at '+company+'. I really enjoyed our conversation and came away genuinely excited about the opportunity.',
+    '',
+    'I was particularly struck by '+highlight+' -- it reinforced my belief that this role is exactly the challenge I am looking for.',
+    '',
+    'I remain very enthusiastic about joining the team. Please do not hesitate to reach out if you need any additional information or references.',
+    '',
+    'Looking forward to hearing about next steps.',
+    '',
+    'Warm regards,',
+    name
+  ];
   document.getElementById('fu-out').style.display='block';
-  document.getElementById('fu-embox').textContent=email;
+  document.getElementById('fu-embox').textContent=lines.join('\n');
 }
+
 
 /* ── AB COMPARE ── */
 function getGrade(score){
@@ -1831,215 +1938,136 @@ function calcCTC(){
 
   var res = document.getElementById('ctc-result');
   res.style.display = 'block';
-
-  var bonusRow = bonus > 0 ? `
-    <div class="ctc-card" style="grid-column:1/-1;background:var(--il);border-color:var(--info)">
-      <div class="ctc-lbl" style="color:var(--info)">First month (salary + net joining bonus)</div>
-      <div class="ctc-val" style="color:var(--info)">${M(firstMonth)}</div>
-    </div>` : '';
-
-  res.innerHTML = `
-    <div class="ctc-summary">
-      <div class="ctc-card highlight">
-        <div class="ctc-lbl">Monthly take-home</div>
-        <div class="ctc-val">${M(netMonthly)}</div>
-      </div>
-      <div class="ctc-card">
-        <div class="ctc-lbl">Annual take-home</div>
-        <div class="ctc-val">${L(netAnnual)}</div>
-      </div>
-      <div class="ctc-card">
-        <div class="ctc-lbl">Gross monthly salary</div>
-        <div class="ctc-val">${M(grossMonthly)}</div>
-      </div>
-      <div class="ctc-card">
-        <div class="ctc-lbl">Total deductions / yr</div>
-        <div class="ctc-val">${L(totalDeductionsAnnual)}</div>
-      </div>
-      ${bonusRow}
-    </div>
-
-    <div class="ctc-breakdown">
-      <div class="ctc-row" style="background:var(--surface2);font-weight:500">
-        <span class="ctc-rlbl">CTC (as offered)</span>
-        <span class="ctc-rval">${L(ctc)}</span>
-      </div>
-      <div class="ctc-row">
-        <span class="ctc-rlbl">Employer PF contribution</span>
-        <span class="ctc-rval" style="color:var(--text3)">−${L(empPfAnnual)}</span>
-      </div>
-      <div class="ctc-row">
-        <span class="ctc-rlbl">Gross salary</span>
-        <span class="ctc-rval">${L(grossAnnual)}</span>
-      </div>
-      <div class="ctc-row deduction">
-        <span class="ctc-rlbl">Employee PF (your share)</span>
-        <span class="ctc-rval">−${L(pfAnnual)}</span>
-      </div>
-      <div class="ctc-row deduction">
-        <span class="ctc-rlbl">Professional tax</span>
-        <span class="ctc-rval">−${L(ptAnnual)}</span>
-      </div>
-      <div class="ctc-row deduction">
-        <span class="ctc-rlbl">Income tax + cess</span>
-        <span class="ctc-rval">−${L(totalTax)}</span>
-      </div>
-      <div class="ctc-row total">
-        <span class="ctc-rlbl">Net annual take-home</span>
-        <span class="ctc-rval" style="color:var(--accent)">${L(netAnnual)}</span>
-      </div>
-    </div>
-    ${bonus > 0 ? `
-    <div class="ctc-breakdown" style="margin-top:10px">
-      <div class="ctc-row" style="background:var(--surface2);font-weight:500">
-        <span class="ctc-rlbl">Joining bonus (gross)</span>
-        <span class="ctc-rval">${L(bonus)}</span>
-      </div>
-      <div class="ctc-row deduction">
-        <span class="ctc-rlbl">TDS on bonus (~30%)</span>
-        <span class="ctc-rval">−${L(bonusTDS)}</span>
-      </div>
-      <div class="ctc-row total">
-        <span class="ctc-rlbl">Net joining bonus in hand</span>
-        <span class="ctc-rval" style="color:var(--info)">${L(bonusNet)}</span>
-      </div>
-    </div>` : ''}
-    <div class="ctc-note">
-      ⚠️ This is an estimate using Budget 2025-26 slabs (new regime) or 2024-25 slabs. Actual take-home depends on your HRA exemption, 80C investments, variable pay structure, ESOP components, meal/transport allowances, and your company's exact salary breakup. The ₹12L rebate (2025-26 new regime) applies to total taxable income, not CTC. Always verify with your company's payroll team.
-    </div>
-    <div class="ctc-tip">💡 Ask HR for the "salary breakup sheet" — it shows exact splits of basic, HRA, special allowance, and all deductions before you sign.</div>`;
+  var h = '';
+  h += '<div class="ctc-summary">';
+  h += '<div class="ctc-card highlight"><div class="ctc-lbl">Monthly take-home</div><div class="ctc-val">' + M(netMonthly) + '</div></div>';
+  h += '<div class="ctc-card"><div class="ctc-lbl">Annual take-home</div><div class="ctc-val">' + L(netAnnual) + '</div></div>';
+  h += '<div class="ctc-card"><div class="ctc-lbl">Gross monthly salary</div><div class="ctc-val">' + M(grossMonthly) + '</div></div>';
+  h += '<div class="ctc-card"><div class="ctc-lbl">Total deductions/yr</div><div class="ctc-val">' + L(totalDeductionsAnnual) + '</div></div>';
+  if(bonus > 0) h += '<div class="ctc-card" style="grid-column:1/-1;background:var(--il);border-color:var(--info)"><div class="ctc-lbl" style="color:var(--info)">First month (salary + net bonus)</div><div class="ctc-val" style="color:var(--info)">' + M(firstMonth) + '</div></div>';
+  h += '</div>';
+  h += '<div class="ctc-breakdown">';
+  h += '<div class="ctc-row tot"><span class="rlbl">CTC (as offered)</span><span class="rval">' + L(ctc) + '</span></div>';
+  h += '<div class="ctc-row"><span class="rlbl">Employer PF</span><span class="rval" style="color:var(--text3)">&minus;' + L(empPfAnnual) + '</span></div>';
+  h += '<div class="ctc-row"><span class="rlbl">Gross salary</span><span class="rval">' + L(grossAnnual) + '</span></div>';
+  h += '<div class="ctc-row"><span class="rlbl">Employee PF (your share)</span><span class="rval neg">&minus;' + L(pfAnnual) + '</span></div>';
+  h += '<div class="ctc-row"><span class="rlbl">Professional tax</span><span class="rval neg">&minus;' + L(ptAnnual) + '</span></div>';
+  h += '<div class="ctc-row"><span class="rlbl">Income tax + cess</span><span class="rval neg">&minus;' + L(totalTax) + '</span></div>';
+  h += '<div class="ctc-row tot"><span class="rlbl">Net annual take-home</span><span class="rval pos">' + L(netAnnual) + '</span></div>';
+  h += '</div>';
+  if(bonus > 0){
+    h += '<div class="ctc-breakdown" style="margin-top:10px">';
+    h += '<div class="ctc-row tot"><span class="rlbl">Joining bonus (gross)</span><span class="rval">' + L(bonus) + '</span></div>';
+    h += '<div class="ctc-row"><span class="rlbl">TDS on bonus (~30%)</span><span class="rval neg">&minus;' + L(bonusTDS) + '</span></div>';
+    h += '<div class="ctc-row tot"><span class="rlbl">Net joining bonus in hand</span><span class="rval pos">' + L(bonusNet) + '</span></div>';
+    h += '</div>';
+  }
+  h += '<div class="calc-note">&#9888; Estimate only. Actual take-home depends on HRA, 80C, variable pay, ESOP, and your company CTC breakup. The Rs.12L rebate (2025-26) applies to taxable income, not CTC. Verify with your payroll team.</div>';
+  h += '<div class="ctc-tip">Tip: Ask HR for the salary breakup sheet before signing.</div>';
+  res.innerHTML = h;
 }
 
 
 /* ── GRATUITY CALCULATOR ── */
 function calcGratuity(){
-  var salary = parseFloat(document.getElementById('grat-salary').value) || 0;
-  var years  = parseFloat(document.getElementById('grat-years').value)  || 0;
-  var type   = document.getElementById('grat-type').value;
-  var taxMode= document.getElementById('grat-tax').value;
-
-  if(!salary || salary < 1){ alert('Please enter your last drawn basic salary.'); return; }
-  if(!years  || years  < 1){ alert('Please enter your years of service.'); return; }
-
-  var inr = function(n){ return '₹' + Math.round(n).toLocaleString('en-IN'); };
-  var L   = function(n){ return '₹' + (n/100000).toFixed(2) + 'L'; };
-
-  /* Formula:
-     Covered orgs  → (Last basic × 15 × years) / 26
-     Not covered   → (Last basic × 15 × years) / 30         */
-  var divisor = type === 'covered' ? 26 : 30;
-  var grossGratuity = (salary * 15 * years) / divisor;
-
-  /* Tax exemption limit ₹20L for covered orgs */
-  var exemptLimit = 2000000;
-  var taxableAmount = Math.max(0, grossGratuity - exemptLimit);
-  var taxDeducted = 0;
-  if(taxMode === 'taxable') taxDeducted = taxableAmount * 0.30; // 30% marginal rate
-
-  var netGratuity = grossGratuity - taxDeducted;
-
-  /* Eligibility note */
-  var eligible = years >= 5;
-
-  var res = document.getElementById('grat-result');
-  res.style.display = 'block';
-  res.innerHTML =
-    (!eligible ? '<div class="calc-note" style="background:var(--dl);color:var(--danger);margin-bottom:10px">⚠️ Gratuity is typically payable only after completing 5 years of continuous service. At ' + years + ' years you may not yet be eligible — confirm with your HR.</div>' : '') +
-    '<div class="calc-summary">' +
-      '<div class="calc-card hl"><div class="clbl">Gross gratuity</div><div class="cval">' + L(grossGratuity) + '</div></div>' +
-      '<div class="calc-card"><div class="clbl">Net after tax</div><div class="cval">' + L(netGratuity) + '</div></div>' +
-      '<div class="calc-card"><div class="clbl">Years of service</div><div class="cval">' + years + ' yrs</div></div>' +
-      '<div class="calc-card"><div class="clbl">Basic salary used</div><div class="cval">' + inr(salary) + '/mo</div></div>' +
-    '</div>' +
-    '<div class="calc-breakdown">' +
-      '<div class="calc-row"><span class="rlbl">Formula used</span><span class="rval">(Basic × 15 × ' + years + ') ÷ ' + divisor + '</span></div>' +
-      '<div class="calc-row"><span class="rlbl">Gross gratuity</span><span class="rval pos">' + L(grossGratuity) + '</span></div>' +
-      '<div class="calc-row"><span class="rlbl">Tax-exempt limit</span><span class="rval">' + L(exemptLimit) + '</span></div>' +
-      '<div class="calc-row"><span class="rlbl">Taxable amount</span><span class="rval">' + L(Math.max(0,taxableAmount)) + '</span></div>' +
-      (taxDeducted > 0 ? '<div class="calc-row"><span class="rlbl">Tax deducted (~30%)</span><span class="rval neg">−' + L(taxDeducted) + '</span></div>' : '') +
-      '<div class="calc-row tot"><span class="rlbl">Net gratuity in hand</span><span class="rval pos">' + L(netGratuity) + '</span></div>' +
-    '</div>' +
-    '<div class="calc-note">💡 Gratuity is calculated on your basic + DA salary, not gross CTC. Confirm the basic component from your payslip. For government employees, different rules may apply under the CCS (Pension) Rules.</div>';
+  var salary=parseFloat(document.getElementById('grat-salary').value)||0;
+  var years=parseFloat(document.getElementById('grat-years').value)||0;
+  var type=document.getElementById('grat-type').value;
+  var taxMode=document.getElementById('grat-tax').value;
+  if(!salary||salary<1){alert('Please enter your last drawn basic salary.');return;}
+  if(!years||years<1){alert('Please enter your years of service.');return;}
+  var inr=function(n){return 'Rs.'+Math.round(n).toLocaleString('en-IN')};
+  var L=function(n){return 'Rs.'+(n/100000).toFixed(2)+'L'};
+  var divisor=type==='covered'?26:30;
+  var grossGratuity=(salary*15*years)/divisor;
+  var exemptLimit=2000000;
+  var taxableAmount=Math.max(0,grossGratuity-exemptLimit);
+  var taxDeducted=taxMode==='taxable'?taxableAmount*0.30:0;
+  var netGratuity=grossGratuity-taxDeducted;
+  var eligible=years>=5;
+  var res=document.getElementById('grat-result');
+  res.style.display='block';
+  var h='';
+  if(!eligible) h+='<div class="calc-note" style="background:var(--dl);color:var(--danger);margin-bottom:10px">Warning: Gratuity is payable after 5 years of continuous service. At '+years+' years you may not yet be eligible.</div>';
+  h+='<div class="calc-summary">';
+  h+='<div class="calc-card hl"><div class="clbl">Gross gratuity</div><div class="cval">'+L(grossGratuity)+'</div></div>';
+  h+='<div class="calc-card"><div class="clbl">Net after tax</div><div class="cval">'+L(netGratuity)+'</div></div>';
+  h+='<div class="calc-card"><div class="clbl">Years of service</div><div class="cval">'+years+' yrs</div></div>';
+  h+='<div class="calc-card"><div class="clbl">Basic salary</div><div class="cval">'+inr(salary)+'/mo</div></div>';
+  h+='</div>';
+  h+='<div class="calc-breakdown">';
+  h+='<div class="calc-row"><span class="rlbl">Formula</span><span class="rval">(Basic x 15 x '+years+') / '+divisor+'</span></div>';
+  h+='<div class="calc-row"><span class="rlbl">Gross gratuity</span><span class="rval pos">'+L(grossGratuity)+'</span></div>';
+  h+='<div class="calc-row"><span class="rlbl">Tax-exempt limit</span><span class="rval">'+L(exemptLimit)+'</span></div>';
+  h+='<div class="calc-row"><span class="rlbl">Taxable amount</span><span class="rval">'+L(Math.max(0,taxableAmount))+'</span></div>';
+  if(taxDeducted>0) h+='<div class="calc-row"><span class="rlbl">Tax (~30%)</span><span class="rval neg">&minus;'+L(taxDeducted)+'</span></div>';
+  h+='<div class="calc-row tot"><span class="rlbl">Net gratuity in hand</span><span class="rval pos">'+L(netGratuity)+'</span></div>';
+  h+='</div>';
+  h+='<div class="calc-note">Gratuity is calculated on basic + DA, not gross CTC. Confirm your basic component from your payslip.</div>';
+  res.innerHTML=h;
 }
+
 
 /* ── ESOP VALUE ESTIMATOR ── */
 function calcESOP(){
-  var shares  = parseInt(document.getElementById('esop-shares').value)        || 0;
-  var price   = parseFloat(document.getElementById('esop-price').value)       || 0;
-  var strike  = parseFloat(document.getElementById('esop-strike').value)      || 0;
-  var vesting = document.getElementById('esop-vesting').value;
-  var growth  = parseFloat(document.getElementById('esop-growth').value) / 100;
-  var taxRate = parseFloat(document.getElementById('esop-taxrate').value) / 100;
-
-  if(!shares || !price){ alert('Please enter shares granted and current share price.'); return; }
-  if(strike >= price){ alert('Strike price is equal to or higher than current FMV — no intrinsic value yet. The options are currently underwater.'); }
-
-  var L = function(n){ return '₹' + Math.round(n).toLocaleString('en-IN'); };
-
-  /* Vesting schedule: cliff-year = 0 means no cliff vest */
-  var schedules = {
-    '1-3':        [0, 0.25, 0.25, 0.25, 0.25],  /* idx 0=cliff yr, 1-4=yr1-4 */
-    'standard':   [0, 0.25, 0.25, 0.25, 0.25],
-    'backloaded':  [0, 0.10, 0.20, 0.30, 0.40],
-  };
-  /* For 1-year cliff: 25% vests at end of year 1 */
-  var pcts = schedules[vesting] || schedules['standard'];
-
-  /* Project share price each year */
-  var priceAtYear = [price];
-  for(var i = 1; i <= 4; i++) priceAtYear.push(price * Math.pow(1 + growth, i));
-
-  var yearData = [];
-  var cumulativeShares = 0;
-  var totalGross = 0;
-  var totalTax = 0;
-
-  for(var yr = 1; yr <= 4; yr++){
-    var vestedShares = Math.round(shares * pcts[yr]);
-    cumulativeShares += vestedShares;
-    var fmvAtVest = priceAtYear[yr];
-    var gainPerShare = Math.max(0, fmvAtVest - strike);
-    var grossValue = vestedShares * fmvAtVest;
-    var gainValue  = vestedShares * gainPerShare;
-    var taxOnGain  = gainValue * taxRate;
-    var netValue   = grossValue - taxOnGain;
-    totalGross += grossValue;
-    totalTax   += taxOnGain;
-    yearData.push({ yr, vestedShares, cumulativeShares, fmvAtVest, grossValue, gainValue, taxOnGain, netValue });
+  var shares=parseInt(document.getElementById('esop-shares').value)||0;
+  var price=parseFloat(document.getElementById('esop-price').value)||0;
+  var strike=parseFloat(document.getElementById('esop-strike').value)||0;
+  var vesting=document.getElementById('esop-vesting').value;
+  var growth=parseFloat(document.getElementById('esop-growth').value)/100;
+  var taxRate=parseFloat(document.getElementById('esop-taxrate').value)/100;
+  if(!shares||!price){alert('Please enter shares granted and current share price.');return;}
+  if(strike>=price) alert('Strike price >= current FMV -- options are currently underwater.');
+  var L=function(n){return 'Rs.'+Math.round(n).toLocaleString('en-IN')};
+  var schedules={'1-3':[0,0.25,0.25,0.25,0.25],'standard':[0,0.25,0.25,0.25,0.25],'backloaded':[0,0.10,0.20,0.30,0.40]};
+  var pcts=schedules[vesting]||schedules['standard'];
+  var priceAtYear=[price];
+  for(var i=1;i<=4;i++) priceAtYear.push(price*Math.pow(1+growth,i));
+  var yearData=[];
+  var totalGross=0,totalTax=0;
+  for(var yr=1;yr<=4;yr++){
+    var vestedShares=Math.round(shares*pcts[yr]);
+    var fmvAtVest=priceAtYear[yr];
+    var gainPerShare=Math.max(0,fmvAtVest-strike);
+    var grossValue=vestedShares*fmvAtVest;
+    var gainValue=vestedShares*gainPerShare;
+    var taxOnGain=gainValue*taxRate;
+    var netValue=grossValue-taxOnGain;
+    totalGross+=grossValue;totalTax+=taxOnGain;
+    yearData.push({yr,vestedShares,fmvAtVest,grossValue,gainValue,taxOnGain,netValue});
   }
-
-  var totalNet = totalGross - totalTax;
-  var intrinsicValue = Math.max(0, (price - strike) * shares);
-
-  var res = document.getElementById('esop-result');
-  res.style.display = 'block';
-
-  res.innerHTML =
-    '<div class="calc-summary">' +
-      '<div class="calc-card hl"><div class="clbl">Total gross value (4yr)</div><div class="cval">' + L(totalGross) + '</div></div>' +
-      '<div class="calc-card hl"><div class="clbl">Total net after tax</div><div class="cval">' + L(totalNet) + '</div></div>' +
-      '<div class="calc-card"><div class="clbl">Current intrinsic value</div><div class="cval">' + L(intrinsicValue) + '</div></div>' +
-      '<div class="calc-card"><div class="clbl">Tax deducted (total)</div><div class="cval">' + L(totalTax) + '</div></div>' +
-    '</div>' +
-    '<div class="esop-timeline">' +
-      yearData.map(function(d){
-        return '<div class="esop-yr vested">' +
-          '<div class="eylbl">Year ' + d.yr + ' (' + d.vestedShares.toLocaleString('en-IN') + ' shares)</div>' +
-          '<div class="eyval">' + L(d.netValue) + '</div>' +
-          '<div class="eysub">FMV: ₹' + Math.round(d.fmvAtVest) + '/share</div>' +
-        '</div>';
-      }).join('') +
-    '</div>' +
-    '<div class="calc-breakdown">' +
-      '<div class="calc-row"><span class="rlbl">Shares granted</span><span class="rval">' + shares.toLocaleString('en-IN') + '</span></div>' +
-      '<div class="calc-row"><span class="rlbl">Current FMV</span><span class="rval">₹' + price + '/share</span></div>' +
-      '<div class="calc-row"><span class="rlbl">Strike price</span><span class="rval">₹' + strike + '/share</span></div>' +
-      '<div class="calc-row"><span class="rlbl">Assumed annual growth</span><span class="rval">' + (growth*100).toFixed(0) + '%/yr</span></div>' +
-      '<div class="calc-row"><span class="rlbl">Tax rate on gains</span><span class="rval">' + (taxRate*100).toFixed(0) + '%</span></div>' +
-      '<div class="calc-row tot"><span class="rlbl">4-year net value (post-tax)</span><span class="rval pos">' + L(totalNet) + '</span></div>' +
-    '</div>' +
-    '<div class="calc-note">⚠️ ESOP estimates are projections, not guarantees. Actual value depends on exit event (IPO/acquisition), lock-in periods, liquidation preferences, and final share price. Tax treatment varies by option type (ISO vs NSO vs RSU). Always consult a CA before exercising options.</div>';
+  var totalNet=totalGross-totalTax;
+  var intrinsicValue=Math.max(0,(price-strike)*shares);
+  var res=document.getElementById('esop-result');
+  res.style.display='block';
+  var h='';
+  h+='<div class="calc-summary">';
+  h+='<div class="calc-card hl"><div class="clbl">Total gross value (4yr)</div><div class="cval">'+L(totalGross)+'</div></div>';
+  h+='<div class="calc-card hl"><div class="clbl">Total net after tax</div><div class="cval">'+L(totalNet)+'</div></div>';
+  h+='<div class="calc-card"><div class="clbl">Current intrinsic value</div><div class="cval">'+L(intrinsicValue)+'</div></div>';
+  h+='<div class="calc-card"><div class="clbl">Tax deducted (total)</div><div class="cval">'+L(totalTax)+'</div></div>';
+  h+='</div>';
+  h+='<div class="esop-timeline">';
+  yearData.forEach(function(d){
+    h+='<div class="esop-yr vested">';
+    h+='<div class="eylbl">Year '+d.yr+' ('+d.vestedShares.toLocaleString('en-IN')+' shares)</div>';
+    h+='<div class="eyval">'+L(d.netValue)+'</div>';
+    h+='<div class="eysub">FMV: Rs.'+Math.round(d.fmvAtVest)+'/share</div>';
+    h+='</div>';
+  });
+  h+='</div>';
+  h+='<div class="calc-breakdown">';
+  h+='<div class="calc-row"><span class="rlbl">Shares granted</span><span class="rval">'+shares.toLocaleString('en-IN')+'</span></div>';
+  h+='<div class="calc-row"><span class="rlbl">Current FMV</span><span class="rval">Rs.'+price+'/share</span></div>';
+  h+='<div class="calc-row"><span class="rlbl">Strike price</span><span class="rval">Rs.'+strike+'/share</span></div>';
+  h+='<div class="calc-row"><span class="rlbl">Annual growth</span><span class="rval">'+(growth*100).toFixed(0)+'%/yr</span></div>';
+  h+='<div class="calc-row"><span class="rlbl">Tax rate on gains</span><span class="rval">'+(taxRate*100).toFixed(0)+'%</span></div>';
+  h+='<div class="calc-row tot"><span class="rlbl">4-year net value (post-tax)</span><span class="rval pos">'+L(totalNet)+'</span></div>';
+  h+='</div>';
+  h+='<div class="calc-note">ESOP values are projections only. Actual value depends on exit event, lock-in periods, and final share price. Consult a CA before exercising options.</div>';
+  res.innerHTML=h;
 }
+
 
 /* ── OFFER ACCEPTANCE EMAIL ── */
 function genOfferAccept(){
@@ -2058,24 +2086,14 @@ function genOfferAccept(){
     startStr = 'the mutually agreed date';
   }
 
-  var ctcLine = ctc ? '
-
-I confirm my understanding of the agreed CTC of ₹' + ctc + 'L per annum, as per the offer letter dated [date].' : '';
-
-  var email = 'Subject: Offer Acceptance — ' + role + ' | ' + name + '
-
-Dear ' + hr + ',
-
-Thank you for extending the offer for the position of ' + role + ' at ' + company + '. I am delighted to formally accept this offer and am very excited about joining the team.
-
-I confirm my acceptance of all the terms and conditions as outlined in the offer letter.' + ctcLine + '
-
-I plan to join on ' + startStr + ' and will ensure a smooth transition from my current role. Please let me know if there are any pre-joining formalities, documents to submit, or onboarding steps I should complete beforehand.
-
-Thank you again for this opportunity. I look forward to contributing to ' + company + ' and working with the team.
-
-Warm regards,
-' + name;
+  var ctcLine = ctc ? '\n\nI confirm the agreed CTC of Rs.' + ctc + 'L per annum, as per the offer letter.' : '';
+  var email = 'Subject: Offer Acceptance — ' + role + ' | ' + name +
+    '\n\nDear ' + hr + ',' +
+    '\n\nThank you for extending the offer for the position of ' + role + ' at ' + company + '. I am delighted to formally accept this offer and am very excited about joining the team.' +
+    ctcLine +
+    '\n\nI plan to join on ' + startStr + ' and will ensure a smooth transition from my current role. Please let me know if there are any pre-joining formalities, documents to submit, or onboarding steps I should complete beforehand.' +
+    '\n\nThank you again for this opportunity. I look forward to contributing to ' + company + ' and working with the team.' +
+    '\n\nWarm regards,\n' + name;
 
   document.getElementById('oa-out').style.display = 'block';
   document.getElementById('oa-embox').textContent = email;
