@@ -310,6 +310,33 @@ textarea::placeholder,input::placeholder{color:var(--text3)}
 .ctc-rlbl{color:var(--text2)}
 .ctc-rval{font-family:'DM Mono',monospace;font-weight:500}
 @media(max-width:480px){.ctc-grid{grid-template-columns:1fr}}
+
+/* ── GRATUITY / ESOP / OFFER ACCEPTANCE ── */
+.calc-result{display:none;margin-top:14px}
+.calc-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:12px}
+.calc-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
+.calc-card.hl{background:var(--al);border-color:var(--accent)}
+.calc-card .clbl{font-size:11px;color:var(--text3);margin-bottom:3px}
+.calc-card.hl .clbl{color:var(--accent)}
+.calc-card .cval{font-size:16px;font-weight:600;color:var(--text)}
+.calc-card.hl .cval{color:var(--accent)}
+.calc-breakdown{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:8px}
+.calc-row{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;font-size:13px;border-bottom:.5px solid var(--border)}
+.calc-row:last-child{border-bottom:none}
+.calc-row.tot{background:var(--surface2);font-weight:500}
+.calc-row .rlbl{color:var(--text2)}
+.calc-row .rval{font-family:'DM Mono',monospace;font-weight:500}
+.calc-row .rval.pos{color:var(--accent)}
+.calc-row .rval.neg{color:var(--danger)}
+.calc-note{font-size:11px;color:var(--text3);margin-top:8px;line-height:1.55;padding:6px 10px;background:var(--wl);border-radius:6px}
+.esop-timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:10px}
+.esop-yr{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 12px;text-align:center}
+.esop-yr.vested{border-color:var(--accent);background:var(--al)}
+.esop-yr .eylbl{font-size:11px;color:var(--text3);margin-bottom:4px}
+.esop-yr.vested .eylbl{color:var(--accent)}
+.esop-yr .eyval{font-size:14px;font-weight:600;color:var(--text)}
+.esop-yr.vested .eyval{color:var(--accent)}
+.esop-yr .eysub{font-size:11px;color:var(--text3);margin-top:2px}
 .negotip{font-size:11px;color:var(--text3);margin-top:6px;line-height:1.5}
 
 /* AI SOON */
@@ -736,6 +763,126 @@ footer a:hover{text-decoration:underline}
     </div>
     <button class="btn-full" onclick="calcCTC()">Calculate take-home →</button>
     <div class="ctc-result" id="ctc-result"></div>
+  </div>
+
+
+  <!-- Gratuity Calculator -->
+  <div class="card">
+    <div class="ct"><div class="ci">🏦</div>Gratuity Calculator
+      <span style="font-size:11px;font-weight:400;color:var(--text3);margin-left:4px">eligible after 5 years of service</span>
+    </div>
+    <div class="grid2" style="margin-bottom:8px">
+      <div>
+        <label class="flabel">Last drawn basic salary (₹/month)</label>
+        <input type="number" id="grat-salary" placeholder="e.g. 50000" min="1">
+      </div>
+      <div>
+        <label class="flabel">Years of completed service</label>
+        <input type="number" id="grat-years" placeholder="e.g. 7" min="1" max="40">
+      </div>
+      <div>
+        <label class="flabel">Organisation type</label>
+        <select id="grat-type">
+          <option value="covered">Covered under Payment of Gratuity Act</option>
+          <option value="notcovered">Not covered (private formula)</option>
+        </select>
+      </div>
+      <div>
+        <label class="flabel">Tax on gratuity</label>
+        <select id="grat-tax">
+          <option value="exempt">Exempt (govt / covered org up to ₹20L)</option>
+          <option value="taxable">Taxable (above ₹20L or not covered)</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-full" onclick="calcGratuity()">Calculate gratuity →</button>
+    <div class="calc-result" id="grat-result"></div>
+  </div>
+
+  <!-- ESOP Value Estimator -->
+  <div class="card">
+    <div class="ct"><div class="ci">📈</div>ESOP Value Estimator
+      <span style="font-size:11px;font-weight:400;color:var(--text3);margin-left:4px">estimate vesting value over 4 years</span>
+    </div>
+    <div class="grid2" style="margin-bottom:8px">
+      <div>
+        <label class="flabel">Total shares granted</label>
+        <input type="number" id="esop-shares" placeholder="e.g. 10000" min="1">
+      </div>
+      <div>
+        <label class="flabel">Current share price / FMV (₹)</label>
+        <input type="number" id="esop-price" placeholder="e.g. 150" min="1" step="0.01">
+      </div>
+      <div>
+        <label class="flabel">Strike / exercise price (₹)</label>
+        <input type="number" id="esop-strike" placeholder="e.g. 10" min="0" step="0.01">
+      </div>
+      <div>
+        <label class="flabel">Vesting schedule</label>
+        <select id="esop-vesting">
+          <option value="1-3">1-year cliff, 3-year vest (25/25/25/25)</option>
+          <option value="standard">Standard 4-year (25% each year)</option>
+          <option value="backloaded">Back-loaded (10/20/30/40)</option>
+        </select>
+      </div>
+      <div>
+        <label class="flabel">Expected annual growth (%)</label>
+        <select id="esop-growth">
+          <option value="0">0% (flat — conservative)</option>
+          <option value="15">15% / yr — moderate startup</option>
+          <option value="30">30% / yr — high-growth startup</option>
+          <option value="50">50% / yr — pre-IPO rocket</option>
+          <option value="-20">-20% / yr — bear case</option>
+        </select>
+      </div>
+      <div>
+        <label class="flabel">Tax rate on exercise gains</label>
+        <select id="esop-taxrate">
+          <option value="30">30% (listed / unlisted &lt;24mo)</option>
+          <option value="20">20% with indexation (unlisted &gt;24mo)</option>
+          <option value="15">15% STCG (listed, held &lt;12mo)</option>
+          <option value="10">10% LTCG (listed, held &gt;12mo)</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-full" onclick="calcESOP()">Estimate ESOP value →</button>
+    <div class="calc-result" id="esop-result"></div>
+  </div>
+
+  <!-- Offer Acceptance Email -->
+  <div class="card">
+    <div class="ct"><div class="ci">✅</div>Offer Acceptance Email</div>
+    <div class="grid2" style="margin-bottom:8px">
+      <div>
+        <label class="flabel">Your name</label>
+        <input type="text" id="oa-name" placeholder="e.g. Your Name">
+      </div>
+      <div>
+        <label class="flabel">HR / recruiter name</label>
+        <input type="text" id="oa-hr" placeholder="e.g. Divya">
+      </div>
+      <div>
+        <label class="flabel">Role</label>
+        <input type="text" id="oa-role" placeholder="e.g. Senior Platform Engineer">
+      </div>
+      <div>
+        <label class="flabel">Company</label>
+        <input type="text" id="oa-company" placeholder="e.g. Razorpay">
+      </div>
+      <div>
+        <label class="flabel">Proposed start date</label>
+        <input type="date" id="oa-start">
+      </div>
+      <div>
+        <label class="flabel">Agreed CTC (₹L/yr)</label>
+        <input type="number" id="oa-ctc" placeholder="e.g. 24" step="0.5">
+      </div>
+    </div>
+    <button class="btn-full" onclick="genOfferAccept()">Generate acceptance email →</button>
+    <div id="oa-out" style="display:none">
+      <div class="embox" id="oa-embox"></div>
+      <button class="btn-copy" onclick="copyEl('oa-embox','oa-copybtn')" id="oa-copybtn">📋 Copy</button>
+    </div>
   </div>
 
 
@@ -1761,6 +1908,177 @@ function calcCTC(){
       ⚠️ This is an estimate using Budget 2025-26 slabs (new regime) or 2024-25 slabs. Actual take-home depends on your HRA exemption, 80C investments, variable pay structure, ESOP components, meal/transport allowances, and your company's exact salary breakup. The ₹12L rebate (2025-26 new regime) applies to total taxable income, not CTC. Always verify with your company's payroll team.
     </div>
     <div class="ctc-tip">💡 Ask HR for the "salary breakup sheet" — it shows exact splits of basic, HRA, special allowance, and all deductions before you sign.</div>`;
+}
+
+
+/* ── GRATUITY CALCULATOR ── */
+function calcGratuity(){
+  var salary = parseFloat(document.getElementById('grat-salary').value) || 0;
+  var years  = parseFloat(document.getElementById('grat-years').value)  || 0;
+  var type   = document.getElementById('grat-type').value;
+  var taxMode= document.getElementById('grat-tax').value;
+
+  if(!salary || salary < 1){ alert('Please enter your last drawn basic salary.'); return; }
+  if(!years  || years  < 1){ alert('Please enter your years of service.'); return; }
+
+  var inr = function(n){ return '₹' + Math.round(n).toLocaleString('en-IN'); };
+  var L   = function(n){ return '₹' + (n/100000).toFixed(2) + 'L'; };
+
+  /* Formula:
+     Covered orgs  → (Last basic × 15 × years) / 26
+     Not covered   → (Last basic × 15 × years) / 30         */
+  var divisor = type === 'covered' ? 26 : 30;
+  var grossGratuity = (salary * 15 * years) / divisor;
+
+  /* Tax exemption limit ₹20L for covered orgs */
+  var exemptLimit = 2000000;
+  var taxableAmount = Math.max(0, grossGratuity - exemptLimit);
+  var taxDeducted = 0;
+  if(taxMode === 'taxable') taxDeducted = taxableAmount * 0.30; // 30% marginal rate
+
+  var netGratuity = grossGratuity - taxDeducted;
+
+  /* Eligibility note */
+  var eligible = years >= 5;
+
+  var res = document.getElementById('grat-result');
+  res.style.display = 'block';
+  res.innerHTML =
+    (!eligible ? '<div class="calc-note" style="background:var(--dl);color:var(--danger);margin-bottom:10px">⚠️ Gratuity is typically payable only after completing 5 years of continuous service. At ' + years + ' years you may not yet be eligible — confirm with your HR.</div>' : '') +
+    '<div class="calc-summary">' +
+      '<div class="calc-card hl"><div class="clbl">Gross gratuity</div><div class="cval">' + L(grossGratuity) + '</div></div>' +
+      '<div class="calc-card"><div class="clbl">Net after tax</div><div class="cval">' + L(netGratuity) + '</div></div>' +
+      '<div class="calc-card"><div class="clbl">Years of service</div><div class="cval">' + years + ' yrs</div></div>' +
+      '<div class="calc-card"><div class="clbl">Basic salary used</div><div class="cval">' + inr(salary) + '/mo</div></div>' +
+    '</div>' +
+    '<div class="calc-breakdown">' +
+      '<div class="calc-row"><span class="rlbl">Formula used</span><span class="rval">(Basic × 15 × ' + years + ') ÷ ' + divisor + '</span></div>' +
+      '<div class="calc-row"><span class="rlbl">Gross gratuity</span><span class="rval pos">' + L(grossGratuity) + '</span></div>' +
+      '<div class="calc-row"><span class="rlbl">Tax-exempt limit</span><span class="rval">' + L(exemptLimit) + '</span></div>' +
+      '<div class="calc-row"><span class="rlbl">Taxable amount</span><span class="rval">' + L(Math.max(0,taxableAmount)) + '</span></div>' +
+      (taxDeducted > 0 ? '<div class="calc-row"><span class="rlbl">Tax deducted (~30%)</span><span class="rval neg">−' + L(taxDeducted) + '</span></div>' : '') +
+      '<div class="calc-row tot"><span class="rlbl">Net gratuity in hand</span><span class="rval pos">' + L(netGratuity) + '</span></div>' +
+    '</div>' +
+    '<div class="calc-note">💡 Gratuity is calculated on your basic + DA salary, not gross CTC. Confirm the basic component from your payslip. For government employees, different rules may apply under the CCS (Pension) Rules.</div>';
+}
+
+/* ── ESOP VALUE ESTIMATOR ── */
+function calcESOP(){
+  var shares  = parseInt(document.getElementById('esop-shares').value)        || 0;
+  var price   = parseFloat(document.getElementById('esop-price').value)       || 0;
+  var strike  = parseFloat(document.getElementById('esop-strike').value)      || 0;
+  var vesting = document.getElementById('esop-vesting').value;
+  var growth  = parseFloat(document.getElementById('esop-growth').value) / 100;
+  var taxRate = parseFloat(document.getElementById('esop-taxrate').value) / 100;
+
+  if(!shares || !price){ alert('Please enter shares granted and current share price.'); return; }
+  if(strike >= price){ alert('Strike price is equal to or higher than current FMV — no intrinsic value yet. The options are currently underwater.'); }
+
+  var L = function(n){ return '₹' + Math.round(n).toLocaleString('en-IN'); };
+
+  /* Vesting schedule: cliff-year = 0 means no cliff vest */
+  var schedules = {
+    '1-3':        [0, 0.25, 0.25, 0.25, 0.25],  /* idx 0=cliff yr, 1-4=yr1-4 */
+    'standard':   [0, 0.25, 0.25, 0.25, 0.25],
+    'backloaded':  [0, 0.10, 0.20, 0.30, 0.40],
+  };
+  /* For 1-year cliff: 25% vests at end of year 1 */
+  var pcts = schedules[vesting] || schedules['standard'];
+
+  /* Project share price each year */
+  var priceAtYear = [price];
+  for(var i = 1; i <= 4; i++) priceAtYear.push(price * Math.pow(1 + growth, i));
+
+  var yearData = [];
+  var cumulativeShares = 0;
+  var totalGross = 0;
+  var totalTax = 0;
+
+  for(var yr = 1; yr <= 4; yr++){
+    var vestedShares = Math.round(shares * pcts[yr]);
+    cumulativeShares += vestedShares;
+    var fmvAtVest = priceAtYear[yr];
+    var gainPerShare = Math.max(0, fmvAtVest - strike);
+    var grossValue = vestedShares * fmvAtVest;
+    var gainValue  = vestedShares * gainPerShare;
+    var taxOnGain  = gainValue * taxRate;
+    var netValue   = grossValue - taxOnGain;
+    totalGross += grossValue;
+    totalTax   += taxOnGain;
+    yearData.push({ yr, vestedShares, cumulativeShares, fmvAtVest, grossValue, gainValue, taxOnGain, netValue });
+  }
+
+  var totalNet = totalGross - totalTax;
+  var intrinsicValue = Math.max(0, (price - strike) * shares);
+
+  var res = document.getElementById('esop-result');
+  res.style.display = 'block';
+
+  res.innerHTML =
+    '<div class="calc-summary">' +
+      '<div class="calc-card hl"><div class="clbl">Total gross value (4yr)</div><div class="cval">' + L(totalGross) + '</div></div>' +
+      '<div class="calc-card hl"><div class="clbl">Total net after tax</div><div class="cval">' + L(totalNet) + '</div></div>' +
+      '<div class="calc-card"><div class="clbl">Current intrinsic value</div><div class="cval">' + L(intrinsicValue) + '</div></div>' +
+      '<div class="calc-card"><div class="clbl">Tax deducted (total)</div><div class="cval">' + L(totalTax) + '</div></div>' +
+    '</div>' +
+    '<div class="esop-timeline">' +
+      yearData.map(function(d){
+        return '<div class="esop-yr vested">' +
+          '<div class="eylbl">Year ' + d.yr + ' (' + d.vestedShares.toLocaleString('en-IN') + ' shares)</div>' +
+          '<div class="eyval">' + L(d.netValue) + '</div>' +
+          '<div class="eysub">FMV: ₹' + Math.round(d.fmvAtVest) + '/share</div>' +
+        '</div>';
+      }).join('') +
+    '</div>' +
+    '<div class="calc-breakdown">' +
+      '<div class="calc-row"><span class="rlbl">Shares granted</span><span class="rval">' + shares.toLocaleString('en-IN') + '</span></div>' +
+      '<div class="calc-row"><span class="rlbl">Current FMV</span><span class="rval">₹' + price + '/share</span></div>' +
+      '<div class="calc-row"><span class="rlbl">Strike price</span><span class="rval">₹' + strike + '/share</span></div>' +
+      '<div class="calc-row"><span class="rlbl">Assumed annual growth</span><span class="rval">' + (growth*100).toFixed(0) + '%/yr</span></div>' +
+      '<div class="calc-row"><span class="rlbl">Tax rate on gains</span><span class="rval">' + (taxRate*100).toFixed(0) + '%</span></div>' +
+      '<div class="calc-row tot"><span class="rlbl">4-year net value (post-tax)</span><span class="rval pos">' + L(totalNet) + '</span></div>' +
+    '</div>' +
+    '<div class="calc-note">⚠️ ESOP estimates are projections, not guarantees. Actual value depends on exit event (IPO/acquisition), lock-in periods, liquidation preferences, and final share price. Tax treatment varies by option type (ISO vs NSO vs RSU). Always consult a CA before exercising options.</div>';
+}
+
+/* ── OFFER ACCEPTANCE EMAIL ── */
+function genOfferAccept(){
+  var name    = document.getElementById('oa-name').value.trim()    || 'I';
+  var hr      = document.getElementById('oa-hr').value.trim()      || 'HR Team';
+  var role    = document.getElementById('oa-role').value.trim()    || 'the role';
+  var company = document.getElementById('oa-company').value.trim() || 'your company';
+  var startEl = document.getElementById('oa-start').value;
+  var ctc     = document.getElementById('oa-ctc').value;
+
+  var startStr = '';
+  if(startEl){
+    var d = new Date(startEl);
+    startStr = d.toLocaleDateString('en-IN', {day:'numeric', month:'long', year:'numeric'});
+  } else {
+    startStr = 'the mutually agreed date';
+  }
+
+  var ctcLine = ctc ? '
+
+I confirm my understanding of the agreed CTC of ₹' + ctc + 'L per annum, as per the offer letter dated [date].' : '';
+
+  var email = 'Subject: Offer Acceptance — ' + role + ' | ' + name + '
+
+Dear ' + hr + ',
+
+Thank you for extending the offer for the position of ' + role + ' at ' + company + '. I am delighted to formally accept this offer and am very excited about joining the team.
+
+I confirm my acceptance of all the terms and conditions as outlined in the offer letter.' + ctcLine + '
+
+I plan to join on ' + startStr + ' and will ensure a smooth transition from my current role. Please let me know if there are any pre-joining formalities, documents to submit, or onboarding steps I should complete beforehand.
+
+Thank you again for this opportunity. I look forward to contributing to ' + company + ' and working with the team.
+
+Warm regards,
+' + name;
+
+  document.getElementById('oa-out').style.display = 'block';
+  document.getElementById('oa-embox').textContent = email;
 }
 
 /* ── RESET ── */
