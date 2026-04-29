@@ -288,6 +288,28 @@ textarea::placeholder,input::placeholder{color:var(--text3)}
 .ndate{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
 .ndlbl{font-size:11px;color:var(--text3);margin-bottom:3px}
 .ndval{font-size:15px;font-weight:500}
+
+/* ── CTC CALCULATOR ── */
+.ctc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.ctc-result{display:none;margin-top:14px}
+.ctc-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:12px}
+.ctc-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
+.ctc-card.highlight{background:var(--al);border-color:var(--accent)}
+.ctc-lbl{font-size:11px;color:var(--text3);margin-bottom:3px}
+.ctc-val{font-size:16px;font-weight:600;color:var(--text)}
+.ctc-card.highlight .ctc-val{color:var(--accent)}
+.ctc-card.highlight .ctc-lbl{color:var(--accent)}
+.ctc-breakdown{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.ctc-row{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;font-size:13px;border-bottom:0.5px solid var(--border)}
+.ctc-row:last-child{border-bottom:none}
+.ctc-row.deduction .ctc-rval{color:var(--danger)}
+.ctc-row.total{background:var(--surface2);font-weight:500}
+.ctc-row.bonus{color:var(--accent)}
+.ctc-note{font-size:11px;color:var(--text3);margin-top:8px;line-height:1.55;padding:6px 10px;background:var(--wl);border-radius:6px}
+.ctc-tip{font-size:11px;color:var(--text3);margin-top:6px;line-height:1.5}
+.ctc-rlbl{color:var(--text2)}
+.ctc-rval{font-family:'DM Mono',monospace;font-weight:500}
+@media(max-width:480px){.ctc-grid{grid-template-columns:1fr}}
 .negotip{font-size:11px;color:var(--text3);margin-top:6px;line-height:1.5}
 
 /* AI SOON */
@@ -543,7 +565,7 @@ footer a:hover{text-decoration:underline}
         <div><label class="flabel">Contact name</label><input type="text" id="ref-contact" placeholder="e.g. Rahul"></div>
         <div><label class="flabel">Company</label><input type="text" id="ref-company" placeholder="e.g. Razorpay"></div>
         <div><label class="flabel">Role</label><input type="text" id="ref-role" placeholder="e.g. Platform Engineer"></div>
-        <div><label class="flabel">Your name</label><input type="text" id="ref-name" placeholder="e.g. Eknatha"></div>
+        <div><label class="flabel">Your name</label><input type="text" id="ref-name" placeholder="e.g. Your Name"></div>
       </div>
       <button class="btn-full" onclick="genReferral()">Generate message →</button>
       <div id="ref-out" style="display:none"><div class="embox" id="ref-embox"></div><button class="btn-copy" onclick="copyEl('ref-embox','ref-copybtn')" id="ref-copybtn">📋 Copy</button></div>
@@ -605,7 +627,7 @@ footer a:hover{text-decoration:underline}
   <div class="card">
     <div class="ct"><div class="ci">📆</div>Notice Period Calculator</div>
     <div class="grid2" style="margin-bottom:8px">
-      <div><label class="flabel">Your name</label><input type="text" id="notice-name" placeholder="e.g. Eknatha Reddy"></div>
+      <div><label class="flabel">Your name</label><input type="text" id="notice-name" placeholder="e.g. Your Name"></div>
       <div><label class="flabel">Manager's name</label><input type="text" id="notice-manager" placeholder="e.g. Priya Singh"></div>
       <div><label class="flabel">Last working day</label><input type="date" id="notice-lwd"></div>
       <div><label class="flabel">Notice period</label>
@@ -625,7 +647,7 @@ footer a:hover{text-decoration:underline}
   <div class="card">
     <div class="ct"><div class="ci">💼</div>Salary Negotiation Email</div>
     <div class="grid2" style="margin-bottom:8px">
-      <div><label class="flabel">Your name</label><input type="text" id="nego-name" placeholder="e.g. Eknatha Reddy"></div>
+      <div><label class="flabel">Your name</label><input type="text" id="nego-name" placeholder="e.g. Your Name"></div>
       <div><label class="flabel">HR / Recruiter name</label><input type="text" id="nego-hr" placeholder="e.g. Divya"></div>
       <div><label class="flabel">Role</label><input type="text" id="nego-role" placeholder="e.g. Senior DevOps Engineer"></div>
       <div><label class="flabel">Company</label><input type="text" id="nego-company" placeholder="e.g. Razorpay"></div>
@@ -643,7 +665,7 @@ footer a:hover{text-decoration:underline}
       <div><label class="flabel">Contact's name</label><input type="text" id="cold-contact" placeholder="e.g. Arjun Sharma"></div>
       <div><label class="flabel">Their title</label><input type="text" id="cold-title" placeholder="e.g. Engineering Manager"></div>
       <div><label class="flabel">Company</label><input type="text" id="cold-company" placeholder="e.g. Razorpay"></div>
-      <div><label class="flabel">Your name</label><input type="text" id="cold-name" placeholder="e.g. Eknatha"></div>
+      <div><label class="flabel">Your name</label><input type="text" id="cold-name" placeholder="e.g. Your Name"></div>
       <div style="grid-column:1/-1"><label class="flabel">Purpose</label><input type="text" id="cold-purpose" placeholder="e.g. learn about the Platform Engineering team and explore opportunities"></div>
     </div>
     <button class="btn-full" onclick="genCold()">Generate cold outreach email →</button>
@@ -655,7 +677,7 @@ footer a:hover{text-decoration:underline}
     <div class="ct"><div class="ci">✉️</div>Interview Follow-Up Email</div>
     <div class="grid2" style="margin-bottom:8px">
       <div><label class="flabel">Interviewer's name</label><input type="text" id="fu-interviewer" placeholder="e.g. Priya Nair"></div>
-      <div><label class="flabel">Your name</label><input type="text" id="fu-name" placeholder="e.g. Eknatha"></div>
+      <div><label class="flabel">Your name</label><input type="text" id="fu-name" placeholder="e.g. Your Name"></div>
       <div><label class="flabel">Role</label><input type="text" id="fu-role" placeholder="e.g. Platform Engineer"></div>
       <div><label class="flabel">Company</label><input type="text" id="fu-company" placeholder="e.g. Freshworks"></div>
       <div style="grid-column:1/-1"><label class="flabel">One thing that stood out</label><input type="text" id="fu-highlight" placeholder="e.g. the GitOps-first infrastructure philosophy your team uses"></div>
@@ -663,6 +685,59 @@ footer a:hover{text-decoration:underline}
     <button class="btn-full" onclick="genFollowUp()">Generate follow-up email →</button>
     <div id="fu-out" style="display:none"><div class="embox" id="fu-embox"></div><button class="btn-copy" onclick="copyEl('fu-embox','fu-copybtn')" id="fu-copybtn">📋 Copy</button></div>
   </div>
+
+  <!-- Joining Bonus vs CTC Calculator -->
+  <div class="card">
+    <div class="ct"><div class="ci">🧮</div>Joining Bonus vs CTC Calculator
+      <span style="font-size:11px;font-weight:400;color:var(--text3);margin-left:4px">real take-home after all deductions</span>
+    </div>
+    <div class="ctc-grid">
+      <div>
+        <label class="flabel">Annual CTC (₹L)</label>
+        <input type="number" id="ctc-annual" placeholder="e.g. 20" step="0.5" min="1">
+      </div>
+      <div>
+        <label class="flabel">Joining bonus (₹L)</label>
+        <input type="number" id="ctc-bonus" placeholder="e.g. 2 (or 0)" step="0.5" min="0">
+      </div>
+      <div>
+        <label class="flabel">PF contribution</label>
+        <select id="ctc-pf">
+          <option value="standard">Standard (12% of basic, capped ₹1800/mo)</option>
+          <option value="full">Full 12% of basic salary</option>
+          <option value="none">No PF deduction</option>
+        </select>
+      </div>
+      <div>
+        <label class="flabel">Basic salary split</label>
+        <select id="ctc-basic">
+          <option value="50">50% of CTC (common)</option>
+          <option value="40">40% of CTC</option>
+          <option value="60">60% of CTC</option>
+        </select>
+      </div>
+      <div>
+        <label class="flabel">Income tax slab</label>
+        <select id="ctc-tax">
+          <option value="new26">New regime 2025-26 (recommended)</option>
+          <option value="new">New regime 2024-25</option>
+          <option value="old">Old regime (with deductions)</option>
+          <option value="none">No tax (fresher / under ₹12L)</option>
+        </select>
+      </div>
+      <div>
+        <label class="flabel">Professional tax (state)</label>
+        <select id="ctc-pt">
+          <option value="200">₹200/month (Karnataka, MH, AP)</option>
+          <option value="150">₹150/month (Telangana)</option>
+          <option value="0">₹0 (no PT in your state)</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-full" onclick="calcCTC()">Calculate take-home →</button>
+    <div class="ctc-result" id="ctc-result"></div>
+  </div>
+
 
 </div>
 
@@ -1497,6 +1572,195 @@ function startScan(){
 function resetScan(){
   document.getElementById('scan-preview').classList.add('blurred');
   document.getElementById('scan-hint').textContent='Tap Run — the text blurs for 6 seconds then reveals.';
+}
+
+
+/* ── JOINING BONUS vs CTC CALCULATOR ── */
+function calcCTC(){
+  var ctcL = parseFloat(document.getElementById('ctc-annual').value) || 0;
+  var bonusL = parseFloat(document.getElementById('ctc-bonus').value) || 0;
+  var pfMode = document.getElementById('ctc-pf').value;
+  var basicPct = parseInt(document.getElementById('ctc-basic').value) / 100;
+  var taxMode = document.getElementById('ctc-tax').value;
+  var ptPerMonth = parseInt(document.getElementById('ctc-pt').value);
+
+  if(!ctcL || ctcL < 1){ alert('Please enter your annual CTC.'); return; }
+
+  // Convert to annual rupees
+  var ctc = ctcL * 100000;
+  var bonus = bonusL * 100000;
+
+  // Components
+  var basicAnnual = ctc * basicPct;
+  var basicMonthly = basicAnnual / 12;
+
+  // PF (employee share = 12% of basic, capped at ₹1800/mo for standard)
+  var pfMonthly = 0;
+  if(pfMode === 'standard') pfMonthly = Math.min(basicMonthly * 0.12, 1800);
+  else if(pfMode === 'full') pfMonthly = basicMonthly * 0.12;
+  var pfAnnual = pfMonthly * 12;
+
+  // Employer PF (part of CTC but not take-home)
+  var empPfMonthly = 0;
+  if(pfMode === 'standard') empPfMonthly = Math.min(basicMonthly * 0.12, 1800);
+  else if(pfMode === 'full') empPfMonthly = basicMonthly * 0.12;
+  var empPfAnnual = empPfMonthly * 12;
+
+  // Gross salary (CTC minus employer PF and other employer contributions)
+  var grossAnnual = ctc - empPfAnnual;
+  var grossMonthly = grossAnnual / 12;
+
+  // Professional tax
+  var ptAnnual = ptPerMonth * 12;
+
+  // Income tax estimation (simplified)
+  var taxableIncome = grossAnnual - pfAnnual - ptAnnual;
+  var standardDeduction = 75000; // New regime 2024-25
+  var taxableAfterSD = Math.max(0, taxableIncome - standardDeduction);
+  var incomeTax = 0;
+
+  if(taxMode === 'new26'){
+    // New regime slabs 2025-26 (Budget 2025 — effective FY 2025-26)
+    // Standard deduction: ₹75,000 (same as 2024-25)
+    // Key change: 0% slab extended to ₹4L, rebate u/s 87A raised to ₹12L
+    if(taxableAfterSD <= 400000) incomeTax = 0;
+    else if(taxableAfterSD <= 800000) incomeTax = (taxableAfterSD - 400000) * 0.05;
+    else if(taxableAfterSD <= 1200000) incomeTax = 20000 + (taxableAfterSD - 800000) * 0.10;
+    else if(taxableAfterSD <= 1600000) incomeTax = 60000 + (taxableAfterSD - 1200000) * 0.15;
+    else if(taxableAfterSD <= 2000000) incomeTax = 120000 + (taxableAfterSD - 1600000) * 0.20;
+    else if(taxableAfterSD <= 2400000) incomeTax = 200000 + (taxableAfterSD - 2000000) * 0.25;
+    else incomeTax = 300000 + (taxableAfterSD - 2400000) * 0.30;
+    // Rebate u/s 87A (2025-26): zero tax if total taxable income ≤ ₹12L
+    // Note: taxableIncome (before SD) is the basis for 87A limit
+    if(taxableIncome <= 1200000) incomeTax = 0;
+  } else if(taxMode === 'new'){
+    // New regime slabs 2024-25
+    if(taxableAfterSD <= 300000) incomeTax = 0;
+    else if(taxableAfterSD <= 700000) incomeTax = (taxableAfterSD - 300000) * 0.05;
+    else if(taxableAfterSD <= 1000000) incomeTax = 20000 + (taxableAfterSD - 700000) * 0.10;
+    else if(taxableAfterSD <= 1200000) incomeTax = 50000 + (taxableAfterSD - 1000000) * 0.15;
+    else if(taxableAfterSD <= 1500000) incomeTax = 80000 + (taxableAfterSD - 1200000) * 0.20;
+    else incomeTax = 140000 + (taxableAfterSD - 1500000) * 0.30;
+    // Rebate u/s 87A: no tax if taxable income ≤ 7L (after SD)
+    if(taxableAfterSD <= 700000) incomeTax = 0;
+  } else if(taxMode === 'old'){
+    // Old regime with 80C (1.5L), HRA assumption (40% of basic), standard deduction 50K
+    var hra = basicAnnual * 0.4;
+    var deductions = 150000 + 50000 + hra;
+    var oldTaxable = Math.max(0, taxableIncome - deductions);
+    if(oldTaxable <= 250000) incomeTax = 0;
+    else if(oldTaxable <= 500000) incomeTax = (oldTaxable - 250000) * 0.05;
+    else if(oldTaxable <= 1000000) incomeTax = 12500 + (oldTaxable - 500000) * 0.20;
+    else incomeTax = 112500 + (oldTaxable - 1000000) * 0.30;
+    if(oldTaxable <= 500000) incomeTax = 0; // 87A rebate old regime
+  } else {
+    incomeTax = 0;
+  }
+
+  // Health & education cess (4% on income tax)
+  var cess = incomeTax * 0.04;
+  var totalTax = incomeTax + cess;
+  var taxMonthly = totalTax / 12;
+
+  // Net take-home
+  var totalDeductionsAnnual = pfAnnual + ptAnnual + totalTax;
+  var netAnnual = grossAnnual - totalDeductionsAnnual;
+  var netMonthly = netAnnual / 12;
+
+  // Bonus TDS (approx 30% flat on bonus if taxed)
+  var bonusNet = bonus;
+  var bonusTDS = 0;
+  if(taxMode !== 'none' && bonus > 0){
+    bonusTDS = bonus * 0.30; // flat TDS on joining bonus
+    bonusNet = bonus - bonusTDS;
+  }
+
+  // First month: net salary + net bonus
+  var firstMonth = netMonthly + bonusNet;
+
+  // Format helpers
+  var L = function(n){ return n >= 100000 ? '₹' + (n/100000).toFixed(2) + 'L' : '₹' + Math.round(n).toLocaleString('en-IN'); };
+  var M = function(n){ return '₹' + Math.round(n).toLocaleString('en-IN'); };
+
+  var res = document.getElementById('ctc-result');
+  res.style.display = 'block';
+
+  var bonusRow = bonus > 0 ? `
+    <div class="ctc-card" style="grid-column:1/-1;background:var(--il);border-color:var(--info)">
+      <div class="ctc-lbl" style="color:var(--info)">First month (salary + net joining bonus)</div>
+      <div class="ctc-val" style="color:var(--info)">${M(firstMonth)}</div>
+    </div>` : '';
+
+  res.innerHTML = `
+    <div class="ctc-summary">
+      <div class="ctc-card highlight">
+        <div class="ctc-lbl">Monthly take-home</div>
+        <div class="ctc-val">${M(netMonthly)}</div>
+      </div>
+      <div class="ctc-card">
+        <div class="ctc-lbl">Annual take-home</div>
+        <div class="ctc-val">${L(netAnnual)}</div>
+      </div>
+      <div class="ctc-card">
+        <div class="ctc-lbl">Gross monthly salary</div>
+        <div class="ctc-val">${M(grossMonthly)}</div>
+      </div>
+      <div class="ctc-card">
+        <div class="ctc-lbl">Total deductions / yr</div>
+        <div class="ctc-val">${L(totalDeductionsAnnual)}</div>
+      </div>
+      ${bonusRow}
+    </div>
+
+    <div class="ctc-breakdown">
+      <div class="ctc-row" style="background:var(--surface2);font-weight:500">
+        <span class="ctc-rlbl">CTC (as offered)</span>
+        <span class="ctc-rval">${L(ctc)}</span>
+      </div>
+      <div class="ctc-row">
+        <span class="ctc-rlbl">Employer PF contribution</span>
+        <span class="ctc-rval" style="color:var(--text3)">−${L(empPfAnnual)}</span>
+      </div>
+      <div class="ctc-row">
+        <span class="ctc-rlbl">Gross salary</span>
+        <span class="ctc-rval">${L(grossAnnual)}</span>
+      </div>
+      <div class="ctc-row deduction">
+        <span class="ctc-rlbl">Employee PF (your share)</span>
+        <span class="ctc-rval">−${L(pfAnnual)}</span>
+      </div>
+      <div class="ctc-row deduction">
+        <span class="ctc-rlbl">Professional tax</span>
+        <span class="ctc-rval">−${L(ptAnnual)}</span>
+      </div>
+      <div class="ctc-row deduction">
+        <span class="ctc-rlbl">Income tax + cess</span>
+        <span class="ctc-rval">−${L(totalTax)}</span>
+      </div>
+      <div class="ctc-row total">
+        <span class="ctc-rlbl">Net annual take-home</span>
+        <span class="ctc-rval" style="color:var(--accent)">${L(netAnnual)}</span>
+      </div>
+    </div>
+    ${bonus > 0 ? `
+    <div class="ctc-breakdown" style="margin-top:10px">
+      <div class="ctc-row" style="background:var(--surface2);font-weight:500">
+        <span class="ctc-rlbl">Joining bonus (gross)</span>
+        <span class="ctc-rval">${L(bonus)}</span>
+      </div>
+      <div class="ctc-row deduction">
+        <span class="ctc-rlbl">TDS on bonus (~30%)</span>
+        <span class="ctc-rval">−${L(bonusTDS)}</span>
+      </div>
+      <div class="ctc-row total">
+        <span class="ctc-rlbl">Net joining bonus in hand</span>
+        <span class="ctc-rval" style="color:var(--info)">${L(bonusNet)}</span>
+      </div>
+    </div>` : ''}
+    <div class="ctc-note">
+      ⚠️ This is an estimate using Budget 2025-26 slabs (new regime) or 2024-25 slabs. Actual take-home depends on your HRA exemption, 80C investments, variable pay structure, ESOP components, meal/transport allowances, and your company's exact salary breakup. The ₹12L rebate (2025-26 new regime) applies to total taxable income, not CTC. Always verify with your company's payroll team.
+    </div>
+    <div class="ctc-tip">💡 Ask HR for the "salary breakup sheet" — it shows exact splits of basic, HRA, special allowance, and all deductions before you sign.</div>`;
 }
 
 /* ── RESET ── */
