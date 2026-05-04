@@ -11,7 +11,7 @@
 ![Features](https://img.shields.io/badge/features-30+-blueviolet?style=flat-square)
 ![Analytics](https://img.shields.io/badge/analytics-Plausible-4F46E5?style=flat-square)
 
-🔗 **Live demo:** [eknatha.github.io/resumelytics](https://eknatha.github.io/resumelytics/)
+🔗 **Live demo:** [resumelytics.eknathalabs.com/](https://resumelytics.eknathalabs.com/)
 
 ---
 
