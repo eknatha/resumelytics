@@ -264,7 +264,10 @@ textarea::placeholder,input::placeholder{color:var(--text3)}
 .scanctrls{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 
 /* EMAIL OUTPUT */
-.embox{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:12px;font-size:13px;line-height:1.65;font-family:'Figtree',sans-serif;white-space:pre-wrap;margin-top:10px;color:var(--text)}
+.embox{position:relative;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:24px 12px;font-size:13px;line-height:1.65;font-family:'Figtree',sans-serif;white-space:pre-wrap;margin-top:10px;color:var(--text);overflow:hidden}
+.embox::before,.embox::after{content:"EknathaLabs™ · EknathaLabs™ · EknathaLabs™ · EknathaLabs™ · EknathaLabs™ · EknathaLabs™ · EknathaLabs™ · EknathaLabs™ · EknathaLabs™ · EknathaLabs™ · ";position:absolute;left:0;right:0;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.04em;white-space:nowrap;overflow:hidden;color:var(--accent);opacity:.16;pointer-events:none;user-select:none;font-weight:600}
+.embox::before{top:5px}
+.embox::after{bottom:5px}
 
 /* AB COMPARE */
 .abgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
@@ -1658,6 +1661,13 @@ function getSkills(){
   if(/ci.?cd/.test(lower))sk.push('CI/CD automation');
   return sk.length?sk.slice(0,2).join(' and '):'DevOps and platform engineering';
 }
+/* ── EknathaLabs attribution ──
+   Visible credit appended to every generated email/message so copied
+   content traces back to EknathaLabs. Kept on a separate trailing line,
+   clearly separated, so users can delete it if they prefer. */
+var EKL_CREDIT = '\n\n— Generated with EknathaLabs™ · resumelytics.eknathalabs.com';
+function withCredit(text){ return text + EKL_CREDIT; }
+
 function genReferral(){
   var contact=document.getElementById('ref-contact').value.trim()||'there';
   var company=document.getElementById('ref-company').value.trim()||'your company';
@@ -1679,7 +1689,7 @@ function genReferral(){
     name
   ];
   document.getElementById('ref-out').style.display='block';
-  document.getElementById('ref-embox').textContent=lines.join('\n');
+  document.getElementById('ref-embox').textContent=withCredit(lines.join('\n'));
 }
 
 
@@ -1739,7 +1749,7 @@ function calcNotice(){
   h+='<div class="embox" id="notice-embox"></div>';
   h+='<button class="btn-copy" id="notice-copybtn" data-box="notice-embox" data-btn="notice-copybtn" onclick="copyEl(this.dataset.box,this.dataset.btn)" style="margin-top:6px">Copy email</button>';
   res.innerHTML=h;
-  document.getElementById('notice-embox').textContent=email;
+  document.getElementById('notice-embox').textContent=withCredit(email);
 }
 
 
@@ -1775,7 +1785,7 @@ function genNego(){
     name
   ];
   document.getElementById('nego-out').style.display='block';
-  document.getElementById('nego-embox').textContent=lines.join('\n');
+  document.getElementById('nego-embox').textContent=withCredit(lines.join('\n'));
 }
 
 
@@ -1806,7 +1816,7 @@ function genCold(){
     name
   ];
   document.getElementById('cold-out').style.display='block';
-  document.getElementById('cold-embox').textContent=lines.join('\n');
+  document.getElementById('cold-embox').textContent=withCredit(lines.join('\n'));
 }
 
 
@@ -1834,7 +1844,7 @@ function genFollowUp(){
     name
   ];
   document.getElementById('fu-out').style.display='block';
-  document.getElementById('fu-embox').textContent=lines.join('\n');
+  document.getElementById('fu-embox').textContent=withCredit(lines.join('\n'));
 }
 
 
@@ -2288,7 +2298,7 @@ function genOfferAccept(){
     '\n\nWarm regards,\n' + name;
 
   document.getElementById('oa-out').style.display = 'block';
-  document.getElementById('oa-embox').textContent = email;
+  document.getElementById('oa-embox').textContent = withCredit(email);
 }
 
 /* ── RESET ── */
