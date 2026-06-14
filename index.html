@@ -309,7 +309,19 @@ textarea::placeholder,input::placeholder{color:var(--text3)}
 .ctc-tip{font-size:11px;color:var(--text3);margin-top:6px;line-height:1.5}
 .ctc-rlbl{color:var(--text2)}
 .ctc-rval{font-family:'DM Mono',monospace;font-weight:500}
-@media(max-width:480px){.ctc-grid{grid-template-columns:1fr}}
+.cbv-bar{display:flex;width:100%;height:34px;border-radius:8px;overflow:hidden;margin:4px 0 14px;border:1px solid var(--border)}
+.cbv-seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;overflow:hidden;white-space:nowrap;transition:opacity .15s}
+.cbv-seg:hover{opacity:.85}
+.cbv-legend{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.cbv-lrow{display:flex;align-items:center;justify-content:space-between;font-size:12.5px;padding:5px 2px}
+.cbv-lleft{display:flex;align-items:center;gap:8px}
+.cbv-dot{width:11px;height:11px;border-radius:3px;flex-shrink:0}
+.cbv-lpct{font-family:'DM Mono',monospace;color:var(--text3);font-size:11px;margin-left:6px}
+.cbv-lval{font-family:'DM Mono',monospace;font-weight:500}
+.cbv-real{background:var(--al);border:1px solid var(--accent);border-radius:8px;padding:11px 13px;margin-bottom:10px}
+.cbv-real .cbv-rl{font-size:11px;color:var(--accent);margin-bottom:2px}
+.cbv-real .cbv-rv{font-size:20px;font-weight:700;color:var(--accent);font-family:'DM Mono',monospace}
+@media(max-width:480px){.ctc-grid{grid-template-columns:1fr}.cbv-seg{font-size:0}}
 
 /* ── GRATUITY / ESOP / OFFER ACCEPTANCE ── */
 .calc-result{display:none;margin-top:14px}
@@ -763,6 +775,55 @@ footer a:hover{text-decoration:underline}
     </div>
     <button class="btn-full" onclick="calcCTC()">Calculate take-home →</button>
     <div class="ctc-result" id="ctc-result"></div>
+  </div>
+
+
+  <!-- CTC Breakdown Visualizer -->
+  <div class="card">
+    <div class="ct"><div class="ci">📊</div>CTC Breakdown Visualizer
+      <span style="font-size:11px;font-weight:400;color:var(--text3);margin-left:4px">see what your "₹X LPA" offer really contains</span>
+    </div>
+    <p style="font-size:12px;color:var(--text2);line-height:1.6;margin:0 0 10px">Indian offers inflate the headline CTC with employer PF, gratuity, variable pay, RSUs and benefits you don't take home monthly. Enter the components you know — leave the rest blank and they'll be estimated.</p>
+    <div class="ctc-grid">
+      <div>
+        <label class="flabel">Headline CTC (₹L) *</label>
+        <input type="number" id="cbv-ctc" placeholder="e.g. 24" step="0.5" min="1">
+      </div>
+      <div>
+        <label class="flabel">Fixed base / guaranteed (₹L)</label>
+        <input type="number" id="cbv-fixed" placeholder="auto if blank" step="0.5" min="0">
+      </div>
+      <div>
+        <label class="flabel">Variable / performance bonus (₹L)</label>
+        <input type="number" id="cbv-variable" placeholder="auto if blank" step="0.5" min="0">
+      </div>
+      <div>
+        <label class="flabel">RSU / ESOP per year (₹L)</label>
+        <input type="number" id="cbv-rsu" placeholder="0 if none" step="0.5" min="0">
+      </div>
+      <div>
+        <label class="flabel">One-time joining bonus (₹L)</label>
+        <input type="number" id="cbv-joining" placeholder="0 if none" step="0.5" min="0">
+      </div>
+      <div>
+        <label class="flabel">Retention / retial bonus (₹L)</label>
+        <input type="number" id="cbv-retention" placeholder="0 if none" step="0.5" min="0">
+      </div>
+      <div>
+        <label class="flabel">Basic salary split</label>
+        <select id="cbv-basic">
+          <option value="0.5">50% of fixed (common)</option>
+          <option value="0.4">40% of fixed</option>
+          <option value="0.6">60% of fixed</option>
+        </select>
+      </div>
+      <div>
+        <label class="flabel">Benefits / insurance / meal (₹L)</label>
+        <input type="number" id="cbv-benefits" placeholder="auto ~0.5L if blank" step="0.25" min="0">
+      </div>
+    </div>
+    <button class="btn-full" onclick="visualizeCTC()">Visualize breakdown →</button>
+    <div class="ctc-result" id="cbv-result"></div>
   </div>
 
 
@@ -1964,6 +2025,132 @@ function calcCTC(){
   }
   h += '<div class="calc-note">&#9888; Estimate only. Actual take-home depends on HRA, 80C, variable pay, ESOP, and your company CTC breakup. The Rs.12L rebate (2025-26) applies to taxable income, not CTC. Verify with your payroll team.</div>';
   h += '<div class="ctc-tip">Tip: Ask HR for the salary breakup sheet before signing.</div>';
+  res.innerHTML = h;
+}
+
+
+/* ── CTC BREAKDOWN VISUALIZER ── */
+function visualizeCTC(){
+  var num = function(id){ var v = parseFloat(document.getElementById(id).value); return isNaN(v) ? null : v; };
+  var ctcL = num('cbv-ctc');
+  if(!ctcL || ctcL < 1){ alert('Please enter the headline CTC.'); return; }
+
+  var rsu       = num('cbv-rsu')       || 0;
+  var joining   = num('cbv-joining')   || 0;
+  var retention = num('cbv-retention') || 0;
+  var basicPct  = parseFloat(document.getElementById('cbv-basic').value);
+
+  // Annualised one-time components count toward CTC but aren't recurring fixed pay
+  var nonFixedKnown = rsu + joining + retention;
+
+  // Remaining pool = CTC minus the explicit non-fixed components
+  var remaining = Math.max(0, ctcL - nonFixedKnown);
+
+  // Fixed (base) — user value or estimate ~78% of remaining (rest is variable + employer PF + gratuity + benefits)
+  var fixed = num('cbv-fixed');
+  if(fixed === null) fixed = remaining * 0.78;
+  fixed = Math.min(fixed, remaining);
+
+  // Variable / performance bonus — user value or estimate ~10% of fixed
+  var variable = num('cbv-variable');
+  if(variable === null) variable = Math.min(remaining - fixed, fixed * 0.10);
+  variable = Math.max(0, Math.min(variable, remaining - fixed));
+
+  // Benefits — user value or estimate
+  var benefits = num('cbv-benefits');
+  if(benefits === null) benefits = 0.5;
+
+  // Employer PF = 12% of basic (basic = basicPct of fixed), capped at ₹1800/mo = ₹0.216L/yr per side
+  var basic = fixed * basicPct;
+  var empPfUncapped = basic * 0.12;
+  var empPf = Math.min(empPfUncapped, 0.216); // ₹1800×12 = ₹21,600 = 0.216L
+
+  // Gratuity accrual ≈ 4.81% of basic
+  var gratuity = basic * 0.0481;
+
+  // What's left in the remaining pool after fixed + variable becomes "other employer contributions"
+  var accountedInRemaining = fixed + variable + empPf + gratuity + benefits;
+  var other = remaining - accountedInRemaining;
+  // If we over-counted, fold the excess back into benefits/other and clamp
+  if(other < 0){ benefits = Math.max(0, benefits + other); other = 0; }
+
+  // ── Take-home reality: only fixed pay (minus your own deductions) hits your bank monthly ──
+  var fixedRupees = fixed * 100000;
+  var basicRupees = basic * 100000;
+  var empPfMonthly = Math.min(basicRupees/12 * 0.12, 1800);
+  var pfAnnual = empPfMonthly * 12; // employee share
+  var grossAnnual = fixedRupees; // fixed cash is the in-hand gross before employee deductions
+  var ptAnnual = 2400;
+  var taxableIncome = grossAnnual - pfAnnual - ptAnnual;
+  var taxableAfterSD = Math.max(0, taxableIncome - 75000);
+  var tax = 0;
+  if(taxableAfterSD <= 400000) tax = 0;
+  else if(taxableAfterSD <= 800000) tax = (taxableAfterSD-400000)*0.05;
+  else if(taxableAfterSD <= 1200000) tax = 20000+(taxableAfterSD-800000)*0.10;
+  else if(taxableAfterSD <= 1600000) tax = 60000+(taxableAfterSD-1200000)*0.15;
+  else if(taxableAfterSD <= 2000000) tax = 120000+(taxableAfterSD-1600000)*0.20;
+  else if(taxableAfterSD <= 2400000) tax = 200000+(taxableAfterSD-2000000)*0.25;
+  else tax = 300000+(taxableAfterSD-2400000)*0.30;
+  if(taxableIncome <= 1200000) tax = 0;
+  tax = tax * 1.04; // cess
+  var netAnnual = grossAnnual - pfAnnual - ptAnnual - tax;
+  var netMonthly = netAnnual / 12;
+
+  // ── Build segments (annual ₹L of the headline CTC) ──
+  var segs = [
+    { name:'Fixed base (cash)',        val:fixed,     color:'var(--accent)' },
+    { name:'Variable / bonus',         val:variable,  color:'var(--info)' },
+    { name:'RSU / ESOP',               val:rsu,       color:'#9B59B6' },
+    { name:'Joining bonus (one-time)', val:joining,   color:'var(--warn)' },
+    { name:'Retention (one-time)',     val:retention, color:'#E67E22' },
+    { name:'Employer PF',              val:empPf,     color:'var(--text3)' },
+    { name:'Gratuity accrual',         val:gratuity,  color:'#7F8C8D' },
+    { name:'Benefits / insurance',     val:benefits,  color:'#16A085' },
+    { name:'Other employer cost',      val:other,     color:'var(--border2)' }
+  ].filter(function(s){ return s.val > 0.001; });
+
+  var total = segs.reduce(function(a,s){ return a + s.val; }, 0);
+
+  var L = function(n){ return '₹' + n.toFixed(2) + 'L'; };
+  var M = function(n){ return '₹' + Math.round(n).toLocaleString('en-IN'); };
+  var pct = function(v){ return (v/total*100); };
+
+  var res = document.getElementById('cbv-result');
+  res.style.display = 'block';
+  var h = '';
+
+  // Stacked bar
+  h += '<div class="cbv-bar">';
+  segs.forEach(function(s){
+    var p = pct(s.val);
+    h += '<div class="cbv-seg" style="width:' + p.toFixed(2) + '%;background:' + s.color + '" title="' + s.name + ': ' + L(s.val) + '">' + (p > 7 ? Math.round(p)+'%' : '') + '</div>';
+  });
+  h += '</div>';
+
+  // Legend
+  h += '<div class="cbv-legend">';
+  segs.forEach(function(s){
+    h += '<div class="cbv-lrow"><div class="cbv-lleft"><span class="cbv-dot" style="background:' + s.color + '"></span><span>' + s.name + '</span><span class="cbv-lpct">' + pct(s.val).toFixed(1) + '%</span></div><span class="cbv-lval">' + L(s.val) + '</span></div>';
+  });
+  h += '</div>';
+
+  // The real numbers that matter
+  var recurringCash = fixed; // what shows up as monthly salary structure
+  var paperVsCash = ((ctcL - recurringCash) / ctcL * 100);
+  h += '<div class="cbv-real"><div class="cbv-rl">Actual monthly take-home (from fixed pay)</div><div class="cbv-rv">' + M(netMonthly) + '/mo</div></div>';
+
+  h += '<div class="ctc-breakdown">';
+  h += '<div class="ctc-row tot"><span class="rlbl">Headline CTC</span><span class="rval">' + L(ctcL) + '</span></div>';
+  h += '<div class="ctc-row"><span class="rlbl">Recurring fixed cash</span><span class="rval pos">' + L(fixed) + '</span></div>';
+  h += '<div class="ctc-row"><span class="rlbl">Variable (if targets met)</span><span class="rval">' + L(variable) + '</span></div>';
+  h += '<div class="ctc-row"><span class="rlbl">One-time (joining + retention)</span><span class="rval">' + L(joining + retention) + '</span></div>';
+  h += '<div class="ctc-row"><span class="rlbl">Equity / RSU per year</span><span class="rval">' + L(rsu) + '</span></div>';
+  h += '<div class="ctc-row"><span class="rlbl">Non-cash (PF + gratuity + benefits)</span><span class="rval" style="color:var(--text3)">' + L(empPf + gratuity + benefits + other) + '</span></div>';
+  h += '<div class="ctc-row tot"><span class="rlbl">Net annual in-hand (fixed only)</span><span class="rval pos">' + L(netAnnual/100000) + '</span></div>';
+  h += '</div>';
+
+  h += '<div class="calc-note">&#9888; ' + paperVsCash.toFixed(0) + '% of this "' + ctcL + 'L" headline is NOT recurring monthly cash — it\'s variable, one-time, equity, or employer-side cost. Always negotiate on <strong>fixed pay</strong>, not CTC. Estimates fill any blanks; ask HR for the official salary breakup sheet to confirm.</div>';
+  h += '<div class="ctc-tip">Tip: When comparing two offers, line up fixed-cash and net in-hand — not the headline numbers.</div>';
   res.innerHTML = h;
 }
 
