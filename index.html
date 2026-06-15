@@ -60,6 +60,17 @@ body[data-font="xl"]{--fs:20px}
 
 /* CARD */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:1.5rem;box-shadow:var(--sh);margin-bottom:1.25rem}
+.toolkit{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);box-shadow:var(--sh);margin-bottom:1.25rem;overflow:hidden}
+.toolkit>summary{font-size:14px;font-weight:600;color:var(--text);padding:1.5rem;display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;user-select:none}
+.toolkit>summary::-webkit-details-marker{display:none}
+.toolkit>summary .tk-ci{width:26px;height:26px;border-radius:7px;background:var(--al);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.toolkit>summary .tk-sub{font-size:11px;font-weight:400;color:var(--text3);margin-left:2px}
+.toolkit>summary .tk-chev{margin-left:auto;transition:transform .2s;color:var(--text3);font-size:13px}
+.toolkit[open]>summary .tk-chev{transform:rotate(180deg)}
+.toolkit>summary:hover{background:var(--surface2)}
+.toolkit-body{padding:0 1.25rem 1.25rem}
+.toolkit-body .card{box-shadow:none;margin-bottom:1rem;background:var(--surface2)}
+.toolkit-body .card:last-child{margin-bottom:0}
 .ct{font-size:14px;font-weight:600;color:var(--text);margin-bottom:1.1rem;display:flex;align-items:center;gap:8px}
 .ci{width:26px;height:26px;border-radius:7px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
 
@@ -329,6 +340,21 @@ textarea::placeholder,input::placeholder{color:var(--text3)}
 /* ── GRATUITY / ESOP / OFFER ACCEPTANCE ── */
 .calc-result{display:none;margin-top:14px}
 .calc-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:12px}
+.moc-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px}
+.moc-col{background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:10px}
+.moc-col .flabel{margin-top:7px}
+.moc-col .flabel:first-of-type{margin-top:0}
+.moc-cap{font-weight:600;font-size:12px;color:var(--accent);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.moc-table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:4px}
+.moc-table th,.moc-table td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--border)}
+.moc-table th:first-child,.moc-table td:first-child{text-align:left;color:var(--text2)}
+.moc-table thead th{color:var(--text);font-weight:600;border-bottom:1.5px solid var(--border2)}
+.moc-table td{font-family:'DM Mono',monospace}
+.moc-table tr.moc-key td{background:var(--al);font-weight:600}
+.moc-table .moc-win{color:var(--accent);font-weight:700}
+.moc-table .moc-win::after{content:" ★";font-size:10px}
+.moc-verdict{margin-top:12px;background:var(--al);border:1px solid var(--accent);border-radius:9px;padding:11px 13px;font-size:13px;line-height:1.6}
+@media(max-width:560px){.moc-cols{grid-template-columns:1fr}.moc-table th,.moc-table td{padding:7px 6px;font-size:11.5px}}
 .calc-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
 .calc-card.hl{background:var(--al);border-color:var(--accent)}
 .calc-card .clbl{font-size:11px;color:var(--text3);margin-bottom:3px}
@@ -667,6 +693,16 @@ footer a:hover{text-decoration:underline}
     <button class="btn-outline" style="margin-top:10px;width:100%" onclick="loadScan()">Load resume into scanner</button>
   </div>
 
+  <!-- ═══ OUTREACH TOOLKIT (collapsible) ═══ -->
+  <details class="toolkit" open>
+    <summary>
+      <span class="tk-ci">✍️</span>
+      Outreach Toolkit
+      <span class="tk-sub">8 message &amp; email generators — recruiters, negotiation, follow-ups, LinkedIn, pitch, offer acceptance &amp; more</span>
+      <span class="tk-chev">▾</span>
+    </summary>
+    <div class="toolkit-body">
+
   <!-- Notice Period -->
   <div class="card">
     <div class="ct"><div class="ci">📆</div>Notice Period Calculator</div>
@@ -789,6 +825,25 @@ footer a:hover{text-decoration:underline}
     <button class="btn-full" onclick="genPitch()">Generate pitch →</button>
     <div id="tp-out" style="display:none"><div class="embox" id="tp-embox"></div><button class="btn-copy" onclick="copyEl('tp-embox','tp-copybtn')" id="tp-copybtn">📋 Copy</button></div>
   </div>
+
+  <!-- Offer Acceptance Email -->
+  <div class="card">
+    <div class="ct"><div class="ci">✅</div>Offer Acceptance Email</div>
+    <div class="grid2" style="margin-bottom:8px">
+      <div><label class="flabel">Your name</label><input type="text" id="oa-name" placeholder="e.g. Your Name"></div>
+      <div><label class="flabel">HR / recruiter name</label><input type="text" id="oa-hr" placeholder="e.g. Divya"></div>
+      <div><label class="flabel">Role</label><input type="text" id="oa-role" placeholder="e.g. Senior Platform Engineer"></div>
+      <div><label class="flabel">Company</label><input type="text" id="oa-company" placeholder="e.g. Razorpay"></div>
+      <div><label class="flabel">Proposed start date</label><input type="date" id="oa-start"></div>
+      <div><label class="flabel">Agreed CTC (₹L/yr)</label><input type="number" id="oa-ctc" placeholder="e.g. 24" step="0.5"></div>
+    </div>
+    <button class="btn-full" onclick="genOfferAccept()">Generate acceptance email →</button>
+    <div id="oa-out" style="display:none"><div class="embox" id="oa-embox"></div><button class="btn-copy" onclick="copyEl('oa-embox','oa-copybtn')" id="oa-copybtn">📋 Copy</button></div>
+  </div>
+
+    </div>
+  </details>
+  <!-- ═══ END OUTREACH TOOLKIT ═══ -->
 
   <!-- Joining Bonus vs CTC Calculator -->
   <div class="card">
@@ -975,40 +1030,43 @@ footer a:hover{text-decoration:underline}
     <div class="calc-result" id="esop-result"></div>
   </div>
 
-  <!-- Offer Acceptance Email -->
+  <!-- Multi-Offer Comparison -->
   <div class="card">
-    <div class="ct"><div class="ci">✅</div>Offer Acceptance Email</div>
-    <div class="grid2" style="margin-bottom:8px">
-      <div>
-        <label class="flabel">Your name</label>
-        <input type="text" id="oa-name" placeholder="e.g. Your Name">
+    <div class="ct"><div class="ci">⚖️</div>Multi-Offer Comparison
+      <span style="font-size:11px;font-weight:400;color:var(--text3);margin-left:4px">line up 2–3 offers on what actually matters</span>
+    </div>
+    <p style="font-size:12px;color:var(--text2);line-height:1.6;margin:0 0 12px">Headline CTC lies. This compares real <strong>monthly take-home</strong> (new tax regime FY25-26), fixed cash, and equity side by side. Leave an offer blank to skip it.</p>
+    <div class="moc-cols">
+      <div class="moc-col">
+        <div class="moc-cap">Offer A</div>
+        <label class="flabel">Company</label><input type="text" id="moc-a-co" placeholder="e.g. Razorpay">
+        <label class="flabel">Total CTC (₹L)</label><input type="number" id="moc-a-ctc" placeholder="24" step="0.5">
+        <label class="flabel">Fixed / base (₹L)</label><input type="number" id="moc-a-fixed" placeholder="auto" step="0.5">
+        <label class="flabel">Variable bonus (₹L)</label><input type="number" id="moc-a-var" placeholder="0" step="0.5">
+        <label class="flabel">RSU/ESOP per yr (₹L)</label><input type="number" id="moc-a-rsu" placeholder="0" step="0.5">
+        <label class="flabel">Joining bonus (₹L)</label><input type="number" id="moc-a-join" placeholder="0" step="0.5">
       </div>
-      <div>
-        <label class="flabel">HR / recruiter name</label>
-        <input type="text" id="oa-hr" placeholder="e.g. Divya">
+      <div class="moc-col">
+        <div class="moc-cap">Offer B</div>
+        <label class="flabel">Company</label><input type="text" id="moc-b-co" placeholder="e.g. Atlassian">
+        <label class="flabel">Total CTC (₹L)</label><input type="number" id="moc-b-ctc" placeholder="28" step="0.5">
+        <label class="flabel">Fixed / base (₹L)</label><input type="number" id="moc-b-fixed" placeholder="auto" step="0.5">
+        <label class="flabel">Variable bonus (₹L)</label><input type="number" id="moc-b-var" placeholder="0" step="0.5">
+        <label class="flabel">RSU/ESOP per yr (₹L)</label><input type="number" id="moc-b-rsu" placeholder="0" step="0.5">
+        <label class="flabel">Joining bonus (₹L)</label><input type="number" id="moc-b-join" placeholder="0" step="0.5">
       </div>
-      <div>
-        <label class="flabel">Role</label>
-        <input type="text" id="oa-role" placeholder="e.g. Senior Platform Engineer">
-      </div>
-      <div>
-        <label class="flabel">Company</label>
-        <input type="text" id="oa-company" placeholder="e.g. Razorpay">
-      </div>
-      <div>
-        <label class="flabel">Proposed start date</label>
-        <input type="date" id="oa-start">
-      </div>
-      <div>
-        <label class="flabel">Agreed CTC (₹L/yr)</label>
-        <input type="number" id="oa-ctc" placeholder="e.g. 24" step="0.5">
+      <div class="moc-col">
+        <div class="moc-cap">Offer C <span style="font-weight:400;color:var(--text3)">(optional)</span></div>
+        <label class="flabel">Company</label><input type="text" id="moc-c-co" placeholder="e.g. current job">
+        <label class="flabel">Total CTC (₹L)</label><input type="number" id="moc-c-ctc" placeholder="" step="0.5">
+        <label class="flabel">Fixed / base (₹L)</label><input type="number" id="moc-c-fixed" placeholder="auto" step="0.5">
+        <label class="flabel">Variable bonus (₹L)</label><input type="number" id="moc-c-var" placeholder="0" step="0.5">
+        <label class="flabel">RSU/ESOP per yr (₹L)</label><input type="number" id="moc-c-rsu" placeholder="0" step="0.5">
+        <label class="flabel">Joining bonus (₹L)</label><input type="number" id="moc-c-join" placeholder="0" step="0.5">
       </div>
     </div>
-    <button class="btn-full" onclick="genOfferAccept()">Generate acceptance email →</button>
-    <div id="oa-out" style="display:none">
-      <div class="embox" id="oa-embox"></div>
-      <button class="btn-copy" onclick="copyEl('oa-embox','oa-copybtn')" id="oa-copybtn">📋 Copy</button>
-    </div>
+    <button class="btn-full" onclick="compareOffers()">Compare offers →</button>
+    <div class="calc-result" id="moc-result"></div>
   </div>
 
 
@@ -2449,6 +2507,106 @@ function calcESOP(){
   h+='<div class="calc-row tot"><span class="rlbl">4-year net value (post-tax)</span><span class="rval pos">'+L(totalNet)+'</span></div>';
   h+='</div>';
   h+='<div class="calc-note">ESOP values are projections only. Actual value depends on exit event, lock-in periods, and final share price. Consult a CA before exercising options.</div>';
+  res.innerHTML=h;
+}
+
+
+/* ── MULTI-OFFER COMPARISON ── */
+function compareOffers(){
+  // Net annual in-hand from FIXED cash only (new regime FY25-26), mirrors CTC visualizer
+  function netFromFixed(fixedL){
+    var gross=fixedL*100000;
+    var basic=gross*0.5;
+    var empPf=Math.min(basic*0.12, 21600); // employee PF, ₹1800/mo cap
+    var pt=2400;
+    var taxable=gross-empPf-pt;
+    var afterSD=Math.max(0, taxable-75000);
+    var tax=0;
+    if(afterSD<=400000) tax=0;
+    else if(afterSD<=800000) tax=(afterSD-400000)*0.05;
+    else if(afterSD<=1200000) tax=20000+(afterSD-800000)*0.10;
+    else if(afterSD<=1600000) tax=60000+(afterSD-1200000)*0.15;
+    else if(afterSD<=2000000) tax=120000+(afterSD-1600000)*0.20;
+    else if(afterSD<=2400000) tax=200000+(afterSD-2000000)*0.25;
+    else tax=300000+(afterSD-2400000)*0.30;
+    if(taxable<=1200000) tax=0; // 87A rebate
+    tax=tax*1.04; // cess
+    return gross-empPf-pt-tax;
+  }
+  function num(id){ var v=parseFloat(document.getElementById(id).value); return isNaN(v)?null:v; }
+
+  var keys=['a','b','c'];
+  var offers=[];
+  keys.forEach(function(k){
+    var ctc=num('moc-'+k+'-ctc');
+    if(ctc===null || ctc<1) return; // skip blank offers
+    var rsu=num('moc-'+k+'-rsu')||0;
+    var join=num('moc-'+k+'-join')||0;
+    var variable=num('moc-'+k+'-var')||0;
+    var fixed=num('moc-'+k+'-fixed');
+    if(fixed===null){
+      // estimate: remaining after equity/joining/variable, then ~88% is fixed cash
+      var rem=Math.max(0, ctc-rsu-join-variable);
+      fixed=rem*0.88;
+    }
+    fixed=Math.min(fixed, ctc);
+    var co=document.getElementById('moc-'+k+'-co').value.trim()||('Offer '+k.toUpperCase());
+    var netAnnual=netFromFixed(fixed);
+    offers.push({
+      co:co, ctc:ctc, fixed:fixed, variable:variable, rsu:rsu, join:join,
+      netAnnual:netAnnual, netMonthly:netAnnual/12,
+      firstYear:netAnnual + join*100000 + rsu*100000 // rough first-year cash+equity realized
+    });
+  });
+
+  var res=document.getElementById('moc-result');
+  res.style.display='block';
+  if(offers.length<2){
+    res.innerHTML='<div class="calc-note">⚠ Enter at least two offers (Total CTC required) to compare.</div>';
+    return;
+  }
+
+  // Winners per metric
+  function maxIdx(field){ var bi=0; offers.forEach(function(o,i){ if(o[field]>offers[bi][field]) bi=i; }); return bi; }
+  var winCTC=maxIdx('ctc'), winFixed=maxIdx('fixed'), winNet=maxIdx('netMonthly'), winRSU=maxIdx('rsu');
+
+  var L=function(n){ return '₹'+n.toFixed(2)+'L'; };
+  var M=function(n){ return '₹'+Math.round(n).toLocaleString('en-IN'); };
+
+  var h='<table class="moc-table"><thead><tr><th>Metric</th>';
+  offers.forEach(function(o){ h+='<th>'+o.co+'</th>'; });
+  h+='</tr></thead><tbody>';
+
+  function row(label, fmt, field, winIdx, isKey){
+    var r='<tr'+(isKey?' class="moc-key"':'')+'><td>'+label+'</td>';
+    offers.forEach(function(o,i){
+      r+='<td'+(i===winIdx?' class="moc-win"':'')+'>'+fmt(o[field])+'</td>';
+    });
+    return r+'</tr>';
+  }
+  h+=row('Headline CTC', L, 'ctc', winCTC, false);
+  h+=row('Fixed cash', L, 'fixed', winFixed, false);
+  h+=row('Variable bonus', L, 'variable', -1, false);
+  h+=row('RSU / ESOP per yr', L, 'rsu', winRSU, false);
+  h+=row('Joining bonus', L, 'join', -1, false);
+  h+=row('Net take-home / mo', M, 'netMonthly', winNet, true);
+  h+=row('Net annual in-hand', function(v){return L(v/100000);}, 'netAnnual', winNet, false);
+  h+='</tbody></table>';
+
+  // Verdict — emphasise the gap between headline and take-home
+  var best=offers[winNet], worst=offers.reduce(function(a,b){return a.netMonthly<b.netMonthly?a:b;});
+  var ctcLeader=offers[winCTC];
+  var monthlyGap=best.netMonthly-worst.netMonthly;
+  h+='<div class="moc-verdict">';
+  h+='<strong>'+best.co+'</strong> gives the highest real monthly take-home at <strong>'+M(best.netMonthly)+'/mo</strong>';
+  if(offers.length>1 && monthlyGap>500){
+    h+=' — '+M(monthlyGap)+'/mo more than the lowest.';
+  } else { h+='.'; }
+  if(ctcLeader.co!==best.co){
+    h+=' Note: <strong>'+ctcLeader.co+'</strong> has the bigger headline CTC ('+L(ctcLeader.ctc)+') but a lower take-home — a classic case of CTC inflation. Negotiate on fixed cash, not CTC.';
+  }
+  h+='</div>';
+  h+='<div class="calc-note">Take-home uses the new tax regime (FY25-26) on fixed cash only, with ₹75k standard deduction, employee PF and PT. Variable, RSU and joining bonus are shown separately because they are conditional or one-time — don\'t count them as monthly salary. Confirm the official salary breakup with HR.</div>';
   res.innerHTML=h;
 }
 
