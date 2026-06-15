@@ -730,6 +730,66 @@ footer a:hover{text-decoration:underline}
     <div id="fu-out" style="display:none"><div class="embox" id="fu-embox"></div><button class="btn-copy" onclick="copyEl('fu-embox','fu-copybtn')" id="fu-copybtn">📋 Copy</button></div>
   </div>
 
+
+  <!-- LinkedIn About / Headline -->
+  <div class="card">
+    <div class="ct"><div class="ci">in</div>LinkedIn Headline + About Generator
+      <span style="font-size:11px;font-weight:400;color:var(--text3);margin-left:4px">the profile recruiters actually search</span>
+    </div>
+    <p style="font-size:12px;color:var(--text2);line-height:1.6;margin:0 0 10px">Upload your resume above first — skills are pulled automatically. Fill the rest for a sharper result.</p>
+    <div class="grid2" style="margin-bottom:8px">
+      <div><label class="flabel">Your name</label><input type="text" id="li-name" placeholder="e.g. Eknatha Reddy"></div>
+      <div><label class="flabel">Target role / title</label><input type="text" id="li-role" placeholder="e.g. Senior Platform Engineer"></div>
+      <div><label class="flabel">Years of experience</label><input type="number" id="li-years" placeholder="e.g. 13" min="0"></div>
+      <div><label class="flabel">Specialism / focus</label><input type="text" id="li-focus" placeholder="e.g. Kubernetes, multi-cloud, SRE"></div>
+      <div style="grid-column:1/-1"><label class="flabel">One standout achievement (optional)</label><input type="text" id="li-achievement" placeholder="e.g. cut deployment time 60% with GitOps across 40+ services"></div>
+    </div>
+    <button class="btn-full" onclick="genLinkedIn()">Generate headline + about →</button>
+    <div id="li-out" style="display:none"><div class="embox" id="li-embox"></div><button class="btn-copy" onclick="copyEl('li-embox','li-copybtn')" id="li-copybtn">📋 Copy</button></div>
+  </div>
+
+
+  <!-- Recruiter InMail responder -->
+  <div class="card">
+    <div class="ct"><div class="ci">💬</div>Recruiter Message Responder
+      <span style="font-size:11px;font-weight:400;color:var(--text3);margin-left:4px">reply to a recruiter's InMail in seconds</span>
+    </div>
+    <div class="grid2" style="margin-bottom:8px">
+      <div><label class="flabel">Recruiter's name</label><input type="text" id="rr-name" placeholder="e.g. Sneha"></div>
+      <div><label class="flabel">Your name</label><input type="text" id="rr-yourname" placeholder="e.g. Your Name"></div>
+      <div><label class="flabel">Role they mentioned</label><input type="text" id="rr-role" placeholder="e.g. Staff SRE"></div>
+      <div><label class="flabel">Company</label><input type="text" id="rr-company" placeholder="e.g. Atlassian"></div>
+      <div style="grid-column:1/-1"><label class="flabel">Your response</label>
+        <select id="rr-stance">
+          <option value="interested">Interested — want to learn more</option>
+          <option value="interested-info">Interested — but need key details first (comp, location, level)</option>
+          <option value="open">Open but not actively looking — keep warm</option>
+          <option value="decline">Not a fit right now — decline politely</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-full" onclick="genRecruiterReply()">Generate reply →</button>
+    <div id="rr-out" style="display:none"><div class="embox" id="rr-embox"></div><button class="btn-copy" onclick="copyEl('rr-embox','rr-copybtn')" id="rr-copybtn">📋 Copy</button></div>
+  </div>
+
+
+  <!-- Tell me about yourself / elevator pitch -->
+  <div class="card">
+    <div class="ct"><div class="ci">🎤</div>"Tell Me About Yourself" Pitch
+      <span style="font-size:11px;font-weight:400;color:var(--text3);margin-left:4px">the most-asked interview opener</span>
+    </div>
+    <p style="font-size:12px;color:var(--text2);line-height:1.6;margin:0 0 10px">Generates a tight 30–45 second spoken pitch using the Present → Past → Future structure interviewers expect. Skills pulled from your uploaded resume.</p>
+    <div class="grid2" style="margin-bottom:8px">
+      <div><label class="flabel">Your name</label><input type="text" id="tp-name" placeholder="e.g. Eknatha"></div>
+      <div><label class="flabel">Current role + company</label><input type="text" id="tp-current" placeholder="e.g. Senior Platform Engineer at IBM"></div>
+      <div><label class="flabel">Years of experience</label><input type="number" id="tp-years" placeholder="e.g. 13" min="0"></div>
+      <div><label class="flabel">Role you're interviewing for</label><input type="text" id="tp-target" placeholder="e.g. Staff Platform Engineer"></div>
+      <div style="grid-column:1/-1"><label class="flabel">Proudest recent win (optional)</label><input type="text" id="tp-win" placeholder="e.g. led a zero-downtime migration of 40+ services to EKS"></div>
+    </div>
+    <button class="btn-full" onclick="genPitch()">Generate pitch →</button>
+    <div id="tp-out" style="display:none"><div class="embox" id="tp-embox"></div><button class="btn-copy" onclick="copyEl('tp-embox','tp-copybtn')" id="tp-copybtn">📋 Copy</button></div>
+  </div>
+
   <!-- Joining Bonus vs CTC Calculator -->
   <div class="card">
     <div class="ct"><div class="ci">🧮</div>Joining Bonus vs CTC Calculator
@@ -1845,6 +1905,128 @@ function genFollowUp(){
   ];
   document.getElementById('fu-out').style.display='block';
   document.getElementById('fu-embox').textContent=withCredit(lines.join('\n'));
+}
+
+
+/* ── LINKEDIN HEADLINE + ABOUT ── */
+function genLinkedIn(){
+  var name=document.getElementById('li-name').value.trim()||'';
+  var role=document.getElementById('li-role').value.trim()||'Platform Engineer';
+  var years=document.getElementById('li-years').value.trim();
+  var focus=document.getElementById('li-focus').value.trim()||getSkills();
+  var ach=document.getElementById('li-achievement').value.trim();
+  var sk=getSkills();
+  var yrsTxt=years?(years+'+ years'):'several years';
+
+  // Headline: role | specialism | value — within LinkedIn's 220-char limit
+  var headline=role+' | '+focus+' | Building reliable, scalable infrastructure';
+
+  var about=[];
+  about.push('Headline:');
+  about.push(headline);
+  about.push('');
+  about.push('About:');
+  about.push((name?name+' here — ':'')+'a '+role+' with '+yrsTxt+' of experience in '+focus+'.');
+  about.push('');
+  about.push('I focus on '+sk+', turning complex infrastructure problems into systems that are reliable, automated, and easy to operate. I care about reducing toil, shipping safely, and giving engineering teams platforms they can move fast on.');
+  if(ach){
+    about.push('');
+    about.push('A recent highlight: '+ach+'.');
+  }
+  about.push('');
+  about.push('What I bring:');
+  about.push('• Deep hands-on expertise across '+focus);
+  about.push('• A reliability-first, automation-first mindset');
+  about.push('• Comfort owning systems end to end — design, build, run');
+  about.push('');
+  about.push('Open to '+role+' opportunities. Always happy to connect with people building in the cloud-native and platform space.');
+
+  document.getElementById('li-out').style.display='block';
+  document.getElementById('li-embox').textContent=withCredit(about.join('\n'));
+}
+
+
+/* ── RECRUITER MESSAGE RESPONDER ── */
+function genRecruiterReply(){
+  var rec=document.getElementById('rr-name').value.trim()||'there';
+  var you=document.getElementById('rr-yourname').value.trim()||'';
+  var role=document.getElementById('rr-role').value.trim()||'the role';
+  var company=document.getElementById('rr-company').value.trim()||'your company';
+  var stance=document.getElementById('rr-stance').value;
+  var sk=getSkills();
+  var L=['Hi '+rec+',',''];
+
+  if(stance==='interested'){
+    L.push('Thank you for reaching out about the '+role+' position at '+company+' — it sounds like a great opportunity and I would be glad to learn more.');
+    L.push('');
+    L.push('My background is in '+sk+', which seems closely aligned with what you are looking for. I would love to set up a quick call to understand the role and team better.');
+    L.push('');
+    L.push('What does your availability look like this week?');
+  } else if(stance==='interested-info'){
+    L.push('Thank you for reaching out about the '+role+' role at '+company+' — I am interested and would like to learn more.');
+    L.push('');
+    L.push('Before we set up a call, it would help to know a few basics so I can make sure it is a strong mutual fit:');
+    L.push('  • The seniority level and team this role sits in');
+    L.push('  • Compensation range (fixed + variable)');
+    L.push('  • Location / remote expectations');
+    L.push('');
+    L.push('My experience is in '+sk+', so happy to dive deeper if those line up. Looking forward to hearing from you.');
+  } else if(stance==='open'){
+    L.push('Thanks for thinking of me for the '+role+' role at '+company+'. I am not actively looking right now, but I am always open to the right opportunity.');
+    L.push('');
+    L.push('My focus areas are '+sk+'. If the role aligns well with that and you can share a bit more on level, scope, and compensation, I am happy to keep the conversation going.');
+    L.push('');
+    L.push('Either way, I appreciate you reaching out — feel free to keep me in mind for future roles too.');
+  } else {
+    L.push('Thank you for reaching out about the '+role+' position at '+company+', and for thinking of me.');
+    L.push('');
+    L.push('It is not the right fit for me at the moment, so I will pass for now — but I really appreciate you getting in touch.');
+    L.push('');
+    L.push('Please feel free to keep me in mind for future roles that match my background in '+sk+'. Wishing you a smooth search for this one.');
+  }
+  L.push('');
+  L.push('Best regards,');
+  L.push(you||'[Your name]');
+
+  document.getElementById('rr-out').style.display='block';
+  document.getElementById('rr-embox').textContent=withCredit(L.join('\n'));
+}
+
+
+/* ── "TELL ME ABOUT YOURSELF" PITCH ── */
+function genPitch(){
+  var name=document.getElementById('tp-name').value.trim()||'';
+  var current=document.getElementById('tp-current').value.trim()||'a Platform Engineer';
+  var years=document.getElementById('tp-years').value.trim();
+  var target=document.getElementById('tp-target').value.trim()||'this role';
+  var win=document.getElementById('tp-win').value.trim();
+  var sk=getSkills();
+  var yrsTxt=years?(years+'+ years'):'several years';
+
+  var L=[];
+  L.push('"Tell me about yourself" — 30–45 second pitch');
+  L.push('(Structure: Present → Past → Future)');
+  L.push('');
+  // PRESENT
+  L.push('I\'m currently '+current+', where I work mainly with '+sk+'. Over the past '+yrsTxt+', I\'ve focused on building and running infrastructure that teams can rely on.');
+  L.push('');
+  // PAST
+  if(win){
+    L.push('One thing I\'m particularly proud of: '+win+'. It\'s the kind of work I enjoy most — taking real operational problems and solving them at the systems level.');
+  } else {
+    L.push('Most of my experience has been hands-on with '+sk+' — designing, automating, and operating systems end to end, with a strong bias toward reliability and reducing manual toil.');
+  }
+  L.push('');
+  // FUTURE
+  L.push('What draws me to '+target+' is the chance to take that experience and apply it to bigger, more interesting challenges. That\'s exactly the kind of work I want to be doing next, which is why I\'m excited about this conversation.');
+  L.push('');
+  L.push('— Delivery tips —');
+  L.push('• Aim for 45 seconds — practice out loud, don\'t memorize word-for-word');
+  L.push('• End on the future / why-this-role note — it invites the next question');
+  L.push('• Keep it about impact, not a resume read-through');
+
+  document.getElementById('tp-out').style.display='block';
+  document.getElementById('tp-embox').textContent=withCredit(L.join('\n'));
 }
 
 
